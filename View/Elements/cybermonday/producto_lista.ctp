@@ -27,8 +27,10 @@
                     </p>
                 </div>
                 <div class="col s4 no-padding">
-                    <a href=""></a><img src="images/amazon.jpg" alt="amazon" class="responsive-img">
+                    <? if (isset($producto['MarcasFabricante'])) : ?>
+                    <a href=""></a><?=$this->Html->image( sprintf('/img/EventosMarca/%d/%s', $producto['MarcasFabricante']['EventosMarca']['id'], $producto['MarcasFabricante']['EventosMarca']['imagen']), array('alt' => $producto['MarcasFabricante']['EventosMarca']['nombre'], 'class' => 'responsive-img') );?>
                     </a>
+                    <? endif; ?>
                 </div>
             </div>
         </div>

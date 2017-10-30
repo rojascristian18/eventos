@@ -21,15 +21,19 @@
                     		<h3 class="subtitulo-tabs">Evento</h3>
                     	</div>
                     	<div class="form-group">
-	                    	<div class="col-xs-12 col-sm-4">
+	                    	<div class="col-xs-12 col-sm-3">
 	                    		<label><?= $this->Form->label('subdomino', 'Subdomino del evento'); ?></label>
 	                    		<?= $this->Form->input('subdomino', array('placeholder' => 'Ej: cyberday, cybermonday')); ?>
 	                    	</div>
-	                    	<div class="col-xs-12 col-sm-4">
+	                    	<div class="col-xs-12 col-sm-3">
+	                    		<label><?= $this->Form->label('nombre_tema', 'Carpeta del tema'); ?></label>
+	                    		<?= $this->Form->input('nombre_tema', array('placeholder' => 'Ej: cyberday, cybermonday')); ?>
+	                    	</div>
+	                    	<div class="col-xs-12 col-sm-3">
 	                    		<label><?= $this->Form->label('nombre', 'Nombre del evento'); ?></label>
 	                    		<?= $this->Form->input('nombre', array('placeholder' => 'Ej: Cyberday 2017')); ?>
 	                    	</div>
-	                    	<div class="col-xs-12 col-sm-4">
+	                    	<div class="col-xs-12 col-sm-3">
 	                    		<label><?= $this->Form->label('sub_titulo', 'Título home'); ?></label>
 	                    		<?= $this->Form->input('sub_titulo', array('placeholder' => 'Ej: Bienvenidos a Cyberday 2017')); ?>
 	                    	</div>

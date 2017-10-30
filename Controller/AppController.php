@@ -46,7 +46,7 @@ class AppController extends Controller
 		 * Layout y permisos públicos
 		 */
 		if ( ! isset($this->request->params['prefix']) ) {
-			$this->Session->delete('Todo');
+			
 			$this->verificarEvento();
 
 			if (!empty($this->Session->read('Todo'))) {
@@ -59,9 +59,9 @@ class AppController extends Controller
 	    			$this->request->params['controller'] = 'eventos';
 	    			$this->request->params['action'] = 'inactivo';
 	    		}else{
-	    			$this->layoutPath = $this->Session->read('Todo.Evento.subdomino');
+	    			$this->layoutPath = $this->Session->read('Todo.Evento.nombre_tema');
 	    		}
-	    		#prx($this->Session->read('Todo'));
+	    		
 				$this->set('todo', $this->Session->read('Todo'));
 			}
 
@@ -549,6 +549,7 @@ class AppController extends Controller
 				'Evento.id',
 				'Evento.nombre',
 				'Evento.subdomino',
+				'Evento.nombre_tema',
 				'Evento.tienda_id',
 				'Evento.sub_titulo',
 				'Evento.logo',
@@ -580,7 +581,7 @@ class AppController extends Controller
 			)
 		);
 
-		if (empty($todo) || empty($todo['Evento']['tienda_id']) || empty($todo['Evento']['subdomino'])) {
+		if (empty($todo) || empty($todo['Evento']['tienda_id']) || empty($todo['Evento']['subdomino']) || empty($todo['Evento']['nombre_tema'])) {
 			return;
 		}
 
