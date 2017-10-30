@@ -5425,3 +5425,306 @@ Stack Trace:
 #1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
 #2 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #3 {main}
+2017-10-30 16:28:15 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:28:15 Error: [MissingControllerException] Controller class EventosMarcaController could not be found.
+Exception Attributes: array (
+  'class' => 'EventosMarcaController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/EventosMarca/0/
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:28:15 Error: [MissingControllerException] Controller class EventosMarcaController could not be found.
+Exception Attributes: array (
+  'class' => 'EventosMarcaController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/EventosMarca/7/dremel.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:30:24 Error: [MissingControllerException] Controller class EventosMarcaController could not be found.
+Exception Attributes: array (
+  'class' => 'EventosMarcaController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/EventosMarca/7/dremel.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:30:24 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:30:52 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:30:52 Error: [MissingControllerException] Controller class EventosMarcaController could not be found.
+Exception Attributes: array (
+  'class' => 'EventosMarcaController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/EventosMarca/7/dremel.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:31:40 Error: [MissingControllerException] Controller class EventosMarcaController could not be found.
+Exception Attributes: array (
+  'class' => 'EventosMarcaController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/EventosMarca/7/dremel.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:31:49 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:32:35 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:32:58 Error: [MissingControllerException] Controller class EventosMarcaController could not be found.
+Exception Attributes: array (
+  'class' => 'EventosMarcaController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/EventosMarca/7/dremel.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:33:06 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:33:30 Error: [MissingControllerException] Controller class EventosMarcaController could not be found.
+Exception Attributes: array (
+  'class' => 'EventosMarcaController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/EventosMarca/7/dremel.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:33:39 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:33:48 Error: [MissingControllerException] Controller class EventosMarcaController could not be found.
+Exception Attributes: array (
+  'class' => 'EventosMarcaController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/EventosMarca/img/7/dremel.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:33:56 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:34:22 Error: [MissingControllerException] Controller class EventosMarcaController could not be found.
+Exception Attributes: array (
+  'class' => 'EventosMarcaController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/EventosMarca/img/7/dremel.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:34:30 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:35:04 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:35:22 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:36:49 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:38:57 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:39:10 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 16:39:17 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 17:00:57 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 17:19:01 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/img/Tienda/2/asistecar_1478097949.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 17:19:01 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/img/Tienda/1/logo_min.png
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 17:19:12 Error: [MissingControllerException] Controller class 'imgController could not be found.
+Exception Attributes: array (
+  'class' => '\'imgController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/%20'img/publico/nodiza-favicon.png
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 17:20:31 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/img/Tienda/1/logo_min.png
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 17:20:31 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/img/Tienda/2/asistecar_1478097949.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 18:14:42 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Array' in 'field list'
+Request URL: /eventos/admin/administradores/edit/2
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(461): PDOStatement->execute(Array)
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(427): DboSource->_execute('UPDATE `eventos...', Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\Database\Mysql.php(415): DboSource->execute('UPDATE `eventos...')
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(1917): Mysql->update(Object(Administrador), Array, Array)
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(1751): Model->_doSave(Array, Array)
+#5 C:\wamp64\www\eventos\Controller\AdministradoresController.php(277): Model->save(Array)
+#6 [internal function]: AdministradoresController->admin_edit('2')
+#7 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(AdministradoresController), Array)
+#8 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#9 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(AdministradoresController), Object(CakeRequest))
+#10 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2017-10-30 18:24:33 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-10-30 18:25:00 Error: [MissingControllerException] Controller class WebrootController could not be found.
+Exception Attributes: array (
+  'class' => 'WebrootController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/webroot/DESKTOP-9COL73V/images/avatar.jpg
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}

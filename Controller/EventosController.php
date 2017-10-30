@@ -624,7 +624,7 @@ class EventosController extends AppController
 
     public function inactivo()
     {
-    	$this->render(sprintf('%s/no_evento', $this->Session->read('Todo.Evento.subdomino')));
+    	$this->render(sprintf('%s/no_evento', $this->Session->read('Todo.Evento.nombre_tema')));
     }
 
     public function index()
@@ -638,7 +638,7 @@ class EventosController extends AppController
 
     	}else{
 
-    		$this->render(sprintf('%s/index', $this->Session->read('Todo.Evento.subdomino')));
+    		$this->render(sprintf('%s/index', $this->Session->read('Todo.Evento.nombre_tema')));
   
     	}
     }
@@ -686,7 +686,7 @@ class EventosController extends AppController
    		);
 
    		$this->layout('ajax');
-   		$this->render(sprintf('../Elements/%s/producto_lista', gethostname()));
+   		$this->render(sprintf('../Elements/%s/producto_lista', $this->Session->read('Todo.Evento.nombre_tema')));
 
    		$this->set(compact('productos'));
     }

@@ -46,7 +46,7 @@ class AppController extends Controller
 		 * Layout y permisos públicos
 		 */
 		if ( ! isset($this->request->params['prefix']) ) {
-			
+			#$this->Session->delete('Todo');
 			$this->verificarEvento();
 
 			if (!empty($this->Session->read('Todo'))) {
@@ -684,6 +684,30 @@ class AppController extends Controller
 
 
 			foreach ($productos as $ix => $producto) {
+
+				# Precios del producto
+				if ( !isset($producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']) ) {
+					$productos[$ix]['Producto']['valor_iva'] = $producto['Producto']['price'];	
+				}else{
+					$productos[$ix]['Producto']['valor_iva'] = $this->precio($producto['Producto']['price'], $producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']);
+				}
+
+				$productos[$ix]['Producto']['valor_final'] = $productos[$ix]['Producto']['valor_iva'];
+
+				// Retornar último precio espeficico según criterio del producto
+				foreach ($producto['PrecioEspecifico'] as $precio) {
+					if ( $precio['reduction'] == 0 ) {
+						$productos[$ix]['Producto']['valor_final'] = $productos[$ix]['Producto']['valor_iva'];
+
+					}else{
+
+						$productos[$ix]['Producto']['valor_final'] = $this->precio($productos[$ix]['Producto']['valor_iva'], ($precio['reduction'] * 100 * -1) );
+						$productos[$ix]['Producto']['descuento'] = ($precio['reduction'] * 100 * -1 );
+
+					}
+				}
+
+				# Marcas del producto
 				foreach ($marcas as $i => $marca) {
 					if ($marca['MarcasFabricante']['id_manufacturer'] == $producto['Producto']['id_manufacturer']) {
 						$productos[$ix]['MarcasFabricante'] = $marca;
@@ -709,6 +733,19 @@ class AppController extends Controller
 		$subdomino = substr($dominio, 0, strpos($dominio, '.') );
 
 		return $subdomino;
+	}
+
+
+	public function precio($precio = null, $iva = null) {
+		if ( !empty($precio) && !empty($iva)) {
+			// Se quitan los 00
+			$iva = intval($iva);
+
+			//Calculamos valor con IVA
+			$precio = ($precio + round( ( ($precio*$iva) / 100) ) );
+
+			return round($precio);
+		}
 	}
 
 }

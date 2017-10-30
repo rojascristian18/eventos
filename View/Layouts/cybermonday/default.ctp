@@ -19,14 +19,14 @@
     <!-- For Windows Phone -->
     
     <!-- CORE CSS--> 
-    <?= $this->Html->css(sprintf('/%s/css/materialize.min.css', $todo['Evento']['subdomino']), array('media' => 'screen,projection')); ?>
-    <?= $this->Html->css(sprintf('/%s/css/style.css', $todo['Evento']['subdomino']), array('media' => 'screen,projection')); ?>
+    <?= $this->Html->css(sprintf('/%s/css/materialize.min.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
+    <?= $this->Html->css(sprintf('/%s/css/style.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
 
     <!-- Custome CSS-->    
-    <?= $this->Html->css(sprintf('/%s/css/custom/custom.css', $todo['Evento']['subdomino']), array('media' => 'screen,projection')); ?>
+    <?= $this->Html->css(sprintf('/%s/css/custom/custom.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
 
     <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
-    <?= $this->Html->css(sprintf('/%s/js/plugins/perfect-scrollbar/perfect-scrollbar.css', $todo['Evento']['subdomino']), array('media' => 'screen,projection')); ?>
+    <?= $this->Html->css(sprintf('/%s/js/plugins/perfect-scrollbar/perfect-scrollbar.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
     <!--<link href="/eventos/webroot/DESKTOP-9COL73V/js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="/eventos/webroot/DESKTOP-9COL73V/js/plugins/jvectormap/jquery-jvectormap.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="/eventos/webroot/DESKTOP-9COL73V/js/plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">-->
@@ -47,7 +47,7 @@
     <!-- End Page Loading -->
 
     <!-- //////////////////////////////////////////////////////////////////////////// -->
-    <?=$this->element( sprintf('%s/header', $todo['Evento']['subdomino']) ); ?>
+    <?=$this->element( sprintf('%s/header', $todo['Evento']['nombre_tema']) ); ?>
     
 
     <!-- //////////////////////////////////////////////////////////////////////////// -->
@@ -57,11 +57,11 @@
         <!-- START WRAPPER -->
         <div class="wrapper">
 
-            <?=$this->element( sprintf('%s/menu', $todo['Evento']['subdomino']) ); ?>
+            <?=$this->element( sprintf('%s/menu', $todo['Evento']['nombre_tema']) ); ?>
 
             <!-- //////////////////////////////////////////////////////////////////////////// -->
 
-            <?=$this->element( sprintf('%s/filtro', $todo['Evento']['subdomino']) ); ?>
+            <?=$this->element( sprintf('%s/filtro', $todo['Evento']['nombre_tema']) ); ?>
 
             <!-- //////////////////////////////////////////////////////////////////////////// -->
             <!-- START CONTENT -->
@@ -88,18 +88,18 @@
 
     <!-- //////////////////////////////////////////////////////////////////////////// -->
 
-    <?=$this->element( sprintf('%s/footer', $todo['Evento']['subdomino']) ); ?>
+    <?=$this->element( sprintf('%s/footer', $todo['Evento']['nombre_tema']) ); ?>
 
 
     <?= $this->Html->script(array(
-        sprintf('/%s/js/plugins/jquery-1.11.2.min.js', $todo['Evento']['subdomino']),
-        sprintf('/%s/js/materialize.min.js', $todo['Evento']['subdomino']),
-        sprintf('/%s/js/plugins/perfect-scrollbar/perfect-scrollbar.min.js', $todo['Evento']['subdomino']),
-        sprintf('/%s/js/plugins/prism/prism.js', $todo['Evento']['subdomino']),
-        sprintf('/%s/js/plugins/masonry.pkgd.min.js', $todo['Evento']['subdomino']),
-        sprintf('/%s/js/plugins/imagesloaded.pkgd.min.js', $todo['Evento']['subdomino']),
-        sprintf('/%s/js/plugins.min.js', $todo['Evento']['subdomino']),
-        sprintf('/%s/js/custom-script.js', $todo['Evento']['subdomino']),
+        sprintf('/%s/js/plugins/jquery-1.11.2.min.js', $todo['Evento']['nombre_tema']),
+        sprintf('/%s/js/materialize.min.js', $todo['Evento']['nombre_tema']),
+        sprintf('/%s/js/plugins/perfect-scrollbar/perfect-scrollbar.min.js', $todo['Evento']['nombre_tema']),
+        sprintf('/%s/js/plugins/prism/prism.js', $todo['Evento']['nombre_tema']),
+        sprintf('/%s/js/plugins/masonry.pkgd.min.js', $todo['Evento']['nombre_tema']),
+        sprintf('/%s/js/plugins/imagesloaded.pkgd.min.js', $todo['Evento']['nombre_tema']),
+        sprintf('/%s/js/plugins.min.js', $todo['Evento']['nombre_tema']),
+        sprintf('/%s/js/custom-script.js', $todo['Evento']['nombre_tema']),
     )); ?>
     <?= $this->fetch('script'); ?>
 

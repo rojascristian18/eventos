@@ -1,8 +1,9 @@
 <div class="product">
     <div class="card">
         <div class="card-image waves-effect waves-block waves-light">
-            <a href="#" class="btn-floating btn-large btn-price waves-effect waves-light  orange accent-2">-20%</a>
-            
+            <? if (isset($producto['Producto']['descuento']) ) : ?>
+                <a href="#" class="btn-floating btn-large btn-price waves-effect waves-light  orange accent-2"><?=$producto['Producto']['descuento']?></a>
+            <? endif; ?>
 
             <a href="#"><img src="https://dummyimage.com/300x300/fff/ff5500.jpg" alt="product-img">
             </a>
@@ -14,7 +15,7 @@
         <div class="card-content">
 
             <div class="row">
-                <div class="col s8">
+                <div class="col s12">
                     <p class="card-title grey-text text-darken-4"><a href="#" class="grey-text text-darken-4">
                     	<?=$this->Text->truncate(
 						    $producto['Idioma'][0]['ProductosIdioma']['name'],
@@ -26,11 +27,14 @@
 						); ?></a>
                     </p>
                 </div>
-                <div class="col s4 no-padding">
+                <div class="col s12">
                     <? if (isset($producto['MarcasFabricante'])) : ?>
                     <a href=""></a><?=$this->Html->image( sprintf('/img/EventosMarca/%d/%s', $producto['MarcasFabricante']['EventosMarca']['id'], $producto['MarcasFabricante']['EventosMarca']['imagen']), array('alt' => $producto['MarcasFabricante']['EventosMarca']['nombre'], 'class' => 'responsive-img') );?>
                     </a>
                     <? endif; ?>
+                </div>
+                <div class="col s12">
+                    <span class="price"><?= CakeNumber::currency($producto['Producto']['valor_final'], 'CLP'); ?></span>
                 </div>
             </div>
         </div>
