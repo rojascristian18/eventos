@@ -103,18 +103,6 @@
     )); ?>
     <?= $this->fetch('script'); ?>
 
-    <script type="text/javascript">
-    /*
-    * Masonry container for eCommerce page
-    */
-    var $containerProducts = $("#products");
-    $containerProducts.imagesLoaded(function() {
-      $containerProducts.masonry({
-        itemSelector: ".product",
-        columnWidth: ".product-sizer",
-      });
-    });
-    </script>
 </body>
 
 </html>

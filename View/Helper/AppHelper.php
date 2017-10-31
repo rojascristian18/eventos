@@ -87,4 +87,13 @@ class AppHelper extends Helper
 
 		return $tabla;
 	}
+
+
+	/**
+	 * Calculadora de cuotas
+	 */
+	public function calcularCuota($cuotas, $monto) 
+	{
+		return CakeNumber::currency( ($monto / $cuotas) , 'CLP');
+	}
 }

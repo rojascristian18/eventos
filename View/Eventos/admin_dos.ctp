@@ -25,8 +25,8 @@
                                         <td>
                                             <select name="<?=sprintf('data[Evento][%d][Producto][Producto][]', $ix);?>" class="form-control select select-productos pull-right" data-live-search="true"  multiple="multiple">
                                                 <? foreach ($evento['Producto'] as $i => $producto) : ?>
-                                                    <option value="<?=$producto['id_product'];?>">
-                                                        <?=$producto['reference'];?> - <?=$this->Text->truncate(
+                                                    <option value="<?=$producto['Producto']['id_product'];?>">
+                                                        <?=$producto['Producto']['reference'];?> - <?=$this->Text->truncate(
                                                         $producto['Idioma'][0]['ProductosIdioma']['name'],
                                                         35,
                                                         array(

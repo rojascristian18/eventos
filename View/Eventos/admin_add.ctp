@@ -56,6 +56,12 @@
 	                    	</div>
 	                    </div>
 	                    <div class="form-group">
+	                    	<div class="col-xs-12 col-sm-4">
+	                    		<label><?= $this->Form->label('host_imagenes', 'URL host de imágenes'); ?></label>
+	                    		<?= $this->Form->input('host_imagenes', array('placeholder' => 'Ingrese el host de la bdega de imágenes')); ?>
+	                    	</div>
+	                    </div>
+	                    <div class="form-group">
 	                    	<div class="colxs-12 col-sm-12">
 	                    		<div class="form-group">
 	                    			<label><?= $this->Form->label('descripcion', 'Texto para el home'); ?></label>

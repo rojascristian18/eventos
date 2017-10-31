@@ -36,13 +36,6 @@
   <div class="section">
     <!-- statr products list -->
     <div id="products" class="row">
-        <div class="product-sizer"></div>
-
-        <? foreach ($todo['Producto'] as $i => $producto) : ?>
-            <?=$this->element( sprintf('%s/producto_lista', $todo['Evento']['nombre_tema']), array('producto' => $producto) ); ?>
-        <? endforeach; ?>
-
-
         <!-- Productos AJAX -->
     </div>
     <!--/ end items list -->

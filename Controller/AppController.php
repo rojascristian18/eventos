@@ -12,6 +12,7 @@ class AppController extends Controller
 	public $components	= array(
 		'Session',
 		'Cookie',
+		'RequestHandler',
 		'Auth'		=> array(
 			'Form'				=> array(
 				'fields' => array(
@@ -46,6 +47,8 @@ class AppController extends Controller
 		 * Layout y permisos públicos
 		 */
 		if ( ! isset($this->request->params['prefix']) ) {
+			
+			# Borar en producción
 			#$this->Session->delete('Todo');
 			$this->verificarEvento();
 
@@ -520,7 +523,7 @@ class AppController extends Controller
 
 	public function verificarEvento()
 	{	
-		if (!$this->Session->check('Todo')) {
+		if (!$this->Session->check('Todo') || empty($this->Session->read('Todo'))) {
 			$this->Session->write('Todo', $this->obtenerEvento());
 		}else{
 
@@ -539,7 +542,7 @@ class AppController extends Controller
 	}
 
 
-	public function obtenerEvento($limite = 10)
+	public function obtenerEvento($limite = 5)
 	{	
 
 		$todo = array();
@@ -550,6 +553,7 @@ class AppController extends Controller
 				'Evento.nombre',
 				'Evento.subdomino',
 				'Evento.nombre_tema',
+				'Evento.host_imagenes',
 				'Evento.tienda_id',
 				'Evento.sub_titulo',
 				'Evento.logo',
@@ -590,7 +594,7 @@ class AppController extends Controller
 			return;
 		}
 
-		$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico'), $todo['Tienda']['db_configuracion']);
+		$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen'), $todo['Tienda']['db_configuracion']);
 
 		
 		# Categorias del evento
@@ -633,14 +637,43 @@ class AppController extends Controller
 		# Productos
 		$relProductos = ClassRegistry::init('EventosProducto')->find('all', array('conditions' => array('EventosProducto.evento_id' => $todo['Evento']['id'])));
 		
+		$todo['EventosProducto'] = $relProductos;
+
 		$todo['Producto'] = array();
+
+		# Host de imagenes
+		$baul = 'https://' . $todo['Tienda']['url'];
+		
+		if (!empty($todo['Evento']['host_imagenes'])) {
+			$baul	= 'http://' . $todo['Evento']['host_imagenes'];
+		}
 
 		if (!empty($relProductos)) {
 			$productos = ClassRegistry::init('Producto')->find('all', array(
+				'fields' => array(
+					'Producto.id_product',
+					'Producto.id_manufacturer',
+					'Producto.id_tax_rules_group',
+					'Producto.quantity',
+					'Producto.price',
+					'Producto.reference',
+					
+					),
 				'conditions' => array(
 					'Producto.id_product' => Hash::extract($relProductos, '{n}.EventosProducto.id_product')
 					),
 				'contain' => array(
+					'Imagen' => array(
+						'fields' => array(
+							'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'-home_default.jpg\' ) AS url_image_thumb',
+							'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'.jpg\' ) AS url_image_large',
+							'position',
+							'cover'
+							),
+						'order' => array(
+							'Imagen.position' => 'ASC'
+							)
+						),
 					'Fabricante',
 					'Categoria',
 					'Idioma',
@@ -673,7 +706,7 @@ class AppController extends Controller
 				),
 				'limit' => $limite
 			));
-
+			
 			$marcas = ClassRegistry::init('MarcasFabricante')->find('all', array(
 				'conditions' => array(
 					'MarcasFabricante.id_manufacturer' => Hash::extract($productos, '{n}.Producto.id_manufacturer')
@@ -713,7 +746,7 @@ class AppController extends Controller
 					if ($marca['MarcasFabricante']['id_manufacturer'] == $producto['Producto']['id_manufacturer']) {
 						$productos[$ix]['MarcasFabricante'] = $marca;
 					}		
-				}	
+				}
 			}
 			$todo['Producto'] = $productos;
 			// Agrgar marcas al producto

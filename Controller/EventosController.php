@@ -6,7 +6,7 @@ class EventosController extends AppController
 	 * Función que limpia de una array los elementos vacios
 	 * @param 	$modelo 	String 		Nombre del modelo que se desea limpiar
 	 * @param 	$sub 		bool 		Determina si es una lista o un arreglo
-	 * @param 	$es_imagen 	bool 		Determina si el arreglo debe evaluar los arreglos de imágenes
+	 * @param 	$es_imagen 	bool 		Determina si el arreglo debe evaluar los arreglos de ind
 	 * @param 	$requerido 	bool 		Esta opción determina que un campo es mandatorio en un arreglo o lista.
 	 */
 	public function limpiarCampos($modelo = '', $sub = false, $es_imagen = false , $requerido = false) {
@@ -90,39 +90,31 @@ class EventosController extends AppController
 				'contain' => array(
 					'Categoria' => array('Producto', 'ChildCategoria'), 
 					'EventosMarca' => array('MarcasFabricante'), 
-					'Producto' => array(
-						'Fabricante', 
-						'Idioma', 
-						'GrupoReglaImpuesto' => array(
-							'ReglaImpuesto' => array(
-								'Impuesto')
-							),
-						'PrecioEspecifico' => array(
-							'conditions' => array(
-								'OR' => array(
-									array(
-										'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
-										'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
-									),
-									array(
-										'PrecioEspecifico.from' => '0000-00-00 00:00:00',
-										'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
-									),
-									array(
-										'PrecioEspecifico.from' => '0000-00-00 00:00:00',
-										'PrecioEspecifico.to' => '0000-00-00 00:00:00'
-									),
-									array(
-										'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
-										'PrecioEspecifico.to' => '0000-00-00 00:00:00'
-									)
-								)
-							)
-						)) 
+					'EventosProducto'
 					)
 				)
 			);
-			#prx($evento);
+
+			if (!empty($evento['EventosProducto'])) {
+				$productos = ClassRegistry::init('Producto')->find('all', array(
+					'fields' => array(
+						'Producto.id_product',
+						'Producto.id_manufacturer',
+						'Producto.id_tax_rules_group',
+						'Producto.quantity',
+						'Producto.price',
+						'Producto.reference',
+						
+						),
+					'conditions' => array(
+						'Producto.id_product' => Hash::extract($evento['EventosProducto'], '{n}.id_product')
+						),
+					'contain' => array('Idioma')
+				));
+				
+				$evento['Producto'] = $productos;
+			}
+			
 			# Paso 1
 			if ($paso == 1) {
 				
@@ -131,15 +123,15 @@ class EventosController extends AppController
 				$productosEvento = $evento['Producto'];
 
 				$grupoMarcas = array();
-				#prx($marcasEvento);
+				
 				foreach ($marcasEvento as $indice => $marca) {
 					$grupoMarcas[$indice]['marca_id'] = $marca['id'];
 					$grupoMarcas[$indice]['marca_nombre'] = $marca['nombre'];
 					$grupoMarcas[$indice]['marca_imagen'] = $marca['imagen'];
 
 					foreach ($productosEvento as $i => $producto) {
-						if (in_array($producto['id_manufacturer'], Hash::extract($marcasEvento, sprintf('%d.MarcasFabricante.{n}.id_manufacturer', $indice) ) )) {
-							$grupoMarcas[$indice]['productos'][$i]['referencia'] = $producto['reference'];
+						if (in_array($producto['Producto']['id_manufacturer'], Hash::extract($marcasEvento, sprintf('%d.MarcasFabricante.{n}.id_manufacturer', $indice) ) )) {
+							$grupoMarcas[$indice]['productos'][$i]['referencia'] = $producto['Producto']['reference'];
 							$grupoMarcas[$indice]['productos'][$i]['nombre'] = $producto['Idioma'][0]['ProductosIdioma']['name'];
 						}
 					}
@@ -631,7 +623,7 @@ class EventosController extends AppController
     {	
     	$this->getsubdominio();
     	# Verifica existencia
-    	if (empty($this->Session->read('Todo'))) {
+    	if ( ! $this->Session->check('Todo') ) {
     		
     		$tiendas = ClassRegistry::init('Tienda')->find('all', array('conditions' => array('activo' => 1)));
     		$this->set(compact('tiendas'));
@@ -644,50 +636,128 @@ class EventosController extends AppController
     }
 
 
-    public function ajax_get_products($inicio = '', $final = '', $config = '')
+    public function ajax_get_products($limite = 10, $salto = 0)
     {
-    	$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico'), $config);
+    	$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico'), $this->Session->read('Todo.Tienda.db_configuracion'));
 
-   		$productos = ClassRegistry::init('Producto')->find('all', array(
-   			'conditions' => array(
-   				'Producto.reference LIKE' => $palabra . '%'
-   			),
-   			'contain' => array(
-   				'Idioma',
-   				'GrupoReglaImpuesto' => array(
-					'ReglaImpuesto' => array(
-						'Impuesto'
-					)
-				),
-				'PrecioEspecifico' => array(
-					'conditions' => array(
-						'OR' => array(
-							array(
-								'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
-								'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
+    	$productos = array();
+
+		# Host de imagenes
+		$baul = 'https://' . $this->Session->read('Todo.Tienda.url');
+		
+		if (!empty($this->Session->read('Todo.Evento.host_imagenes'))) {
+			$baul	= 'http://' . $this->Session->read('Todo.Evento.host_imagenes');
+		}
+
+		if (!empty($this->Session->read('Todo.EventosProducto'))) {
+			$productos = ClassRegistry::init('Producto')->find('all', array(
+				'fields' => array(
+					'Producto.id_product',
+					'Producto.id_manufacturer',
+					'Producto.id_tax_rules_group',
+					'Producto.quantity',
+					'Producto.price',
+					'Producto.reference',
+					
+					),
+				'conditions' => array(
+					'Producto.id_product' => Hash::extract($this->Session->read('Todo.EventosProducto'), '{n}.EventosProducto.id_product')
+					),
+				'contain' => array(
+					'Imagen' => array(
+						'fields' => array(
+							'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'-home_default.jpg\' ) AS url_image_thumb',
+							'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'.jpg\' ) AS url_image_large',
+							'position',
+							'cover'
 							),
-							array(
-								'PrecioEspecifico.from' => '0000-00-00 00:00:00',
-								'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
-							),
-							array(
-								'PrecioEspecifico.from' => '0000-00-00 00:00:00',
-								'PrecioEspecifico.to' => '0000-00-00 00:00:00'
-							),
-							array(
-								'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
-								'PrecioEspecifico.to' => '0000-00-00 00:00:00'
+						'order' => array(
+							'Imagen.position' => 'ASC'
+							)
+						),
+					'Fabricante',
+					'Categoria',
+					'Idioma',
+					'GrupoReglaImpuesto' => array(
+						'ReglaImpuesto' => array(
+							'Impuesto')
+						),
+					'PrecioEspecifico' => array(
+						'conditions' => array(
+							'OR' => array(
+								array(
+									'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
+									'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
+								),
+								array(
+									'PrecioEspecifico.from' => '0000-00-00 00:00:00',
+									'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
+								),
+								array(
+									'PrecioEspecifico.from' => '0000-00-00 00:00:00',
+									'PrecioEspecifico.to' => '0000-00-00 00:00:00'
+								),
+								array(
+									'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
+									'PrecioEspecifico.to' => '0000-00-00 00:00:00'
+								)
 							)
 						)
 					)
-				)
-			),
-			'limit' => 10)
-   		);
+				),
+				'limit' => $limite,
+				'offset' => $salto
+			));
+			
+			$marcas = ClassRegistry::init('MarcasFabricante')->find('all', array(
+				'conditions' => array(
+					'MarcasFabricante.id_manufacturer' => Hash::extract($productos, '{n}.Producto.id_manufacturer')
+					),
+				'contain' => array(
+					'EventosMarca'
+					)
+			));
 
-   		$this->layout('ajax');
-   		$this->render(sprintf('../Elements/%s/producto_lista', $this->Session->read('Todo.Evento.nombre_tema')));
 
-   		$this->set(compact('productos'));
+			foreach ($productos as $ix => $producto) {
+
+				# Precios del producto
+				if ( !isset($producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']) ) {
+					$productos[$ix]['Producto']['valor_iva'] = $producto['Producto']['price'];	
+				}else{
+					$productos[$ix]['Producto']['valor_iva'] = $this->precio($producto['Producto']['price'], $producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']);
+				}
+
+				$productos[$ix]['Producto']['valor_final'] = $productos[$ix]['Producto']['valor_iva'];
+
+				// Retornar último precio espeficico según criterio del producto
+				foreach ($producto['PrecioEspecifico'] as $precio) {
+					if ( $precio['reduction'] == 0 ) {
+						$productos[$ix]['Producto']['valor_final'] = $productos[$ix]['Producto']['valor_iva'];
+
+					}else{
+
+						$productos[$ix]['Producto']['valor_final'] = $this->precio($productos[$ix]['Producto']['valor_iva'], ($precio['reduction'] * 100 * -1) );
+						$productos[$ix]['Producto']['descuento'] = ($precio['reduction'] * 100 * -1 );
+
+					}
+				}
+
+				# Marcas del producto
+				foreach ($marcas as $i => $marca) {
+					if ($marca['MarcasFabricante']['id_manufacturer'] == $producto['Producto']['id_manufacturer']) {
+						$productos[$ix]['MarcasFabricante'] = $marca;
+					}		
+				}
+			}
+		}
+
+		$this->layout = 'ajax';
+		
+		$this->set(compact('productos'));
+
+   		$this->render(sprintf('%s/ajax_productos', $this->Session->read('Todo.Evento.nombre_tema')));
+   		
+   		
     }
 }
