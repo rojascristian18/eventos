@@ -642,6 +642,7 @@ class AppController extends Controller
 					),
 				'contain' => array(
 					'Fabricante',
+					'Categoria',
 					'Idioma',
 					'GrupoReglaImpuesto' => array(
 						'ReglaImpuesto' => array(

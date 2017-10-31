@@ -9,7 +9,8 @@
             </a>
         </div>
         <ul class="card-action-buttons">
-            <li><a class="btn-floating waves-effect waves-light orange darken-1"><i class="mdi-action-info activator"></i></a>
+            <li>
+                <a class="btn-floating waves-effect waves-light orange darken-1"><i class="shopping_cart"></i></a>
             </li>
         </ul>
         <div class="card-content">

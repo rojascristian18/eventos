@@ -39,7 +39,7 @@
         <div class="product-sizer"></div>
 
         <? foreach ($todo['Producto'] as $i => $producto) : ?>
-            <?=$this->element( sprintf('%s/producto_lista', $todo['Evento']['subdomino']), array('producto' => $producto) ); ?>
+            <?=$this->element( sprintf('%s/producto_lista', $todo['Evento']['nombre_tema']), array('producto' => $producto) ); ?>
         <? endforeach; ?>
 
 
