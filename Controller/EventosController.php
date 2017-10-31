@@ -638,7 +638,7 @@ class EventosController extends AppController
 
     public function ajax_get_products($limite = 10, $salto = 0)
     {
-    	$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico'), $this->Session->read('Todo.Tienda.db_configuracion'));
+    	$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen'), $this->Session->read('Todo.Tienda.db_configuracion'));
 
     	$productos = array();
 
