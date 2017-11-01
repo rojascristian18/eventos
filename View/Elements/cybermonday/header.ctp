@@ -11,22 +11,8 @@
                       <i class="mdi-action-search"></i>
                       <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Busca tu herramienta o accesorios"/>
                   </div>
-                  <ul class="right hide-on-med-and-down">
-                      <li><b>Te ayudamos</b></li>
-                      <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light phone-button"  data-activates="phone-dropdown"><i class="mdi-communication-phone"></i></a></li>
-                      <li><a href="javascript:void(0);" class="waves-effect waves-block waves-light email-button" data-activates="email-dropdown"><i class="mdi-communication-email"></i></a></li>
-                  </ul>
-                  <!-- Phones-button -->
-                  <ul id="phone-dropdown" class="dropdown-content">
-                    <li>
-                      <a href="tel:<?=$todo['Evento']['fono'];?>">Venta telefónica: <b><?=$todo['Evento']['fono'];?></b></a>
-                    </li>
-                  </ul>
-                  <!-- emails-dropdown -->
-                  <ul id="email-dropdown" class="dropdown-content">
-                    <li>
-                      <a href="mailto:<?=$todo['Evento']['email'];?>">Escríbenos: <b><?=$todo['Evento']['email'];?></b></a>
-                    </li>
+                  <ul class="right carrito">
+                      <li><?=$this->Html->link('<span class="action-text">Ir al carrito de compras</span> <i class="mdi-action-shopping-cart"></i>', sprintf('https://%s/%s' , $todo['Tienda']['url'], 'carrito'), array('class' => 'waves-effect waves-block waves-light cart-button', 'escape' => false))?></li>
                   </ul>
               </div>
           </nav>

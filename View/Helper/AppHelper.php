@@ -96,4 +96,18 @@ class AppHelper extends Helper
 	{
 		return CakeNumber::currency( ($monto / $cuotas) , 'CLP');
 	}
+
+
+	/**
+	 * Ordena las marcas para el selector
+	 */
+	public function optionsList($arr = array(), $model = '', $identifier = '', $name = '')
+	{	
+		$newOptionsList = array();
+		foreach ($arr as $i => $val) {
+			$newOptionsList[$val[$model][$identifier]] = $val[$model][$name];
+		}
+
+		return $newOptionsList;
+	}
 }

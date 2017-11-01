@@ -31,6 +31,28 @@
 <!-- end portada -->
 <? endif; ?>
 
+<!-- Sliders -->
+<? if (!empty($sliders)) : ?>
+<div class="slider">
+  <ul class="slides">   
+  <? foreach ($sliders as $in => $slider) : ?>
+      <li>
+        <? if (!empty($slider['Banner']['url'])) : ?>
+          <a href="<?=$slider['Banner']['url'];?>"><?= $this->Html->image($slider['Banner']['imagen']['slider']); ?></a>
+        <? else : ?>
+          <?= $this->Html->image($slider['Banner']['imagen']['slider']); ?>
+        <? endif; ?>
+      </li>   
+  <?  endforeach; ?>
+  </ul>
+</div>
+<? endif; ?>
+<!-- End slider -->
+
+<!-- Filtro -->
+<?=$this->element( sprintf('%s/filtro', $todo['Evento']['nombre_tema']) ); ?>
+<!-- end filtro -->
+
 <!--start container-->
 <div class="container">
   <div class="section">
@@ -40,18 +62,5 @@
     </div>
     <!--/ end items list -->
   </div>
-  <!-- Floating Action Button -->
-    <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
-        <a class="btn-floating btn-large">
-          <i class="mdi-action-stars"></i>
-        </a>
-        <ul>
-          <li><a href="css-helpers.html" class="btn-floating red"><i class="large mdi-communication-live-help"></i></a></li>
-          <li><a href="app-widget.html" class="btn-floating yellow darken-1"><i class="large mdi-device-now-widgets"></i></a></li>
-          <li><a href="app-calendar.html" class="btn-floating green"><i class="large mdi-editor-insert-invitation"></i></a></li>
-          <li><a href="app-email.html" class="btn-floating blue"><i class="large mdi-communication-email"></i></a></li>
-        </ul>
-    </div>
-    <!-- Floating Action Button -->
 </div>
 <!--end container-->

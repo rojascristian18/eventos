@@ -14,7 +14,6 @@ class Banner extends AppModel
 		/**
 		 * IMAGE UPLOAD
 		 */
-		/*
 		'Image'		=> array(
 			'fields'	=> array(
 				'imagen'	=> array(
@@ -22,30 +21,25 @@ class Banner extends AppModel
 						array(
 							'prefix'	=> 'mini',
 							'width'		=> 100,
-							'height'	=> 100,
+							'height'	=> 50,
+							'crop'		=> true
+						),
+						array(
+							'prefix'	=> 'slider',
+							'width'		=> 1100,
+							'height'	=> 270,
 							'crop'		=> true
 						)
 					)
 				)
 			)
 		)
-		*/
 	);
 
 	/**
 	 * VALIDACIONES
 	 */
 	public $validate = array(
-		'imagen' => array(
-			'notBlank' => array(
-				'rule'			=> array('notBlank'),
-				'last'			=> true,
-				//'message'		=> 'Mensaje de validación personalizado',
-				//'allowEmpty'	=> true,
-				//'required'		=> false,
-				//'on'			=> 'update', // Solo valida en operaciones de 'create' o 'update'
-			),
-		),
 		'activo' => array(
 			'boolean' => array(
 				'rule'			=> array('boolean'),

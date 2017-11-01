@@ -630,6 +630,13 @@ class EventosController extends AppController
 
     	}else{
 
+    		$sliders = array();
+
+    		if ($this->Session->read('Todo.Evento.mostrar_banners')) {
+    			$sliders = $this->get_sliders($this->Session->read('Todo.Evento.id'));
+    		}
+    		
+    		$this->set(compact('sliders'));
     		$this->render(sprintf('%s/index', $this->Session->read('Todo.Evento.nombre_tema')));
   
     	}
@@ -751,7 +758,7 @@ class EventosController extends AppController
 				}
 			}
 		}
-
+		
 		$this->layout = 'ajax';
 		
 		$this->set(compact('productos'));

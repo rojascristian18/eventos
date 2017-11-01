@@ -13,7 +13,7 @@
                 <? endif; ?>
             <? endforeach; ?>
             <? else : ?>
-                <img src="https://dummyimage.com/No Disponible/fff/ff5500.jpg" alt="product-img">
+                <img src="https://dummyimage.com/250x250/f2f2f2/4a4a4a&text=No+disponible" alt="product-img">
             <? endif; ?>
             </a>
         </div>

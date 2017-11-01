@@ -60,10 +60,6 @@
             <?=$this->element( sprintf('%s/menu', $todo['Evento']['nombre_tema']) ); ?>
 
             <!-- //////////////////////////////////////////////////////////////////////////// -->
-
-            <?=$this->element( sprintf('%s/filtro', $todo['Evento']['nombre_tema']) ); ?>
-
-            <!-- //////////////////////////////////////////////////////////////////////////// -->
             <!-- START CONTENT -->
             <section id="content">
                 <!-- Search for small screen -->
@@ -77,6 +73,23 @@
             </section>
             <!-- END CONTENT -->
 
+            <!-- Floating Action Button -->
+            <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
+                <a class="btn-floating btn-large yellow darken-3 pulse">
+                  <?=$this->Html->image(sprintf('/%s/images/ayuda-icono.png', $todo['Evento']['nombre_tema']), array('class' => 'icono-ayuda'));?>
+                </a>
+                <ul>
+                  <li>
+                    <a href="tel:<?=$todo['Evento']['fono'];?>" class="btn-floating red"><i class="large mdi-communication-phone"></i></a>
+                  <li>
+                    <a href="mailto:<?=$todo['Evento']['email'];?>" class="btn-floating blue"><i class="large mdi-communication-email"></i></a>
+                  </li>
+                  <li>
+                    <a href="https://api.whatsapp.com/send?phone=+56942077596" class="btn-floating green"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                  </li>
+                </ul>
+            </div>
+            <!-- Floating Action Button -->
 
         </div>
         <!-- END WRAPPER -->
@@ -94,15 +107,12 @@
     <?= $this->Html->script(array(
         sprintf('/%s/js/plugins/jquery-1.11.2.min.js', $todo['Evento']['nombre_tema']),
         sprintf('/%s/js/materialize.min.js', $todo['Evento']['nombre_tema']),
-        sprintf('/%s/js/plugins/perfect-scrollbar/perfect-scrollbar.min.js', $todo['Evento']['nombre_tema']),
-        sprintf('/%s/js/plugins/prism/prism.js', $todo['Evento']['nombre_tema']),
-        sprintf('/%s/js/plugins/masonry.pkgd.min.js', $todo['Evento']['nombre_tema']),
-        sprintf('/%s/js/plugins/imagesloaded.pkgd.min.js', $todo['Evento']['nombre_tema']),
-        sprintf('/%s/js/plugins.min.js', $todo['Evento']['nombre_tema']),
         sprintf('/%s/js/custom-script.js', $todo['Evento']['nombre_tema']),
     )); ?>
     <?= $this->fetch('script'); ?>
 
+    <!-- Custome CSS-->    
+    <?= $this->Html->css(sprintf('/%s/css/font-awesome.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
 </body>
 
 </html>

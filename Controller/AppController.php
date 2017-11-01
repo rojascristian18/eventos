@@ -49,7 +49,7 @@ class AppController extends Controller
 		if ( ! isset($this->request->params['prefix']) ) {
 			
 			# Borar en producción
-			#$this->Session->delete('Todo');
+			$this->Session->delete('Todo');
 			$this->verificarEvento();
 
 			if (!empty($this->Session->read('Todo'))) {
@@ -594,7 +594,7 @@ class AppController extends Controller
 			return;
 		}
 
-		$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen'), $todo['Tienda']['db_configuracion']);
+		#$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen'), $todo['Tienda']['db_configuracion']);
 
 		
 		# Categorias del evento
@@ -639,118 +639,72 @@ class AppController extends Controller
 		
 		$todo['EventosProducto'] = $relProductos;
 
-		$todo['Producto'] = array();
+		$this->cambiarDatasource(array('Producto', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico' ), $todo['Tienda']['db_configuracion']);
 
-		# Host de imagenes
-		$baul = 'https://' . $todo['Tienda']['url'];
-		
-		if (!empty($todo['Evento']['host_imagenes'])) {
-			$baul	= 'http://' . $todo['Evento']['host_imagenes'];
-		}
-
-		if (!empty($relProductos)) {
-			$productos = ClassRegistry::init('Producto')->find('all', array(
-				'fields' => array(
-					'Producto.id_product',
-					'Producto.id_manufacturer',
-					'Producto.id_tax_rules_group',
-					'Producto.quantity',
-					'Producto.price',
-					'Producto.reference',
-					
+		$productos = ClassRegistry::init('Producto')->find('all', array(
+    		'fields' => array(
+    			'Producto.id_product',
+    			'Producto.price'
+    			),
+    		'contain' => array(
+    			'GrupoReglaImpuesto' => array(
+					'ReglaImpuesto' => array(
+						'Impuesto')
 					),
-				'conditions' => array(
-					'Producto.id_product' => Hash::extract($relProductos, '{n}.EventosProducto.id_product')
-					),
-				'contain' => array(
-					'Imagen' => array(
-						'fields' => array(
-							'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'-home_default.jpg\' ) AS url_image_thumb',
-							'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'.jpg\' ) AS url_image_large',
-							'position',
-							'cover'
+				'PrecioEspecifico' => array(
+					'conditions' => array(
+						'OR' => array(
+							array(
+								'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
+								'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
 							),
-						'order' => array(
-							'Imagen.position' => 'ASC'
-							)
-						),
-					'Fabricante',
-					'Categoria',
-					'Idioma',
-					'GrupoReglaImpuesto' => array(
-						'ReglaImpuesto' => array(
-							'Impuesto')
-						),
-					'PrecioEspecifico' => array(
-						'conditions' => array(
-							'OR' => array(
-								array(
-									'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
-									'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
-								),
-								array(
-									'PrecioEspecifico.from' => '0000-00-00 00:00:00',
-									'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
-								),
-								array(
-									'PrecioEspecifico.from' => '0000-00-00 00:00:00',
-									'PrecioEspecifico.to' => '0000-00-00 00:00:00'
-								),
-								array(
-									'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
-									'PrecioEspecifico.to' => '0000-00-00 00:00:00'
-								)
+							array(
+								'PrecioEspecifico.from' => '0000-00-00 00:00:00',
+								'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
+							),
+							array(
+								'PrecioEspecifico.from' => '0000-00-00 00:00:00',
+								'PrecioEspecifico.to' => '0000-00-00 00:00:00'
+							),
+							array(
+								'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
+								'PrecioEspecifico.to' => '0000-00-00 00:00:00'
 							)
 						)
-					)
-				),
-				'limit' => $limite
-			));
-			
-			$marcas = ClassRegistry::init('MarcasFabricante')->find('all', array(
-				'conditions' => array(
-					'MarcasFabricante.id_manufacturer' => Hash::extract($productos, '{n}.Producto.id_manufacturer')
-					),
-				'contain' => array(
-					'EventosMarca'
-					)
-			));
+					))
+    			),
+    		'conditions' => array(
+    			'Producto.id_product' => Hash::extract($relProductos, '{n}.EventosProducto.id_product')
+    			)	
+    		)
+    	);
 
+		foreach ($productos as $ix => $producto) {
 
-			foreach ($productos as $ix => $producto) {
+			# Precios del producto
+			if ( !isset($producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']) ) {
+				$productos[$ix]['Producto']['valor_iva'] = $producto['Producto']['price'];	
+			}else{
+				$productos[$ix]['Producto']['valor_iva'] = $this->precio($producto['Producto']['price'], $producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']);
+			}
 
-				# Precios del producto
-				if ( !isset($producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']) ) {
-					$productos[$ix]['Producto']['valor_iva'] = $producto['Producto']['price'];	
+			$productos[$ix]['Producto']['valor_final'] = $productos[$ix]['Producto']['valor_iva'];
+
+			// Retornar último precio espeficico según criterio del producto
+			foreach ($producto['PrecioEspecifico'] as $precio) {
+				if ( $precio['reduction'] == 0 ) {
+					$productos[$ix]['Producto']['valor_final'] = $productos[$ix]['Producto']['valor_iva'];
+
 				}else{
-					$productos[$ix]['Producto']['valor_iva'] = $this->precio($producto['Producto']['price'], $producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']);
-				}
 
-				$productos[$ix]['Producto']['valor_final'] = $productos[$ix]['Producto']['valor_iva'];
+					$productos[$ix]['Producto']['valor_final'] = $this->precio($productos[$ix]['Producto']['valor_iva'], ($precio['reduction'] * 100 * -1) );
+					$productos[$ix]['Producto']['descuento'] = ($precio['reduction'] * 100 * -1 );
 
-				// Retornar último precio espeficico según criterio del producto
-				foreach ($producto['PrecioEspecifico'] as $precio) {
-					if ( $precio['reduction'] == 0 ) {
-						$productos[$ix]['Producto']['valor_final'] = $productos[$ix]['Producto']['valor_iva'];
-
-					}else{
-
-						$productos[$ix]['Producto']['valor_final'] = $this->precio($productos[$ix]['Producto']['valor_iva'], ($precio['reduction'] * 100 * -1) );
-						$productos[$ix]['Producto']['descuento'] = ($precio['reduction'] * 100 * -1 );
-
-					}
-				}
-
-				# Marcas del producto
-				foreach ($marcas as $i => $marca) {
-					if ($marca['MarcasFabricante']['id_manufacturer'] == $producto['Producto']['id_manufacturer']) {
-						$productos[$ix]['MarcasFabricante'] = $marca;
-					}		
 				}
 			}
-			$todo['Producto'] = $productos;
-			// Agrgar marcas al producto
 		}
+
+		$todo['Filtro']['rango_precios'] = $this->obtenerRangoPrecios($productos, 'valor_final');
 		
 		return (!empty($todo)) ? $todo : '';
 	}
@@ -782,4 +736,79 @@ class AppController extends Controller
 		}
 	}
 
+	public function get_sliders($id_evento)
+	{
+		$sliders = ClassRegistry::init('Banner')->find('all', array(
+			'conditions' => array(
+				'Banner.evento_id' => $id_evento,
+				'Banner.activo' => 1
+				),
+			'order' => array('Banner.orden')
+		));
+
+		return $sliders;
+	}
+
+
+
+	/**
+     * Método que crea un arreglo con los valores rangoSinFormato : rangoFormateado
+     * Arma una lista de rangos segun el menor y el mayor valor del parámetro $campo 
+     * y su rango será definido por el parámetro $rango
+     * @param 		$campo 		String 		Nombre del campo que se obtendrán los precios
+     * @param 		$rango 		Int 		Intervalo entre los rangos de precios 
+     * @return 		Array
+     */
+    public function obtenerRangoPrecios($lista= array(), $campo = 'price', $rango = 100000)
+    {	
+ 
+    	$precios = array_unique(Hash::extract($lista, '{n}.Producto.valor_final'));
+		
+    	# Se quitan los decimales
+		foreach ($precios as $k => $precio) {
+			$precios[$k] = round($precio, 0);	
+		}
+
+		# Se ordena de menor a mayor
+		sort($precios);
+
+		# Variables para definir el rango
+		$primerValor = array_shift($precios);
+		$ultimoValor = array_pop($precios);
+
+		# Arreglo de rangos obtenidos 
+		$rangosArr = range($primerValor, $ultimoValor, $rango);
+		
+		$rangos = array();
+
+		foreach ($rangosArr as $k => $valor) {
+			if ($k == 0) {
+				$rangos[$k]['valor1'] = $valor;
+			}else{
+				$rangos[$k]['valor1'] = $valor+1;
+			}
+			
+			if (isset($rangosArr[$k+1])) {
+				$rangos[$k]['valor2'] = $rangosArr[$k+1];
+			}else{
+				$rangos[$k]['valor2'] = '+ más';
+			}
+		    
+		}
+
+		$nwRangos = array();
+		foreach ($rangos as $i => $rango) {
+			if (is_string($rango['valor2'])) {
+				$rangoVal = sprintf('%d-%d', $rango['valor1'], 10000000000);
+				$rangoTxt = sprintf('%s - %s', CakeNumber::currency($rango['valor1'], 'CLP'), $rango['valor2']);
+			}else{
+				$rangoVal = sprintf('%d-%d', $rango['valor1'], $rango['valor2']);
+				$rangoTxt = sprintf('%s - %s', CakeNumber::currency($rango['valor1'], 'CLP'), CakeNumber::currency($rango['valor2'], 'CLP'));
+			}
+
+			$nwRangos[$rangoVal] = $rangoTxt;
+		}
+		
+		return $nwRangos;
+    }
 }

@@ -37,13 +37,6 @@
 								<td><?= $this->Form->input('repetir_clave', array('type' => 'password', 'autocomplete' => 'off', 'value' => '')); ?></td>
 							</tr>
 							<tr>
-								<th><?= $this->Form->label('codigopais_id', 'Codigo fono'); ?></th>
-								<td><div class="input-group">
-                                    <span class="input-group-addon">+</span>
-                                    <?= $this->Form->select('codigopais_id', $codigopaises, array('class' => 'form-control', 'empty' => 'Seleccione código de pais')); ?>
-                                </div></td>
-							</tr>
-							<tr>
 								<th><?= $this->Form->label('fono', 'Fono'); ?></th>
 								<td><?= $this->Form->input('fono'); ?></td>
 							</tr>
