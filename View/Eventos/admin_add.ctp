@@ -309,6 +309,7 @@
 										<!--<th><?=__('Cuerpo');?></th>-->
 										<th><?=__('Imágen destacada');?></th>
 										<th><?=__('Ícono del menú');?></th>
+										<th><?=__('Ícono del menú 2');?></th>
 										<th><?=__('Texto del menú');?></th>
 										<th><?=__('Activo');?></th>
 										<th><?=__('Acciones');?></th>
@@ -320,6 +321,7 @@
 										<!--<td><?= $this->Form->input('Categoria.999.cuerpo', array('disabled' => true, 'class' => 'form-control')); ?></td>-->
 										<td><?= $this->Form->input('Categoria.999.imagen_principal', array('disabled' => true, 'type' => 'file', 'class' => 'fileinput btn-primary not-blank', 'data-filename-placement' => 'inside', 'title' => '<i class="fa fa-upload"></i> Destacada')); ?></td>
 										<td><?= $this->Form->input('Categoria.999.icono_imagen', array('disabled' => true, 'type' => 'file', 'class' => 'fileinput btn-primary not-blank', 'data-filename-placement' => 'inside', 'title' => '<i class="fa fa-upload"></i> Ícono')); ?></td>
+										<td><?= $this->Form->input('Categoria.999.icono_imagen_dos', array('disabled' => true, 'type' => 'file', 'class' => 'fileinput btn-primary not-blank', 'data-filename-placement' => 'inside', 'title' => '<i class="fa fa-upload"></i> Ícono 2')); ?></td>
 										<td><?= $this->Form->input('Categoria.999.icono_texto', array('disabled' => true)); ?></td>
 										<td><?= $this->Form->input('Categoria.999.activo', array('disabled' => true, 'checked' => true, 'class' => 'icheckbox')); ?></td>
 										<td>
@@ -347,6 +349,14 @@
 												<?= $this->Form->input(sprintf('Categoria.%d.icono_imagen', $index), array('type' => 'file', 'class' => 'fileinput btn-primary not-blank', 'data-filename-placement' => 'inside', 'title' => '<i class="fa fa-upload"></i> Actualizar')); ?>
 											<? else : ?>
 												<?= $this->Form->input(sprintf('Categoria.%d.icono_imagen', $index), array('type' => 'file', 'class' => 'fileinput btn-primary not-blank', 'data-filename-placement' => 'inside', 'title' => '<i class="fa fa-upload"></i> Destacada')); ?>
+											<? endif; ?>
+										</td>
+										<td>
+											<? if (!empty($this->request->data['Categoria'][$index]['icono_imagen_dos'])) : ?>
+												<?= $this->Html->image(sprintf('Categoria/%d/xs_mini_%s', $categoria['id'], $categoria['icono_imagen_dos']));?>
+												<?= $this->Form->input(sprintf('Categoria.%d.icono_imagen_dos', $index), array('type' => 'file', 'class' => 'fileinput btn-primary not-blank', 'data-filename-placement' => 'inside', 'title' => '<i class="fa fa-upload"></i> Actualizar')); ?>
+											<? else : ?>
+												<?= $this->Form->input(sprintf('Categoria.%d.icono_imagen_dos', $index), array('type' => 'file', 'class' => 'fileinput btn-primary not-blank', 'data-filename-placement' => 'inside', 'title' => '<i class="fa fa-upload"></i> Destacada')); ?>
 											<? endif; ?>
 										</td>
 										<td><?= $this->Form->input(sprintf('Categoria.%d.icono_texto', $index)); ?></td>

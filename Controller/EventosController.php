@@ -665,11 +665,53 @@ class EventosController extends AppController
 					'Producto.quantity',
 					'Producto.price',
 					'Producto.reference',
-					
+					'Producto.id_tax_rules_group',
+	    			'GrupoReglaImpuesto.id_tax_rules_group',
+	    			'ReglaImpuesto.id_tax',
+	    			'Impuesto.id_tax',
+	    			'Impuesto.rate',
+	    			'Impuesto.active',
+	    			'ProductosIdioma.link_rewrite',
+	    			'ProductosIdioma.name'
 					),
 				'conditions' => array(
 					'Producto.id_product' => Hash::extract($this->Session->read('Todo.EventosProducto'), '{n}.EventosProducto.id_product')
 					),
+				'joins' => array(
+	    			array(
+	    				'table' => sprintf('%stax_rules_group', $this->Session->read('Todo.Tienda.prefijo')),
+	    				'alias' => 'GrupoReglaImpuesto',
+	    				'type' 	=> 'LEFT',
+	    				'conditions' => array(
+	    					'Producto.id_tax_rules_group = GrupoReglaImpuesto.id_tax_rules_group'
+	    					)
+	    				),
+	    			array(
+	    				'table' => sprintf('%stax_rule', $this->Session->read('Todo.Tienda.prefijo')),
+	    				'alias' => 'ReglaImpuesto',
+	    				'type' 	=> 'LEFT',
+	    				'conditions' => array(
+	    					'GrupoReglaImpuesto.id_tax_rules_group = ReglaImpuesto.id_tax_rules_group'
+	    					)
+	    				),
+	    			array(
+	    				'table' => sprintf('%stax', $this->Session->read('Todo.Tienda.prefijo')),
+	    				'alias' => 'Impuesto',
+	    				'type' 	=> 'LEFT',
+	    				'conditions' => array(
+	    					'ReglaImpuesto.id_tax = Impuesto.id_tax',
+	    					'Impuesto.active' => 1
+	    					)
+	    				),
+	    			array(
+	    				'table' => sprintf('%sproduct_lang', $this->Session->read('Todo.Tienda.prefijo')),
+	    				'alias' => 'ProductosIdioma',
+	    				'type' 	=> 'LEFT',
+	    				'conditions' => array(
+	    					'Producto.id_product = ProductosIdioma.id_product'
+	    					)
+	    				)
+	    			),
 				'contain' => array(
 					'Imagen' => array(
 						'fields' => array(
@@ -684,12 +726,10 @@ class EventosController extends AppController
 						),
 					'Fabricante',
 					'Categoria',
-					'Idioma',
-					'GrupoReglaImpuesto' => array(
-						'ReglaImpuesto' => array(
-							'Impuesto')
-						),
 					'PrecioEspecifico' => array(
+						'fields' => array(
+							'PrecioEspecifico.reduction'
+							),
 						'conditions' => array(
 							'OR' => array(
 								array(
@@ -729,10 +769,10 @@ class EventosController extends AppController
 			foreach ($productos as $ix => $producto) {
 
 				# Precios del producto
-				if ( !isset($producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']) ) {
+				if ( !isset($producto['Impuesto']['rate']) ) {
 					$productos[$ix]['Producto']['valor_iva'] = $producto['Producto']['price'];	
 				}else{
-					$productos[$ix]['Producto']['valor_iva'] = $this->precio($producto['Producto']['price'], $producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']);
+					$productos[$ix]['Producto']['valor_iva'] = $this->precio($producto['Producto']['price'], $producto['Impuesto']['rate']);
 				}
 
 				$productos[$ix]['Producto']['valor_final'] = $productos[$ix]['Producto']['valor_iva'];
@@ -758,7 +798,7 @@ class EventosController extends AppController
 				}
 			}
 		}
-		
+		#prx($productos);
 		$this->layout = 'ajax';
 		
 		$this->set(compact('productos'));

@@ -53,7 +53,7 @@ $.extend({
 		slider: {
 			bind: function(){
   				$('.slider').slider({
-  					height : 270,
+  					height : 250,
   					interval: 5000
   				});
         

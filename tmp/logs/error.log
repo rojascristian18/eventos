@@ -8246,3 +8246,192 @@ Request URL: /eventos/test.localhost/eventos/categorias/accesorios
 Stack Trace:
 #0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2017-11-02 10:04:43 Error: [MissingControllerException] Controller class Favicon.icoController could not be found.
+Exception Attributes: array (
+  'class' => 'Favicon.icoController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/favicon.ico
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-02 10:40:12 Error: Fatal Error (4): syntax error, unexpected ';' in [C:\wamp64\www\eventos\Controller\AppController.php, line 690]
+2017-11-02 10:40:12 Error: [FatalErrorException] syntax error, unexpected ';'
+Request URL: /eventos/
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 690)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 690, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 690, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-02 10:40:12 Error: [MissingControllerException] Controller class 'imgController could not be found.
+Exception Attributes: array (
+  'class' => '\'imgController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/%20'img/publico/nodiza-favicon.png
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-02 10:40:12 Error: Fatal Error (4): syntax error, unexpected ';' in [C:\wamp64\www\eventos\Controller\AppController.php, line 690]
+2017-11-02 10:40:12 Error: [FatalErrorException] syntax error, unexpected ';'
+Request URL: /eventos/%20'img/publico/nodiza-favicon.png
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 690)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 690, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 690, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-02 10:52:29 Error: Fatal Error (4): syntax error, unexpected '=>' (T_DOUBLE_ARROW) in [C:\wamp64\www\eventos\Controller\AppController.php, line 672]
+2017-11-02 10:52:29 Error: [FatalErrorException] syntax error, unexpected '=>' (T_DOUBLE_ARROW)
+Request URL: /eventos/
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 672)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 672, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 672, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-02 10:53:47 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'GrupoReglaImpuesto.id_tax_rule' in 'on clause'
+Request URL: /eventos/
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(461): PDOStatement->execute(Array)
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(427): DboSource->_execute('SELECT `Product...', Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(669): DboSource->execute('SELECT `Product...', Array, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(1118): DboSource->fetchAll('SELECT `Product...', false)
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3031): DboSource->read(Object(Producto), Array)
+#5 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3003): Model->_readDataSource('all', Array)
+#6 C:\wamp64\www\eventos\Controller\AppController.php(699): Model->find('all', Array)
+#7 C:\wamp64\www\eventos\Controller\AppController.php(527): AppController->obtenerEvento()
+#8 C:\wamp64\www\eventos\Controller\AppController.php(53): AppController->verificarEvento()
+#9 [internal function]: AppController->beforeFilter(Object(CakeEvent))
+#10 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Event\CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#11 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(676): CakeEventManager->dispatch(Object(CakeEvent))
+#12 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(189): Controller->startupProcess()
+#13 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#14 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-11-02 11:12:45 Error: [PDOException] SQLSTATE[HY000]: General error: 2006 MySQL server has gone away
+Request URL: /eventos/admin/eventos/edit/6
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(461): PDOStatement->execute(Array)
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(427): DboSource->_execute('SELECT `Eventos...', Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(669): DboSource->execute('SELECT `Eventos...', Array, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(1456): DboSource->fetchAll('SELECT `Eventos...', false)
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(1290): DboSource->_fetchHasMany(Object(Evento), 'SELECT `Eventos...', Array)
+#5 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(1149): DboSource->queryAssociation(Object(Evento), Object(EventosMarca), 'hasMany', 'EventosMarca', Array, Array, true, Array, 4, Array)
+#6 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3031): DboSource->read(Object(Evento), Array)
+#7 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3003): Model->_readDataSource('first', Array)
+#8 C:\wamp64\www\eventos\Controller\EventosController.php(399): Model->find('first', Array)
+#9 [internal function]: EventosController->admin_edit('6')
+#10 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(EventosController), Array)
+#11 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#12 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#13 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#14 {main}
+2017-11-02 11:36:41 Error: Fatal Error (4): syntax error, unexpected 'array' (T_ARRAY), expecting ')' in [C:\wamp64\www\eventos\Controller\EventosController.php, line 705]
+2017-11-02 11:36:41 Error: [FatalErrorException] syntax error, unexpected 'array' (T_ARRAY), expecting ')'
+Request URL: /eventos/eventos/ajax_get_products/10/0
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 705)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 705, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 705, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-02 11:37:05 Error: Fatal Error (4): syntax error, unexpected '=', expecting ')' in [C:\wamp64\www\eventos\Controller\EventosController.php, line 730]
+2017-11-02 11:37:05 Error: [FatalErrorException] syntax error, unexpected '=', expecting ')'
+Request URL: /eventos/eventos/ajax_get_products/10/0
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 730)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 730, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 730, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-02 11:38:25 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Producto.id_lang' in 'field list'
+Request URL: /eventos/eventos/ajax_get_products/10/0
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(461): PDOStatement->execute(Array)
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(427): DboSource->_execute('SELECT `Product...', Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(669): DboSource->execute('SELECT `Product...', Array, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(1118): DboSource->fetchAll('SELECT `Product...', false)
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3031): DboSource->read(Object(Producto), Array)
+#5 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3003): Model->_readDataSource('all', Array)
+#6 C:\wamp64\www\eventos\Controller\EventosController.php(757): Model->find('all', Array)
+#7 [internal function]: EventosController->ajax_get_products('10', '0')
+#8 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(EventosController), Array)
+#9 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#11 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-11-02 11:45:16 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Producto.id_lang' in 'field list'
+Request URL: /eventos/eventos/ajax_get_products/10/0
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(461): PDOStatement->execute(Array)
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(427): DboSource->_execute('SELECT `Product...', Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(669): DboSource->execute('SELECT `Product...', Array, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(1118): DboSource->fetchAll('SELECT `Product...', false)
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3031): DboSource->read(Object(Producto), Array)
+#5 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3003): Model->_readDataSource('all', Array)
+#6 C:\wamp64\www\eventos\Controller\EventosController.php(759): Model->find('all', Array)
+#7 [internal function]: EventosController->ajax_get_products('10', '0')
+#8 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(EventosController), Array)
+#9 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#11 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-11-02 11:45:49 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ProductosIdioma.link_rewrite' in 'field list'
+Request URL: /eventos/eventos/ajax_get_products/10/0
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(461): PDOStatement->execute(Array)
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(427): DboSource->_execute('SELECT `Product...', Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(669): DboSource->execute('SELECT `Product...', Array, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(1118): DboSource->fetchAll('SELECT `Product...', false)
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3031): DboSource->read(Object(Producto), Array)
+#5 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3003): Model->_readDataSource('all', Array)
+#6 C:\wamp64\www\eventos\Controller\EventosController.php(758): Model->find('all', Array)
+#7 [internal function]: EventosController->ajax_get_products('10', '0')
+#8 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(EventosController), Array)
+#9 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#11 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-11-02 11:46:48 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ProductosIdioma.active' in 'on clause'
+Request URL: /eventos/eventos/ajax_get_products/10/0
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(461): PDOStatement->execute(Array)
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(427): DboSource->_execute('SELECT `Product...', Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(669): DboSource->execute('SELECT `Product...', Array, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(1118): DboSource->fetchAll('SELECT `Product...', false)
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3031): DboSource->read(Object(Producto), Array)
+#5 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3003): Model->_readDataSource('all', Array)
+#6 C:\wamp64\www\eventos\Controller\EventosController.php(758): Model->find('all', Array)
+#7 [internal function]: EventosController->ajax_get_products('10', '0')
+#8 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(EventosController), Array)
+#9 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#11 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-11-02 12:01:57 Error: Fatal Error (4): syntax error, unexpected '');'' (T_CONSTANT_ENCAPSED_STRING), expecting ',' or ';' in [C:\wamp64\www\eventos\View\Eventos\admin_dos.ctp, line 68]
+2017-11-02 12:01:57 Error: [FatalErrorException] syntax error, unexpected '');'' (T_CONSTANT_ENCAPSED_STRING), expecting ',' or ';'
+Request URL: /eventos/admin/eventos/steps/6/2
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 68)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 68, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 68, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-02 12:07:56 Error: Fatal Error (4): syntax error, unexpected ')' in [C:\wamp64\www\eventos\View\Eventos\admin_dos.ctp, line 68]
+2017-11-02 12:07:56 Error: [FatalErrorException] syntax error, unexpected ')'
+Request URL: /eventos/admin/eventos/steps/6/2
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 68)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 68, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 68, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

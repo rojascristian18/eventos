@@ -19,7 +19,7 @@
         </div>
         <ul class="card-action-buttons">
             <li>
-                <?=$this->Html->link('<i class="mdi-action-shopping-cart"></i>', array('controller' => 'productos', 'action' => 'view', 'slug' => sprintf('%s-%s', $producto['Idioma'][0]['ProductosIdioma']['link_rewrite'], $producto['Producto']['id_product'])), array('class' => 'btn-floating waves-effect waves-light naranjo', 'escape' => false)); ?>
+                <?=$this->Html->link('<i class="mdi-action-shopping-cart"></i>', array('controller' => 'productos', 'action' => 'view', 'slug' => sprintf('%s-%s', $producto['ProductosIdioma']['link_rewrite'], $producto['Producto']['id_product'])), array('class' => 'btn-floating waves-effect waves-light naranjo', 'escape' => false)); ?>
             </li>
         </ul>
         <div class="card-content">
@@ -27,7 +27,7 @@
                 <div class="col s12">
                     <p class="card-title grey-text text-darken-4"><a href="#" class="grey-text text-darken-4">
                     	<?=$this->Text->truncate(
-						    $producto['Idioma'][0]['ProductosIdioma']['name'],
+						    $producto['ProductosIdioma']['name'],
 						    50,
 						    array(
 						        'ellipsis' => '...',
@@ -73,18 +73,6 @@
                 </div>
                 
             </div>
-        </div>
-        <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4"><i class="mdi-navigation-close right"></i>
-            	<?=$this->Text->truncate(
-				    $producto['Idioma'][0]['ProductosIdioma']['description_short'],
-				    60,
-				    array(
-				        'ellipsis' => '...',
-				        'exact' => false
-				    )
-				); ?></span>
-            <p><?=$producto['Idioma'][0]['ProductosIdioma']['name'];?></p>
         </div>
     </div>
 </div>

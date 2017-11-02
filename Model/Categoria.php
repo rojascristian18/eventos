@@ -47,6 +47,22 @@ class Categoria extends AppModel
 							'crop'		=> false
 						)
 					)
+				),
+				'icono_imagen_dos'	=> array(
+					'versions'	=> array(
+						array(
+							'prefix'	=> 'mini',
+							'width'		=> 100,
+							'height'	=> 100,
+							'crop'		=> true
+						),
+						array(
+							'prefix'	=> 'xs_mini',
+							'width'		=> 50,
+							'height' 	=> 30,
+							'crop'		=> false
+						)
+					)
 				)
 			)
 		)

@@ -1,3 +1,4 @@
+<?= $this->Form->create('Filtro', array('class' => 'form-horizontal', 'type' => 'file', 'inputDefaults' => array('label' => false, 'div' => false, 'class' => 'form-control'))); ?>
 <div id="filtro">
 	<div class="container">
 		<div class="row">
@@ -35,3 +36,4 @@
 		</div>
 	</div>
 </div>
+<?= $this->Form->end(); ?>

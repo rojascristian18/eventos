@@ -47,17 +47,11 @@
 
 @media screen and (min-width: 992px) {
     #main .slider {
-        height: 270px !important;
+        height: 250px !important;
     } 
 }
 
-
-#main .slider .slides li img {
-    background-size: 100%;
-}
-
 #main .slider .indicators {
-    bottom: 40px;
     z-index: 10;
 }
 

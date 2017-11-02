@@ -49,7 +49,7 @@ class AppController extends Controller
 		if ( ! isset($this->request->params['prefix']) ) {
 			
 			# Borar en producción
-			$this->Session->delete('Todo');
+			# $this->Session->delete('Todo');
 			$this->verificarEvento();
 
 			if (!empty($this->Session->read('Todo'))) {
@@ -574,6 +574,7 @@ class AppController extends Controller
 				'Tienda.id',
 				'Tienda.db_configuracion',
 				'Tienda.nombre',
+				'Tienda.prefijo',
 				'Tienda.url'
 				),
 			'conditions' => array(
@@ -640,17 +641,46 @@ class AppController extends Controller
 		$todo['EventosProducto'] = $relProductos;
 
 		$this->cambiarDatasource(array('Producto', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico' ), $todo['Tienda']['db_configuracion']);
-
+		
 		$productos = ClassRegistry::init('Producto')->find('all', array(
     		'fields' => array(
     			'Producto.id_product',
-    			'Producto.price'
+    			'Producto.price',
+    			'Producto.id_tax_rules_group',
+    			'GrupoReglaImpuesto.id_tax_rules_group',
+    			'ReglaImpuesto.id_tax',
+    			'Impuesto.id_tax',
+    			'Impuesto.rate',
+    			'Impuesto.active'
+    			),
+    		'joins' => array(
+    			array(
+    				'table' => sprintf('%stax_rules_group', $todo['Tienda']['prefijo']),
+    				'alias' => 'GrupoReglaImpuesto',
+    				'type' 	=> 'LEFT',
+    				'conditions' => array(
+    					'Producto.id_tax_rules_group = GrupoReglaImpuesto.id_tax_rules_group'
+    					)
+    				),
+    			array(
+    				'table' => sprintf('%stax_rule', $todo['Tienda']['prefijo']),
+    				'alias' => 'ReglaImpuesto',
+    				'type' 	=> 'LEFT',
+    				'conditions' => array(
+    					'GrupoReglaImpuesto.id_tax_rules_group = ReglaImpuesto.id_tax_rules_group'
+    					)
+    				),
+    			array(
+    				'table' => sprintf('%stax', $todo['Tienda']['prefijo']),
+    				'alias' => 'Impuesto',
+    				'type' 	=> 'LEFT',
+    				'conditions' => array(
+    					'ReglaImpuesto.id_tax = Impuesto.id_tax',
+    					'Impuesto.active' => 1
+    					)
+    				)
     			),
     		'contain' => array(
-    			'GrupoReglaImpuesto' => array(
-					'ReglaImpuesto' => array(
-						'Impuesto')
-					),
 				'PrecioEspecifico' => array(
 					'conditions' => array(
 						'OR' => array(
@@ -678,14 +708,16 @@ class AppController extends Controller
     			)	
     		)
     	);
-
+		
+		#debug(ClassRegistry::init('Producto')->getDataSource()->getLog(false, false));
+		
 		foreach ($productos as $ix => $producto) {
 
 			# Precios del producto
-			if ( !isset($producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']) ) {
+			if ( !isset($producto['Impuesto']['rate']) ) {
 				$productos[$ix]['Producto']['valor_iva'] = $producto['Producto']['price'];	
 			}else{
-				$productos[$ix]['Producto']['valor_iva'] = $this->precio($producto['Producto']['price'], $producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']);
+				$productos[$ix]['Producto']['valor_iva'] = $this->precio($producto['Producto']['price'], $producto['Impuesto']['rate']);
 			}
 
 			$productos[$ix]['Producto']['valor_final'] = $productos[$ix]['Producto']['valor_iva'];

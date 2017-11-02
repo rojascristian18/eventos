@@ -64,8 +64,8 @@
     var arr = [];
 
     <? foreach ($evento['Producto'] as $i => $producto) : ?>
-        <? if ( !empty($categoria['Producto']) && in_array($producto['id_product'] ,Hash::extract($categoria['Producto'], '{n}.id_product') ) ) : ?>
-        arr.push(<?=$producto['id_product'];?>);
+        <? if ( !empty($categoria['Producto']) && in_array($producto['Producto']['id_product'] , Hash::extract($categoria['Producto'], '{n}.id_product') ) ) : ?>
+        arr.push(<?=$producto['Producto']['id_product'];?>);
         <? endif; ?>
     <? endforeach; ?>
     console.log(arr);
