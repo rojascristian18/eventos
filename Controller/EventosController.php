@@ -647,6 +647,31 @@ class EventosController extends AppController
     {
     	$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen'), $this->Session->read('Todo.Tienda.db_configuracion'));
 
+    	$marcasDisponibles = $this->Session->read('Todo.EventosMarca');
+    	$newMarcasDisponibles = array();
+
+   		
+    	$marcasFiltro = (isset($this->request->query['m']) && !empty($this->request->query['m'])) ? $this->request->query['m'] : array() ;
+    	$precioFiltro = (isset($this->request->query['p']) && !empty($this->request->query['p'])) ? $this->request->query['p'] : '' ;
+    	$descuentoFiltro = (isset($this->request->query['d']) && !empty($this->request->query['d'])) ? $this->request->query['d'] : 'ASC' ;
+
+    	# filtro marcas
+    	if (!empty($marcasFiltro)) {
+    		foreach ($marcasDisponibles as $in => $dis) {
+				if (in_array($dis['EventosMarca']['id'], $marcasFiltro)) {
+					foreach ($dis['MarcasFabricante'] as $k => $idFabricante) {
+						$newMarcasDisponibles[] = $idFabricante['id_manufacturer'];	
+					}
+				}
+			}
+    	}else{
+    		foreach ($marcasDisponibles as $in => $dis) {
+				foreach ($dis['MarcasFabricante'] as $k => $idFabricante) {
+					$newMarcasDisponibles[] = $idFabricante['id_manufacturer'];	
+				}
+			}
+    	}
+    	
     	$productos = array();
 
 		# Host de imagenes
@@ -675,7 +700,8 @@ class EventosController extends AppController
 	    			'ProductosIdioma.name'
 					),
 				'conditions' => array(
-					'Producto.id_product' => Hash::extract($this->Session->read('Todo.EventosProducto'), '{n}.EventosProducto.id_product')
+					'Producto.id_product' => Hash::extract($this->Session->read('Todo.EventosProducto'), '{n}.EventosProducto.id_product'),
+					'Producto.id_manufacturer' => array_unique($newMarcasDisponibles)
 					),
 				'joins' => array(
 	    			array(
@@ -796,14 +822,28 @@ class EventosController extends AppController
 						$productos[$ix]['MarcasFabricante'] = $marca;
 					}		
 				}
+				
+				# Filtro de precio
+				/*if (!empty($precioFiltro)) {
+
+					$precios = explode('-', $precioFiltro);
+
+					if ($productos[$ix]['Producto']['valor_final'] < $precios[0] || $productos[$ix]['Producto']['valor_final'] > $precios[1]) {
+						unset($productos[$ix]);
+					}
+				}*/
 			}
 		}
-		#prx($productos);
+
+		# Ordenamos por descuento
+		$productos = Hash::sort($productos, '{n}.Producto.descuento', $descuentoFiltro, 'numeric' );
+		
+		
 		$this->layout = 'ajax';
 		
 		$this->set(compact('productos'));
 
-   		$this->render(sprintf('%s/ajax_productos', $this->Session->read('Todo.Evento.nombre_tema')));
+   		$this->render(sprintf('%s/ajax_productos', $this->Session->read('Todo.Evento.nombre_tema') ));
    		
    		
     }

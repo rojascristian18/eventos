@@ -794,19 +794,19 @@ class AppController extends Controller
     public function obtenerRangoPrecios($lista= array(), $campo = 'price', $rango = 100000)
     {	
  
-    	$precios = array_unique(Hash::extract($lista, '{n}.Producto.valor_final'));
-		
+    	$preciosFinal = array_unique(Hash::extract($lista, sprintf('{n}.Producto.%s', $campo)));
+
     	# Se quitan los decimales
-		foreach ($precios as $k => $precio) {
-			$precios[$k] = round($precio, 0);	
+		foreach ($preciosFinal as $k => $precio) {
+			$preciosFinal[$k] = round($precio, 0);	
 		}
 
 		# Se ordena de menor a mayor
-		sort($precios);
+		sort($preciosFinal);
 
 		# Variables para definir el rango
-		$primerValor = array_shift($precios);
-		$ultimoValor = array_pop($precios);
+		$primerValor = array_shift($preciosFinal);
+		$ultimoValor = array_pop($preciosFinal);
 
 		# Arreglo de rangos obtenidos 
 		$rangosArr = range($primerValor, $ultimoValor, $rango);

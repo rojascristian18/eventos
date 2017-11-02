@@ -8435,3 +8435,108 @@ Stack Trace:
 #3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2017-11-02 12:37:26 Error: [MissingControllerException] Controller class OrdenesController could not be found.
+Exception Attributes: array (
+  'class' => 'OrdenesController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/ordenes?filtroEnviar=
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-02 15:41:25 Error: Fatal Error (4): syntax error, unexpected '}', expecting variable (T_VARIABLE) or '$' in [C:\wamp64\www\eventos\Controller\EventosController.php, line 657]
+2017-11-02 15:41:25 Error: [FatalErrorException] syntax error, unexpected '}', expecting variable (T_VARIABLE) or '$'
+Request URL: /eventos/eventos/ajax_get_products/10/0/%5B7%5D/110991-210990/asc
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 657)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 657, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 657, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-02 15:50:12 Error: Fatal Error (4): syntax error, unexpected '}' in [C:\wamp64\www\eventos\Controller\EventosController.php, line 660]
+2017-11-02 15:50:12 Error: [FatalErrorException] syntax error, unexpected '}'
+Request URL: /eventos/eventos/ajax_get_products/10/0/[]/110991-210990/asc
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 660)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 660, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 660, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-02 16:05:11 Error: Fatal Error (4): syntax error, unexpected ';' in [C:\wamp64\www\eventos\Controller\AppController.php, line 797]
+2017-11-02 16:05:11 Error: [FatalErrorException] syntax error, unexpected ';'
+Request URL: /eventos/eventos/ajax_get_products/10/0/[7]/110991-210990/asc
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 797)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 797, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 797, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-02 16:06:56 Error: Fatal Error (4): syntax error, unexpected ';' in [C:\wamp64\www\eventos\Controller\AppController.php, line 797]
+2017-11-02 16:06:56 Error: [FatalErrorException] syntax error, unexpected ';'
+Request URL: /eventos/
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 797)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 797, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 797, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-02 17:00:15 Error: Fatal Error (4): syntax error, unexpected ')' in [C:\wamp64\www\eventos\Controller\EventosController.php, line 823]
+2017-11-02 17:00:15 Error: [FatalErrorException] syntax error, unexpected ')'
+Request URL: /eventos/eventos/ajax_get_products/10/0/%5B8%5D/10990-110990/
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 823)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 823, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 823, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-02 17:00:43 Error: Fatal Error (4): syntax error, unexpected ')' in [C:\wamp64\www\eventos\Controller\EventosController.php, line 823]
+2017-11-02 17:00:43 Error: [FatalErrorException] syntax error, unexpected ')'
+Request URL: /eventos/eventos/ajax_get_products/10/0/%5B8%5D/10990-110990/
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 823)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 823, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 823, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-02 17:16:38 Error: Fatal Error (4): syntax error, unexpected '=>' (T_DOUBLE_ARROW) in [C:\wamp64\www\eventos\Controller\EventosController.php, line 746]
+2017-11-02 17:16:38 Error: [FatalErrorException] syntax error, unexpected '=>' (T_DOUBLE_ARROW)
+Request URL: /eventos/eventos/ajax_get_products/10/0/[7,8]/10990-110990/
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 746)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 746, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 746, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-02 17:18:16 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ps.id_product' in 'on clause'
+Request URL: /eventos/eventos/ajax_get_products/10/0/[7,8]/10990-110990/
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(461): PDOStatement->execute(Array)
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(427): DboSource->_execute('SELECT `Product...', Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(669): DboSource->execute('SELECT `Product...', Array, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(1118): DboSource->fetchAll('SELECT `Product...', false)
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3031): DboSource->read(Object(Producto), Array)
+#5 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3003): Model->_readDataSource('all', Array)
+#6 C:\wamp64\www\eventos\Controller\EventosController.php(786): Model->find('all', Array)
+#7 [internal function]: EventosController->ajax_get_products('10', '0', '[7,8]', '10990-110990')
+#8 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(EventosController), Array)
+#9 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#10 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#11 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#12 {main}
+2017-11-02 17:28:04 Error: Fatal Error (4): syntax error, unexpected ')' in [C:\wamp64\www\eventos\Controller\EventosController.php, line 840]
+2017-11-02 17:28:04 Error: [FatalErrorException] syntax error, unexpected ')'
+Request URL: /eventos/eventos/ajax_get_products/10/0/[7,8]/10990-110990/
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 840)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 840, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 840, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
