@@ -26,8 +26,8 @@
     <?= $this->Html->css(sprintf('/%s/css/custom/custom.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
 
     <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
-    <?= $this->Html->css(sprintf('/%s/js/plugins/perfect-scrollbar/perfect-scrollbar.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
-    <!--<link href="/eventos/webroot/DESKTOP-9COL73V/js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <!--<?= $this->Html->css(sprintf('/%s/js/plugins/perfect-scrollbar/perfect-scrollbar.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
+    <link href="/eventos/webroot/DESKTOP-9COL73V/js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="/eventos/webroot/DESKTOP-9COL73V/js/plugins/jvectormap/jquery-jvectormap.css" type="text/css" rel="stylesheet" media="screen,projection">
     <link href="/eventos/webroot/DESKTOP-9COL73V/js/plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">-->
     <?= $this->fetch('css'); ?>

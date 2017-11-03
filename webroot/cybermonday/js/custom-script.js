@@ -6,6 +6,16 @@
 
 $.extend({
 	app: {
+		menu: function(){
+			$('.leftside-navigation ul.collapsible .collapsible-body li.active').each(function(){
+				$(this).parents('.bold').eq(0).find('.collapsible-header').eq(0).trigger('click');
+			});
+
+			//Main Left Sidebar Menu
+			  $('.sidebar-collapse').sideNav({
+			    edge: 'left', // Choose the horizontal origin    
+			  });
+		},
 		select: {
 			bind: function(){
 				$('select').material_select();
@@ -144,6 +154,7 @@ $.extend({
 			}
 		},
 		init: function() {
+			$.app.menu();
 			$.app.productos.init();
 			$.app.slider.init();
 			$.app.filtro.init();

@@ -21,12 +21,10 @@
 
 <? if (!empty($todo['Evento']['imagen_portada'])) : ?>
 <!-- Portada -->
-<div class="container">
-    <div class="row">
-        <div class="col s12">
-            <?=$this->Html->image($todo['Evento']['imagen_portada']['path'], array('class' => 'col s12')); ?>
-        </div>
-    <div>
+<div id="portada">
+    <div class="col no-padding s12">
+        <?=$this->Html->image($todo['Evento']['imagen_portada']['path'], array('class' => 'col s12')); ?>
+    </div>
 </div>
 <!-- end portada -->
 <? endif; ?>

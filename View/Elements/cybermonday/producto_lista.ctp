@@ -19,7 +19,7 @@
         </div>
         <ul class="card-action-buttons">
             <li>
-                <?=$this->Html->link('<i class="mdi-action-shopping-cart"></i>', array('controller' => 'productos', 'action' => 'view', 'slug' => sprintf('%s-%s', $producto['ProductosIdioma']['link_rewrite'], $producto['Producto']['id_product'])), array('class' => 'btn-floating waves-effect waves-light naranjo', 'escape' => false)); ?>
+                <?=$this->Html->link('<i class="mdi-action-shopping-cart"></i>', array('controller' => 'eventos', 'action' => 'product', 'slug' => sprintf('%s-%s', $producto['ProductosIdioma']['link_rewrite'], $producto['Producto']['id_product'])), array('class' => 'btn-floating waves-effect waves-light naranjo', 'escape' => false)); ?>
             </li>
         </ul>
         <div class="card-content">

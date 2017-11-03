@@ -2,7 +2,7 @@
 <div id="filtro">
 	<div class="container">
 		<div class="row">
-			<div class="input-field col s3 m3">
+			<div class="input-field col s6 m3">
 				<select id="filtroMarcas" multiple name="m[]">
 					<option value="" disabled selected>Seleccione</option>
 					<? foreach ($todo['EventosMarca'] as $ix => $marca) : ?>
@@ -11,7 +11,7 @@
 				</select>
 	            <label><?=__('Marcas');?></label>
 			</div>
-			<div class="input-field col s3 m3">
+			<div class="input-field col s6 m3">
 				<select id="filtroPrecios" name="p">
 					<option value="" disabled selected>Seleccione</option>
 					<? foreach ($todo['Filtro']['rango_precios'] as $ip => $precio) : ?>
@@ -20,15 +20,15 @@
 				</select>
 				<label for="icon_password">Precio</label>
 			</div>
-			<div class="input-field col s3 m3">
+			<div class="input-field col s6 m3">
 				<select id="filtroDescuento" name="d">
 					<option value="" disabled selected>Seleccione</option>
-					<option value="DESC">De menor a mayor descuento</option>
-					<option value="ASC">De mayor a menor descuento</option>
+					<option value="ASC">De menor a mayor descuento</option>
+					<option value="DESC">De mayor a menor descuento</option>
 				</select>
 				<label for="icon_password">Descuentos</label>
 			</div>
-			<div class="input-field col s3 m3">
+			<div class="input-field col s6 m3">
 				<div class="input-field col s12">
 					<button class="btn naranjo waves-effect waves-light col s12" type="submit"><i class="fa fa-filter"></i> Filtrar</button>
 				</div>

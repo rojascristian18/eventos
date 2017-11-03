@@ -30,6 +30,11 @@ class AppHelper extends Helper
 		);
 	}
 
+	public function menuParam($param = '')
+	{
+		return (!empty($param) && isset($this->request->query['c']) && $param == $this->request->query['c']) ? true : false;
+	}
+
 	public function precio_bruto($precio = null, $iva = 19)
 	{
 		if (!is_null($precio)) {

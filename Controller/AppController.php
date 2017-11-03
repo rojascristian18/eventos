@@ -49,7 +49,7 @@ class AppController extends Controller
 		if ( ! isset($this->request->params['prefix']) ) {
 			
 			# Borar en producción
-			# $this->Session->delete('Todo');
+			#$this->Session->delete('Todo');
 			$this->verificarEvento();
 
 			if (!empty($this->Session->read('Todo'))) {
@@ -224,6 +224,13 @@ class AppController extends Controller
 
 
 			$this->set(compact('permisos', 'modulosDisponibles', 'tiendasList', 'titulo'));
+		}else{
+
+			// Camino de migas
+			$breadcrumbs	= BreadcrumbComponent::get();
+			if ( ! empty($breadcrumbs) ) {
+				$this->set(compact('breadcrumbs'));
+			}
 		}
 
 	}
@@ -582,7 +589,9 @@ class AppController extends Controller
 				'Evento.activo' => 1
 				),
 			'order' => array('Evento.created' => 'DESC'),
-			'contain' => array('Tienda')
+			'contain' => array('Tienda', 
+				'Pago' => array('order' => array('Pago.orden' => 'ASC'), 'conditions' => array('Pago.activo' => 1)), 
+				'Despacho' => array('order' => array('Despacho.orden' => 'ASC'), 'conditions' => array('Despacho.activo' => 1)))
 			)
 		);
 
@@ -597,6 +606,7 @@ class AppController extends Controller
 
 		#$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen'), $todo['Tienda']['db_configuracion']);
 
+		$this->cambiarDatasource(array('Producto', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico' ), $todo['Tienda']['db_configuracion']);
 		
 		# Categorias del evento
 		$todo['Categoria'] = ClassRegistry::init('Categoria')->find('all', array(
@@ -605,7 +615,8 @@ class AppController extends Controller
 				'Categoria.nombre_corto',
 				'Categoria.parent_id',
 				'Categoria.nombre', 
-				'Categoria.icono_imagen'
+				'Categoria.icono_imagen',
+				'Categoria.icono_texto'
 				),
 			'conditions' => array(
 				'Categoria.evento_id' => $todo['Evento']['id']
@@ -617,9 +628,13 @@ class AppController extends Controller
 						'ChildCategoria.parent_id',
 						'ChildCategoria.nombre_corto',
 						'ChildCategoria.nombre',
-						'ChildCategoria.icono_imagen'
+						'ChildCategoria.icono_imagen',
+						'ChildCategoria.icono_texto'
 					)
-				)
+				),
+				'Producto' => array(
+					'fields' => array('Producto.id_product')
+					)
 			),
 			'order' => array('Categoria.orden' => 'ASC')
 		));
@@ -639,8 +654,6 @@ class AppController extends Controller
 		$relProductos = ClassRegistry::init('EventosProducto')->find('all', array('conditions' => array('EventosProducto.evento_id' => $todo['Evento']['id'])));
 		
 		$todo['EventosProducto'] = $relProductos;
-
-		$this->cambiarDatasource(array('Producto', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico' ), $todo['Tienda']['db_configuracion']);
 		
 		$productos = ClassRegistry::init('Producto')->find('all', array(
     		'fields' => array(

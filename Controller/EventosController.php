@@ -114,7 +114,7 @@ class EventosController extends AppController
 				
 				$evento['Producto'] = $productos;
 			}
-			
+		
 			# Paso 1
 			if ($paso == 1) {
 				
@@ -151,7 +151,7 @@ class EventosController extends AppController
 			if ($paso == 2) {
 
 				if ( $this->request->is('post') || $this->request->is('put') )
-				{	
+				{	#prx($this->request->data);
 					if(!ClassRegistry::init('Categoria')->saveAll($this->request->data['Evento'], array('deep' => true))){
 						$this->Session->setFlash('Ocurrió un error al guardar la relación.', null, array(), 'danger');
 					}else{
@@ -643,52 +643,33 @@ class EventosController extends AppController
     }
 
 
-    public function ajax_get_products($limite = 10, $salto = 0)
-    {
-    	$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen'), $this->Session->read('Todo.Tienda.db_configuracion'));
-
-    	$marcasDisponibles = $this->Session->read('Todo.EventosMarca');
-    	$newMarcasDisponibles = array();
-
-   		
-    	$marcasFiltro = (isset($this->request->query['m']) && !empty($this->request->query['m'])) ? $this->request->query['m'] : array() ;
-    	$precioFiltro = (isset($this->request->query['p']) && !empty($this->request->query['p'])) ? $this->request->query['p'] : '' ;
-    	$descuentoFiltro = (isset($this->request->query['d']) && !empty($this->request->query['d'])) ? $this->request->query['d'] : 'ASC' ;
-
-    	# filtro marcas
-    	if (!empty($marcasFiltro)) {
-    		foreach ($marcasDisponibles as $in => $dis) {
-				if (in_array($dis['EventosMarca']['id'], $marcasFiltro)) {
-					foreach ($dis['MarcasFabricante'] as $k => $idFabricante) {
-						$newMarcasDisponibles[] = $idFabricante['id_manufacturer'];	
-					}
-				}
-			}
-    	}else{
-    		foreach ($marcasDisponibles as $in => $dis) {
-				foreach ($dis['MarcasFabricante'] as $k => $idFabricante) {
-					$newMarcasDisponibles[] = $idFabricante['id_manufacturer'];	
-				}
-			}
+    public function product($slug = '')
+    {	
+    	if (empty($slug)) {
+    		$this->redirect(array('controller' => 'eventos', 'action' => 'index'));
     	}
-    	
-    	$productos = array();
 
-		# Host de imagenes
+    	$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen', 'Especificacion', 'EspecificacionIdioma', 'EspecificacionProducto', 'EspecificacionValorProducto', 'EspecificacionValor', 'EspecificacionValorIdioma'), $this->Session->read('Todo.Tienda.db_configuracion'));
+
+    	$piezas = explode('-', $slug);
+
+    	$idProducto = intval(array_pop($piezas));
+
+    	# Host de imagenes
 		$baul = 'https://' . $this->Session->read('Todo.Tienda.url');
 		
 		if (!empty($this->Session->read('Todo.Evento.host_imagenes'))) {
 			$baul	= 'http://' . $this->Session->read('Todo.Evento.host_imagenes');
 		}
 
-		if (!empty($this->Session->read('Todo.EventosProducto'))) {
-			$productos = ClassRegistry::init('Producto')->find('all', array(
+    	$producto = ClassRegistry::init('Producto')->find('first', array(
 				'fields' => array(
 					'Producto.id_product',
 					'Producto.id_manufacturer',
 					'Producto.id_tax_rules_group',
 					'Producto.quantity',
 					'Producto.price',
+					'PrecioEspecifico.reduction',
 					'Producto.reference',
 					'Producto.id_tax_rules_group',
 	    			'GrupoReglaImpuesto.id_tax_rules_group',
@@ -696,12 +677,12 @@ class EventosController extends AppController
 	    			'Impuesto.id_tax',
 	    			'Impuesto.rate',
 	    			'Impuesto.active',
+	    			'ProductosIdioma.id_product',
 	    			'ProductosIdioma.link_rewrite',
 	    			'ProductosIdioma.name'
 					),
 				'conditions' => array(
-					'Producto.id_product' => Hash::extract($this->Session->read('Todo.EventosProducto'), '{n}.EventosProducto.id_product'),
-					'Producto.id_manufacturer' => array_unique($newMarcasDisponibles)
+					'Producto.id_product' => $idProducto
 					),
 				'joins' => array(
 	    			array(
@@ -736,28 +717,14 @@ class EventosController extends AppController
 	    				'conditions' => array(
 	    					'Producto.id_product = ProductosIdioma.id_product'
 	    					)
-	    				)
-	    			),
-				'contain' => array(
-					'Imagen' => array(
-						'fields' => array(
-							'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'-home_default.jpg\' ) AS url_image_thumb',
-							'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'.jpg\' ) AS url_image_large',
-							'position',
-							'cover'
-							),
-						'order' => array(
-							'Imagen.position' => 'ASC'
-							)
-						),
-					'Fabricante',
-					'Categoria',
-					'PrecioEspecifico' => array(
-						'fields' => array(
-							'PrecioEspecifico.reduction'
-							),
-						'conditions' => array(
-							'OR' => array(
+	    				),
+	    			array(
+	    				'table' => sprintf('%sspecific_price', $this->Session->read('Todo.Tienda.prefijo')),
+	    				'alias' => 'PrecioEspecifico',
+	    				'type' 	=> 'LEFT',
+	    				'conditions' => array(
+	    					'Producto.id_product = PrecioEspecifico.id_product',
+	    					'OR' => array(
 								array(
 									'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
 									'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
@@ -775,9 +742,240 @@ class EventosController extends AppController
 									'PrecioEspecifico.to' => '0000-00-00 00:00:00'
 								)
 							)
-						)
-					)
+	    					)
+	    				)
+	    			),
+				'contain' => array(
+					'Imagen' => array(
+						'fields' => array(
+							'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'-home_default.jpg\' ) AS url_image_thumb',
+							'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'.jpg\' ) AS url_image_large',
+							'position',
+							'cover'
+							),
+						'order' => array(
+							'Imagen.position' => 'ASC'
+							)
+						),
+					'Fabricante',
+					'Categoria',
+					'Especificacion' => array('Idioma'),
+					'EspecificacionValor' => array('Idioma')
 				),
+			));
+			
+			$marca = ClassRegistry::init('MarcasFabricante')->find('first', array(
+				'conditions' => array(
+					'MarcasFabricante.id_manufacturer' => $producto['Producto']['id_manufacturer']
+					),
+				'contain' => array(
+					'EventosMarca'
+					)
+			));
+
+
+			# Marcas del producto
+			$producto['MarcasFabricante'] = $marca;
+
+
+			# Precios del producto
+			if ( !isset($producto['Impuesto']['rate']) ) {
+				$producto['Producto']['valor_iva'] = $producto['Producto']['price'];	
+			}else{
+				$producto['Producto']['valor_iva'] = $this->precio($producto['Producto']['price'], $producto['Impuesto']['rate']);
+			}
+
+			$producto['Producto']['valor_final'] = $producto['Producto']['valor_iva'];
+
+			// Retornar último precio espeficico según criterio del producto
+			if (isset($producto['PrecioEspecifico']['reduction'])) {
+				if ( $producto['PrecioEspecifico']['reduction'] == 0 ) {
+					$producto['Producto']['valor_final'] = $producto['Producto']['valor_iva'];
+
+				}else{
+
+					$producto['Producto']['valor_final'] = $this->precio($producto['Producto']['valor_iva'], ($producto['PrecioEspecifico']['reduction'] * 100 * -1) );
+					$producto['Producto']['descuento'] = ($producto['PrecioEspecifico']['reduction'] * 100 * -1 );
+
+				}	
+			}
+
+			$producto['Producto']['ahorras'] = '';
+
+			if (isset($producto['Producto']['descuento'])) {
+				$producto['Producto']['ahorras'] = $producto['Producto']['valor_iva'] - $producto['Producto']['valor_final'];
+			}
+
+		#prx($producto);
+		$this->set(compact('producto'));
+    	$this->render(sprintf('%s/product', $this->Session->read('Todo.Evento.nombre_tema')));
+    }
+
+
+    public function ajax_get_products($limite = 10, $salto = 0)
+    {
+    	$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen'), $this->Session->read('Todo.Tienda.db_configuracion'));
+
+		$productosEvento = Hash::extract($this->Session->read('Todo.EventosProducto'), '{n}.EventosProducto.id_product');
+
+    	$marcasDisponibles = $this->Session->read('Todo.EventosMarca');
+    	$newMarcasDisponibles = array();
+
+    	$categoriasDisponibles = $this->Session->read('Todo.Categoria');
+    	$newProductosDisponibles = array();
+    	
+    	$marcasFiltro = (isset($this->request->query['m']) && !empty($this->request->query['m'])) ? $this->request->query['m'] : array() ;
+    	$precioFiltro = (isset($this->request->query['p']) && !empty($this->request->query['p'])) ? explode('-', $this->request->query['p']) : array(0, 111111111111 ) ;
+    	$descuentoFiltro = (isset($this->request->query['d']) && !empty($this->request->query['d'])) ? $this->request->query['d'] : 'DESC' ;
+    	$categoriasFiltro = (isset($this->request->query['c']) && !empty($this->request->query['c'])) ? $this->request->query['c'] : '' ;
+
+
+    	# filtro marcas
+    	if (!empty($marcasFiltro)) {
+    		foreach ($marcasDisponibles as $in => $dis) {
+				if (in_array($dis['EventosMarca']['id'], $marcasFiltro)) {
+					foreach ($dis['MarcasFabricante'] as $k => $idFabricante) {
+						$newMarcasDisponibles[] = $idFabricante['id_manufacturer'];	
+					}
+				}
+			}
+    	}else{
+    		foreach ($marcasDisponibles as $in => $dis) {
+				foreach ($dis['MarcasFabricante'] as $k => $idFabricante) {
+					$newMarcasDisponibles[] = $idFabricante['id_manufacturer'];	
+				}
+			}
+    	}
+
+
+    	# filtro categorias
+    	if (!empty($categoriasFiltro)) {    		
+
+    		foreach ($categoriasDisponibles as $ic => $cat) {
+				if ( $cat['Categoria']['nombre_corto'] == strtolower($categoriasFiltro)) {
+					foreach ($cat['Producto'] as $ip => $idProducto) {
+						if (in_array($idProducto['id_product'], $productosEvento)) {
+							$newProductosDisponibles[] = $idProducto['id_product'];
+						}
+					}	
+				}
+			}
+			
+			$productosEvento = $newProductosDisponibles;
+    	}
+    	
+    	
+    	$productos = array();
+    	
+		# Host de imagenes
+		$baul = 'https://' . $this->Session->read('Todo.Tienda.url');
+		
+		if (!empty($this->Session->read('Todo.Evento.host_imagenes'))) {
+			$baul	= 'http://' . $this->Session->read('Todo.Evento.host_imagenes');
+		}
+
+		if (!empty($this->Session->read('Todo.EventosProducto'))) {
+			$productos = ClassRegistry::init('Producto')->find('all', array(
+				'fields' => array(
+					'Producto.id_product',
+					'Producto.id_manufacturer',
+					'Producto.id_tax_rules_group',
+					'Producto.quantity',
+					'Producto.price',
+					'PrecioEspecifico.reduction',
+					'Producto.reference',
+					'Producto.id_tax_rules_group',
+	    			'GrupoReglaImpuesto.id_tax_rules_group',
+	    			'ReglaImpuesto.id_tax',
+	    			'Impuesto.id_tax',
+	    			'Impuesto.rate',
+	    			'Impuesto.active',
+	    			'ProductosIdioma.id_product',
+	    			'ProductosIdioma.link_rewrite',
+	    			'ProductosIdioma.name'
+					),
+				'conditions' => array(
+					'Producto.id_product' => $productosEvento,
+					'Producto.id_manufacturer' => array_unique($newMarcasDisponibles),
+					'if( !ISNULL(`PrecioEspecifico`.`reduction`) , ROUND(ROUND(Producto.price*1.19) * (round(PrecioEspecifico.reduction, 2) - 1) * -1), ROUND(Producto.price*1.19) ) BETWEEN ? AND ?' => $precioFiltro
+					),
+				'joins' => array(
+	    			array(
+	    				'table' => sprintf('%stax_rules_group', $this->Session->read('Todo.Tienda.prefijo')),
+	    				'alias' => 'GrupoReglaImpuesto',
+	    				'type' 	=> 'LEFT',
+	    				'conditions' => array(
+	    					'Producto.id_tax_rules_group = GrupoReglaImpuesto.id_tax_rules_group'
+	    					)
+	    				),
+	    			array(
+	    				'table' => sprintf('%stax_rule', $this->Session->read('Todo.Tienda.prefijo')),
+	    				'alias' => 'ReglaImpuesto',
+	    				'type' 	=> 'LEFT',
+	    				'conditions' => array(
+	    					'GrupoReglaImpuesto.id_tax_rules_group = ReglaImpuesto.id_tax_rules_group'
+	    					)
+	    				),
+	    			array(
+	    				'table' => sprintf('%stax', $this->Session->read('Todo.Tienda.prefijo')),
+	    				'alias' => 'Impuesto',
+	    				'type' 	=> 'LEFT',
+	    				'conditions' => array(
+	    					'ReglaImpuesto.id_tax = Impuesto.id_tax',
+	    					'Impuesto.active' => 1
+	    					)
+	    				),
+	    			array(
+	    				'table' => sprintf('%sproduct_lang', $this->Session->read('Todo.Tienda.prefijo')),
+	    				'alias' => 'ProductosIdioma',
+	    				'type' 	=> 'LEFT',
+	    				'conditions' => array(
+	    					'Producto.id_product = ProductosIdioma.id_product'
+	    					)
+	    				),
+	    			array(
+	    				'table' => sprintf('%sspecific_price', $this->Session->read('Todo.Tienda.prefijo')),
+	    				'alias' => 'PrecioEspecifico',
+	    				'type' 	=> 'LEFT',
+	    				'conditions' => array(
+	    					'Producto.id_product = PrecioEspecifico.id_product',
+	    					'OR' => array(
+								array(
+									'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
+									'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
+								),
+								array(
+									'PrecioEspecifico.from' => '0000-00-00 00:00:00',
+									'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
+								),
+								array(
+									'PrecioEspecifico.from' => '0000-00-00 00:00:00',
+									'PrecioEspecifico.to' => '0000-00-00 00:00:00'
+								),
+								array(
+									'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
+									'PrecioEspecifico.to' => '0000-00-00 00:00:00'
+								)
+							)
+	    					)
+	    				)
+	    			),
+				'contain' => array(
+					'Imagen' => array(
+						'fields' => array(
+							'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'-home_default.jpg\' ) AS url_image_thumb',
+							'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'.jpg\' ) AS url_image_large',
+							'position',
+							'cover'
+							),
+						'order' => array(
+							'Imagen.position' => 'ASC'
+							)
+						),
+					'Fabricante',
+					'Categoria'
+				),
+				'order' => array('PrecioEspecifico.reduction' => $descuentoFiltro),
 				'limit' => $limite,
 				'offset' => $salto
 			));
@@ -804,16 +1002,16 @@ class EventosController extends AppController
 				$productos[$ix]['Producto']['valor_final'] = $productos[$ix]['Producto']['valor_iva'];
 
 				// Retornar último precio espeficico según criterio del producto
-				foreach ($producto['PrecioEspecifico'] as $precio) {
-					if ( $precio['reduction'] == 0 ) {
+				if (isset($producto['PrecioEspecifico']['reduction'])) {
+					if ( $producto['PrecioEspecifico']['reduction'] == 0 ) {
 						$productos[$ix]['Producto']['valor_final'] = $productos[$ix]['Producto']['valor_iva'];
 
 					}else{
 
-						$productos[$ix]['Producto']['valor_final'] = $this->precio($productos[$ix]['Producto']['valor_iva'], ($precio['reduction'] * 100 * -1) );
-						$productos[$ix]['Producto']['descuento'] = ($precio['reduction'] * 100 * -1 );
+						$productos[$ix]['Producto']['valor_final'] = $this->precio($productos[$ix]['Producto']['valor_iva'], ($producto['PrecioEspecifico']['reduction'] * 100 * -1) );
+						$productos[$ix]['Producto']['descuento'] = ($producto['PrecioEspecifico']['reduction'] * 100 * -1 );
 
-					}
+					}	
 				}
 
 				# Marcas del producto
@@ -836,9 +1034,10 @@ class EventosController extends AppController
 		}
 
 		# Ordenamos por descuento
-		$productos = Hash::sort($productos, '{n}.Producto.descuento', $descuentoFiltro, 'numeric' );
-		
-		
+		#$productos = Hash::sort($productos, '{n}.Producto.descuento', $descuentoFiltro, 'numeric' );
+		#$log = ClassRegistry::init('Producto')->getDataSource()->getLog(false, false);
+		#debug($log);
+		#prx($productos);
 		$this->layout = 'ajax';
 		
 		$this->set(compact('productos'));

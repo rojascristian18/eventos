@@ -67,6 +67,38 @@ Class Producto extends AppModel {
 			'finderQuery'			=> '',
 			'deleteQuery'			=> '',
 			'insertQuery'			=> ''
+		),
+		'Especificacion' => array(
+			'className'				=> 'Especificacion',
+			'joinTable'				=> 'feature_product',
+			'foreignKey'			=> 'id_product',
+			'associationForeignKey'	=> 'id_feature',
+			'unique'				=> true,
+			'conditions'			=> '',
+			'fields'				=> '',
+			'order'					=> '',
+			'limit'					=> '',
+			'offset'				=> '',
+			'with'					=> 'EspecificacionProducto',
+			'finderQuery'			=> '',
+			'deleteQuery'			=> '',
+			'insertQuery'			=> ''
+		),
+		'EspecificacionValor' => array(
+			'className'				=> 'EspecificacionValor',
+			'joinTable'				=> 'feature_product',
+			'foreignKey'			=> 'id_product',
+			'associationForeignKey'	=> 'id_feature_value',
+			'unique'				=> true,
+			'conditions'			=> '',
+			'fields'				=> '',
+			'order'					=> '',
+			'limit'					=> '',
+			'offset'				=> '',
+			'with'					=> 'EspecificacionValorProducto',
+			'finderQuery'			=> '',
+			'deleteQuery'			=> '',
+			'insertQuery'			=> ''
 		)
 	);
 

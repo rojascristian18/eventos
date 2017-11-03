@@ -122,4 +122,35 @@ class CategoriasController extends AppController
 			exit;
 		}
 	}
+
+
+
+	public function view()
+	{
+		if (empty($this->request->query['c'])) {
+			$this->redirect(array('controller' => 'eventos', 'action' => 'index'));
+		}
+
+		$categoria = $this->Categoria->find('first', array(
+			'conditions' => array(
+				'Categoria.nombre_corto' => strtolower($this->request->query['c']),
+				'Categoria.activo' => 1
+				),
+			'contain' => array('ParentCategoria', 'Producto')
+		));
+
+		if (empty($categoria)) {
+			$this->redirect(array('controller' => 'eventos', 'action' => 'index'));
+		}
+
+		BreadcrumbComponent::add($this->Session->read('Todo.Evento.nombre'), '/');
+		if (!empty($categoria['Categoria']['parent_id'])) {
+			BreadcrumbComponent::add($categoria['ParentCategoria']['nombre'], '?c'. $categoria['ParentCategoria']['nombre_corto'] );
+		}
+		BreadcrumbComponent::add($categoria['Categoria']['nombre']);
+		
+		$this->set(compact('categoria'));
+		$this->render(sprintf('%s/view', $this->Session->read('Todo.Evento.nombre_tema')));
+
+	}
 }

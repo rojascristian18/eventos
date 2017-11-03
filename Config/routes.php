@@ -3,8 +3,8 @@
 Router::connect('/', array('controller' => 'eventos', 'action' => 'index'));
 Router::connect('/categorias/actualizar_orden_categorias', array('controller' => 'categorias', 'action' => 'actualizar_orden_categorias'));
 
-Router::connect('/categorias/:slug', array('controller' => 'categorias', 'action' => 'view'), array('pass' => array('slug')) );
-Router::connect('/productos/:slug', array('controller' => 'productos', 'action' => 'view'), array('pass' => array('slug')) );
+Router::connect('/categorias/view?c=:slug', array('controller' => 'categorias', 'action' => 'view'), array('pass' => array('slug')) );
+Router::connect('/product/:slug', array('controller' => 'eventos', 'action' => 'product'), array('pass' => array('slug')) );
 
 Router::connect('/admin', array('controller' => 'administradores', 'action' => 'index', 'admin' => true));
 Router::connect('/admin/login', array('controller' => 'administradores', 'action' => 'login', 'admin' => true));
