@@ -9813,3 +9813,280 @@ Stack Trace:
 #3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2017-11-05 15:52:44 Error: [MissingControllerException] Controller class AsdController could not be found.
+Exception Attributes: array (
+  'class' => 'AsdController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/asd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-05 15:55:53 Error: [MissingControllerException] Controller class AsdController could not be found.
+Exception Attributes: array (
+  'class' => 'AsdController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/asd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-05 15:56:35 Error: [MissingControllerException] Controller class AsdController could not be found.
+Exception Attributes: array (
+  'class' => 'AsdController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/asd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-05 16:04:19 Error: [MissingControllerException] Controller class AsdController could not be found.
+Exception Attributes: array (
+  'class' => 'AsdController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/asd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-05 16:04:31 Error: [MissingControllerException] Controller class AsdController could not be found.
+Exception Attributes: array (
+  'class' => 'AsdController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/asd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-05 16:06:51 Error: Fatal Error (4): syntax error, unexpected '404' (T_LNUMBER), expecting identifier (T_STRING) in [C:\wamp64\www\eventos\Controller\EventosController.php, line 622]
+2017-11-05 16:06:51 Error: [InternalErrorException] Internal Server Error
+Request URL: /eventos/as
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 622)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 622, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 622, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-05 16:07:12 Error: Fatal Error (4): syntax error, unexpected '404' (T_LNUMBER), expecting identifier (T_STRING) in [C:\wamp64\www\eventos\Controller\EventosController.php, line 622]
+2017-11-05 16:07:12 Error: [InternalErrorException] Internal Server Error
+Request URL: /eventos/as
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 622)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 622, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 622, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-05 16:07:42 Error: [MissingViewException] View file "Eventos\not_found.ctp" is missing.
+Exception Attributes: array (
+  'file' => 'Eventos\\not_found.ctp',
+)
+Request URL: /eventos/as
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\View\View.php(470): View->_getViewFileName(NULL)
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#4 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#5 {main}
+2017-11-05 16:24:34 Error: [MissingControllerException] Controller class AsdController could not be found.
+Exception Attributes: array (
+  'class' => 'AsdController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/asd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-05 16:24:51 Error: Fatal Error (1): Using $this when not in object context in [C:\wamp64\www\eventos\Config\routes.php, line 13]
+2017-11-05 16:24:51 Error: [InternalErrorException] Internal Server Error
+Request URL: /eventos/asd
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(1, 'Using $this whe...', 'C:\\wamp64\\www\\e...', 13)
+#1 [internal function]: ErrorHandler::handleError(1, 'Using $this whe...', 'C:\\wamp64\\www\\e...', 13, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 1, 'Using $this whe...', 'C:\\wamp64\\www\\e...', 13, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-05 16:30:03 Error: [MissingControllerException] Controller class AsController could not be found.
+Exception Attributes: array (
+  'class' => 'AsController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/as
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-05 16:32:41 Error: [MissingControllerException] Controller class ProductController could not be found.
+Exception Attributes: array (
+  'class' => 'ProductController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/product/bosch-cepillo-82-mm-710w-16500-rpm-26-kg-cod-gho-26-82-1230aasdasd/asdasds
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-05 16:38:00 Error: Fatal Error (4): syntax error, unexpected ')' in [C:\wamp64\www\eventos\Controller\EventosController.php, line 667]
+2017-11-05 16:38:00 Error: [InternalErrorException] Internal Server Error
+Request URL: /eventos/eventos/product?b=a
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 667)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 667, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 667, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-05 16:38:23 Error: Fatal Error (4): syntax error, unexpected ')' in [C:\wamp64\www\eventos\Controller\EventosController.php, line 667]
+2017-11-05 16:38:23 Error: [FatalErrorException] syntax error, unexpected ')'
+Request URL: /eventos/eventos/product?b=a
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 667)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 667, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 667, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-05 16:58:40 Error: [MissingControllerException] Controller class CybermondayController could not be found.
+Exception Attributes: array (
+  'class' => 'CybermondayController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/cybermonday/js/plugins/perfect-scrollbar/perfect-scrollbar.min.css
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-05 17:06:05 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [2002] Se produjo un error durante el intento de conexión ya que la parte conectada no respondió adecuadamente tras un periodo de tiempo, o bien se produjo un error en la conexión establecida ya que el host conectado no ha podido responder.
+',
+  'enabled' => true,
+)
+Request URL: /eventos/eventos/ajax_get_products/10/10?b=at
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3626): ConnectionManager::getDataSource('default')
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3653): Model->setSource('eventos')
+#5 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3031): Model->getDataSource()
+#6 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3003): Model->_readDataSource('first', Array)
+#7 C:\wamp64\www\eventos\Controller\AppController.php(543): Model->find('first', Array)
+#8 C:\wamp64\www\eventos\Controller\AppController.php(53): AppController->verificarEvento()
+#9 [internal function]: AppController->beforeFilter(Object(CakeEvent))
+#10 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Event\CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#11 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(676): CakeEventManager->dispatch(Object(CakeEvent))
+#12 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(189): Controller->startupProcess()
+#13 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#14 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-11-05 17:09:31 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+',
+  'enabled' => true,
+)
+Request URL: /eventos/eventos/index?b=at
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3626): ConnectionManager::getDataSource('default')
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3653): Model->setSource('eventos')
+#5 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3031): Model->getDataSource()
+#6 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3003): Model->_readDataSource('first', Array)
+#7 C:\wamp64\www\eventos\Controller\AppController.php(543): Model->find('first', Array)
+#8 C:\wamp64\www\eventos\Controller\AppController.php(53): AppController->verificarEvento()
+#9 [internal function]: AppController->beforeFilter(Object(CakeEvent))
+#10 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Event\CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#11 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(676): CakeEventManager->dispatch(Object(CakeEvent))
+#12 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(189): Controller->startupProcess()
+#13 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#14 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-11-05 17:09:33 Error: [MissingControllerException] Controller class 'imgController could not be found.
+Exception Attributes: array (
+  'class' => '\'imgController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/%20'img/publico/nodiza-favicon.png
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-05 17:09:49 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+',
+  'enabled' => true,
+)
+Request URL: /eventos/eventos/index?b=at
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3626): ConnectionManager::getDataSource('default')
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3653): Model->setSource('eventos')
+#5 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3031): Model->getDataSource()
+#6 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3003): Model->_readDataSource('first', Array)
+#7 C:\wamp64\www\eventos\Controller\AppController.php(543): Model->find('first', Array)
+#8 C:\wamp64\www\eventos\Controller\AppController.php(53): AppController->verificarEvento()
+#9 [internal function]: AppController->beforeFilter(Object(CakeEvent))
+#10 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Event\CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#11 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(676): CakeEventManager->dispatch(Object(CakeEvent))
+#12 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(189): Controller->startupProcess()
+#13 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#14 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-11-05 17:10:07 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+',
+  'enabled' => true,
+)
+Request URL: /eventos/eventos/index?b=at
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3626): ConnectionManager::getDataSource('default')
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3653): Model->setSource('eventos')
+#5 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3031): Model->getDataSource()
+#6 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3003): Model->_readDataSource('first', Array)
+#7 C:\wamp64\www\eventos\Controller\AppController.php(543): Model->find('first', Array)
+#8 C:\wamp64\www\eventos\Controller\AppController.php(53): AppController->verificarEvento()
+#9 [internal function]: AppController->beforeFilter(Object(CakeEvent))
+#10 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Event\CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#11 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(676): CakeEventManager->dispatch(Object(CakeEvent))
+#12 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(189): Controller->startupProcess()
+#13 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#14 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}
+2017-11-05 17:10:13 Error: [MissingConnectionException] Database connection "Mysql" is missing, or could not be created.
+Exception Attributes: array (
+  'class' => 'Mysql',
+  'message' => 'SQLSTATE[HY000] [2002] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+',
+  'enabled' => true,
+)
+Request URL: /eventos/eventos/index?b=at
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(260): Mysql->connect()
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\ConnectionManager.php(105): DboSource->__construct(Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3626): ConnectionManager::getDataSource('default')
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(1155): Model->setDataSource('default')
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3653): Model->setSource('eventos')
+#5 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3031): Model->getDataSource()
+#6 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(3003): Model->_readDataSource('first', Array)
+#7 C:\wamp64\www\eventos\Controller\AppController.php(543): Model->find('first', Array)
+#8 C:\wamp64\www\eventos\Controller\AppController.php(53): AppController->verificarEvento()
+#9 [internal function]: AppController->beforeFilter(Object(CakeEvent))
+#10 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Event\CakeEventManager.php(243): call_user_func(Array, Object(CakeEvent))
+#11 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(676): CakeEventManager->dispatch(Object(CakeEvent))
+#12 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(189): Controller->startupProcess()
+#13 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#14 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#15 {main}

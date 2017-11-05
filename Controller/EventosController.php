@@ -659,6 +659,11 @@ class EventosController extends AppController
 
     public function product($slug = '')
     {	
+    	
+    	if (isset($this->request->query['b'])) {
+    		$this->redirect(array('controller' => 'eventos', 'action' => 'index?b='.$this->request->query['b']));
+    	}
+
     	if (empty($slug)) {
     		$this->redirect(array('controller' => 'eventos', 'action' => 'index'));
     	}

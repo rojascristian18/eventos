@@ -14,22 +14,17 @@
     <!-- Favicons-->
     <link rel="apple-touch-icon-precomposed" href="<?= $this->webroot . 'img/' . $todo['Evento']['favicon']['apple'];?>">
     <!-- For iPhone -->
-    <meta name="msapplication-TileColor" content="#00bcd4">
+    <meta name="msapplication-TileColor" content="#F55A00">
     <meta name="msapplication-TileImage" content="<?= $this->webroot . 'img/' . $todo['Evento']['favicon']['window'];?>">
     <!-- For Windows Phone -->
     
     <!-- CORE CSS--> 
     <?= $this->Html->css(sprintf('/%s/css/materialize.min.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
-    <?= $this->Html->css(sprintf('/%s/css/style.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
+    <?= $this->Html->css(sprintf('/%s/css/style.min.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
 
     <!-- Custome CSS-->    
-    <?= $this->Html->css(sprintf('/%s/css/custom/custom.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
+    <?= $this->Html->css(sprintf('/%s/css/custom/custom.min.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
 
-    <!-- INCLUDED PLUGIN CSS ON THIS PAGE -->
-    <!--<?= $this->Html->css(sprintf('/%s/js/plugins/perfect-scrollbar/perfect-scrollbar.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
-    <link href="/eventos/webroot/DESKTOP-9COL73V/js/plugins/perfect-scrollbar/perfect-scrollbar.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="/eventos/webroot/DESKTOP-9COL73V/js/plugins/jvectormap/jquery-jvectormap.css" type="text/css" rel="stylesheet" media="screen,projection">
-    <link href="/eventos/webroot/DESKTOP-9COL73V/js/plugins/chartist-js/chartist.min.css" type="text/css" rel="stylesheet" media="screen,projection">-->
     <?= $this->fetch('css'); ?>
 
     <?= $this->Html->scriptBlock("var webroot = '{$this->webroot}';"); ?>
@@ -38,31 +33,24 @@
     <script type="text/javascript">
         var productosJson = <?=$todo['Producto']['json'];?>
     </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-60312245-7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-60312245-7');
+    </script>
 </head>
-
 <body>
-    <!-- Start Page Loading 
-    <div id="loader-wrapper">
-        <div id="loader"></div>        
-        <div class="loader-section section-left"></div>
-        <div class="loader-section section-right"></div>
-    </div>-->
-    <!-- End Page Loading -->
-
-    <!-- //////////////////////////////////////////////////////////////////////////// -->
     <?=$this->element( sprintf('%s/header', $todo['Evento']['nombre_tema']) ); ?>
-    
-
-    <!-- //////////////////////////////////////////////////////////////////////////// -->
-
     <!-- START MAIN -->
     <div id="main">
         <!-- START WRAPPER -->
         <div class="wrapper">
-
             <?=$this->element( sprintf('%s/menu', $todo['Evento']['nombre_tema']) ); ?>
-
-            <!-- //////////////////////////////////////////////////////////////////////////// -->
             <!-- START CONTENT -->
             <section id="content">
                 <!-- Search for small screen -->
@@ -72,12 +60,9 @@
                     <input type="text" name="b" class="header-search-input z-depth-2" placeholder="Busca tu herramienta o accesorio">
                 <?= $this->Form->end(); ?>
                 </div>
-
                 <?= $this->fetch('content'); ?>
-            
             </section>
             <!-- END CONTENT -->
-
             <!-- Floating Action Button -->
             <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
                 <a class="btn-floating btn-large yellow darken-3 pulse">
@@ -95,30 +80,19 @@
                 </ul>
             </div>
             <!-- Floating Action Button -->
-
         </div>
         <!-- END WRAPPER -->
-
     </div>
     <!-- END MAIN -->
-
-
-
-    <!-- //////////////////////////////////////////////////////////////////////////// -->
-
     <?=$this->element( sprintf('%s/footer', $todo['Evento']['nombre_tema']) ); ?>
-
-
     <?= $this->Html->script(array(
         sprintf('/%s/js/plugins/jquery-1.11.2.min.js', $todo['Evento']['nombre_tema']),
         sprintf('/%s/js/materialize.min.js', $todo['Evento']['nombre_tema']),
         sprintf('/%s/js/plugins/perfect-scrollbar/perfect-scrollbar.min.js', $todo['Evento']['nombre_tema']),
-        sprintf('/%s/js/custom-script.js', $todo['Evento']['nombre_tema']),
+        sprintf('/%s/js/custom-script.min.js', $todo['Evento']['nombre_tema']),
     )); ?>
     <?= $this->fetch('script'); ?>
-
     <!-- Custome CSS-->    
-    <?= $this->Html->css(sprintf('/%s/css/font-awesome.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
+    <?= $this->Html->css(sprintf('/%s/css/font-awesome.min.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
 </body>
-
 </html>

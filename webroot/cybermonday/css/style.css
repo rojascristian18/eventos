@@ -477,7 +477,7 @@ input.header-search-input:focus {
   box-shadow: none !important;
 }
 
-.header-search-wrapper-focus i {
+.header-search-wrapper i.active {
   color: #444;
 }
 
@@ -567,38 +567,7 @@ input.header-search-input:focus {
   padding: 4px 5px;
 }
 
-#notifications-dropdown h5 {
-  font-size: 1rem;
-  text-transform: capitalize;
-  font-weight: 500;
-}
 
-#notifications-dropdown li {
-  padding: 10px;
-  font-size: 1rem;
-}
-
-#notifications-dropdown li > a {
-  padding: 0;
-  font-size: 1rem;
-  font-weight: 300;
-}
-
-#notifications-dropdown li > a > i {
-  display: inline-block;
-  font-size: 1.2rem;
-  position: relative;
-  top: 4px;
-}
-
-#notifications-dropdown li > time {
-  font-size: 0.8rem;
-  font-weight: 400;
-}
-
-#notifications-dropdown li.divider {
-  padding: 0;
-}
 
 /*=================================================================================
     Sidebar
@@ -671,7 +640,6 @@ ul.side-nav.leftside-navigation li a {
 }
 
 ul.side-nav.leftside-navigation li.user-details {
-  background: url("../images/user-bg.jpg") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -761,72 +729,6 @@ ul.side-nav .collapsible-header {
 
 .rightside-navigation {
   overflow: hidden;
-}
-
-/*----------------------------------------
-    Right Chat Slideout
-------------------------------------------*/
-#right-search .input-field {
-  margin-top: 0;
-}
-
-#chat-out .collapsible-header {
-  background-color: transparent;
-  border: none;
-  line-height: 45px;
-  height: 45px;
-  font-weight: 400;
-}
-
-#chat-out .collapsible-header:after {
-  color: #fff;
-}
-
-#chat-out .chat-out-list {
-  padding: 5px;
-  margin: 0;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-#chat-out .favorite-associate-list .circle {
-  -moz-border-radius: 50px;
-  -webkit-border-radius: 50px;
-  border-radius: 50px;
-  border: 2px solid #999;
-  padding: 3px;
-  display: block;
-}
-
-#chat-out .favorite-associate-list .online-user {
-  border: 2px solid #00e676;
-}
-
-#chat-out .favorite-associate-list p {
-  padding: 0;
-}
-
-#chat-out .favorite-associate-list p.place {
-  font-size: 0.8rem;
-}
-
-#chat-out .recent-activity-list-icon {
-  margin-top: 8px;
-  font-size: 2rem;
-}
-
-#chat-out .recent-activity-list-text a {
-  font-size: 0.8rem;
-  padding: 0;
-  font-weight: 600;
-}
-
-#chat-out .recent-activity-list-text p {
-  font-size: 0.9rem;
-  padding: 0;
-}
-
-.chat-close-collapse {
-  padding: 5px 15px 0 0;
 }
 
 /* =================================================================================

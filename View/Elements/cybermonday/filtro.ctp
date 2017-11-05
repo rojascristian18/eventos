@@ -1,4 +1,7 @@
 <?= $this->Form->create('Filtro', array('type' => 'get', 'url' => array('controller' => $this->request->params['controller'], 'action' => $this->request->params['action']), 'inputDefaults' => array('div' => false, 'label' => false))); ?>
+<? if (isset($this->request->query['c'])) :  ?>
+<input type="hidden" name="c" value="<?=$this->request->query['c'];?>">
+<? endif; ?>
 <div id="filtro">
 	<div class="container">
 		<div class="row">
