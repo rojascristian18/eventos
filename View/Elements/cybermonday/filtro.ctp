@@ -3,13 +3,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="input-field col s6 m3">
-				<select id="filtroMarcas" multiple name="m[]">
+				<select id="filtroMarcas" name="m[]" multiple>
 					<option value="" disabled selected>Seleccione</option>
 					<? foreach ($todo['EventosMarca'] as $ix => $marca) : ?>
 						<option value="<?=$marca['EventosMarca']['id'];?>"><?=$marca['EventosMarca']['nombre'];?></option>
 					<? endforeach; ?>
 				</select>
-	            <label><?=__('Marcas');?></label>
+	            <label for="filtroMarcas"><?=__('Marcas');?></label>
 			</div>
 			<div class="input-field col s6 m3">
 				<select id="filtroPrecios" name="p">
@@ -18,7 +18,7 @@
 						<option value="<?=$ip;?>"><?=$precio; ?></option>
 					<? endforeach; ?>
 				</select>
-				<label for="icon_password">Precio</label>
+				<label for="filtroPrecios">Precio</label>
 			</div>
 			<div class="input-field col s6 m3">
 				<select id="filtroDescuento" name="d">
@@ -26,7 +26,7 @@
 					<option value="ASC">De menor a mayor descuento</option>
 					<option value="DESC">De mayor a menor descuento</option>
 				</select>
-				<label for="icon_password">Descuentos</label>
+				<label for="filtroDescuento">Descuentos</label>
 			</div>
 			<div class="input-field col s6 m3">
 				<div class="input-field col s12">
@@ -64,3 +64,6 @@
 	   filtroDescuento = "<?=$this->request->query['d'];?>";
 	</script>		
 <? endif; ?>
+
+<div id="cantidad-resultados">
+</div>

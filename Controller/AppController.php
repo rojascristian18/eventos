@@ -49,9 +49,9 @@ class AppController extends Controller
 		if ( ! isset($this->request->params['prefix']) ) {
 			
 			# Borar en producción
-			#$this->Session->delete('Todo');
+			# $this->Session->delete('Todo');
 			$this->verificarEvento();
-
+			
 			if (!empty($this->Session->read('Todo'))) {
 
 				$f_inicio 	= $this->Session->read('Todo.Evento.fecha_inicio');
@@ -606,7 +606,7 @@ class AppController extends Controller
 
 		#$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen'), $todo['Tienda']['db_configuracion']);
 
-		$this->cambiarDatasource(array('Producto', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico' ), $todo['Tienda']['db_configuracion']);
+		$this->cambiarDatasource(array('Producto', 'ReglaImpuesto', 'Imagen','GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico' ), $todo['Tienda']['db_configuracion']);
 		
 		# Categorias del evento
 		$todo['Categoria'] = ClassRegistry::init('Categoria')->find('all', array(
@@ -654,6 +654,13 @@ class AppController extends Controller
 		$relProductos = ClassRegistry::init('EventosProducto')->find('all', array('conditions' => array('EventosProducto.evento_id' => $todo['Evento']['id'])));
 		
 		$todo['EventosProducto'] = $relProductos;
+
+		# Host de imagenes
+		$baul = 'https://' . $todo['Tienda']['url'];
+		
+		if (!empty($todo['Evento']['host_imagenes'])) {
+			$baul	= 'http://' . $todo['Evento']['host_imagenes'];
+		}
 		
 		$productos = ClassRegistry::init('Producto')->find('all', array(
     		'fields' => array(
@@ -664,9 +671,19 @@ class AppController extends Controller
     			'ReglaImpuesto.id_tax',
     			'Impuesto.id_tax',
     			'Impuesto.rate',
-    			'Impuesto.active'
+    			'Impuesto.active',
+    			'ProductosIdioma.name',
+
     			),
     		'joins' => array(
+    			array(
+    				'table' => sprintf('%sproduct_lang', $this->Session->read('Todo.Tienda.prefijo')),
+    				'alias' => 'ProductosIdioma',
+    				'type' 	=> 'LEFT',
+    				'conditions' => array(
+    					'Producto.id_product = ProductosIdioma.id_product'
+    					)
+    				),
     			array(
     				'table' => sprintf('%stax_rules_group', $todo['Tienda']['prefijo']),
     				'alias' => 'GrupoReglaImpuesto',
@@ -714,17 +731,31 @@ class AppController extends Controller
 								'PrecioEspecifico.to' => '0000-00-00 00:00:00'
 							)
 						)
-					))
+					)),
+				'Imagen' => array(
+					'fields' => array(
+						'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'-home_default.jpg\' ) AS url_image_thumb',
+						'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'.jpg\' ) AS url_image_large',
+						'position',
+						'cover'
+						),
+					'order' => array(
+						'Imagen.position' => 'ASC',
+						'Imagen.cover = 1'
+						)
+					)
     			),
     		'conditions' => array(
     			'Producto.id_product' => Hash::extract($relProductos, '{n}.EventosProducto.id_product')
     			)	
     		)
     	);
-		
+
 		#debug(ClassRegistry::init('Producto')->getDataSource()->getLog(false, false));
-		
+
 		foreach ($productos as $ix => $producto) {
+
+			$todo['Producto']['json'][$producto['ProductosIdioma']['name']] = $producto['Imagen'][0]['Imagen'][0]['url_image_thumb'];
 
 			# Precios del producto
 			if ( !isset($producto['Impuesto']['rate']) ) {
@@ -748,7 +779,7 @@ class AppController extends Controller
 				}
 			}
 		}
-
+		$todo['Producto']['json'] = json_encode($todo['Producto']['json']);
 		$todo['Filtro']['rango_precios'] = $this->obtenerRangoPrecios($productos, 'valor_final');
 		
 		return (!empty($todo)) ? $todo : '';

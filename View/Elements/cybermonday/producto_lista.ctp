@@ -5,7 +5,6 @@
                 <a href="#" class="btn-floating btn-price waves-effect waves-light naranjo accent-2"><?=$producto['Producto']['descuento']?></a>
             <? endif; ?>
             
-            <a href="">
             <? if (!empty($producto['Imagen'])) : ?>
             <? foreach ($producto['Imagen'] as $im => $imagen) : ?>
                 <? if ($imagen['cover']) : ?>
@@ -15,7 +14,6 @@
             <? else : ?>
                 <img src="https://dummyimage.com/250x250/f2f2f2/4a4a4a&text=No+disponible" alt="product-img">
             <? endif; ?>
-            </a>
         </div>
         <ul class="card-action-buttons">
             <li>
@@ -26,14 +24,14 @@
             <div class="row">
                 <div class="col s12">
                     <p class="card-title grey-text text-darken-4"><a href="#" class="grey-text text-darken-4">
-                    	<?=$this->Text->truncate(
-						    $producto['ProductosIdioma']['name'],
-						    50,
-						    array(
-						        'ellipsis' => '...',
-						        'exact' => false
-						    )
-						); ?></a>
+                        <?=$this->Html->link($this->Text->truncate(
+                            $producto['ProductosIdioma']['name'],
+                            50,
+                            array(
+                                'ellipsis' => '...',
+                                'exact' => false
+                            )
+                        ), array('controller' => 'eventos', 'action' => 'product', 'slug' => sprintf('%s-%s', $producto['ProductosIdioma']['link_rewrite'], $producto['Producto']['id_product'])), array('escape' => false)); ?>
                     </p>
                 </div>
                 <div class="col s12 marca">

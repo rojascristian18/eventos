@@ -130,6 +130,8 @@ class CategoriasController extends AppController
 		if (empty($this->request->query['c'])) {
 			$this->redirect(array('controller' => 'eventos', 'action' => 'index'));
 		}
+		
+		$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen'), $this->Session->read('Todo.Tienda.db_configuracion'));
 
 		$categoria = $this->Categoria->find('first', array(
 			'conditions' => array(

@@ -34,7 +34,10 @@
 
     <?= $this->Html->scriptBlock("var webroot = '{$this->webroot}';"); ?>
     <?= $this->Html->scriptBlock("var fullwebroot = '{$this->Html->url('', true)}';"); ?>
-
+    
+    <script type="text/javascript">
+        var productosJson = <?=$todo['Producto']['json'];?>
+    </script>
 </head>
 
 <body>
@@ -64,8 +67,10 @@
             <section id="content">
                 <!-- Search for small screen -->
                 <div class="header-search-wrapper grey hide-on-large-only">
+                <?= $this->Form->create('Buscar', array('type' => 'get', 'url' => array('controller' => $this->request->params['controller'], 'action' => $this->request->params['action']), 'inputDefaults' => array('div' => false, 'label' => false))); ?>
                     <i class="mdi-action-search active"></i>
-                    <input type="text" name="Search" class="header-search-input z-depth-2" placeholder="Explore Materialize">
+                    <input type="text" name="b" class="header-search-input z-depth-2" placeholder="Busca tu herramienta o accesorio">
+                <?= $this->Form->end(); ?>
                 </div>
 
                 <?= $this->fetch('content'); ?>
@@ -107,6 +112,7 @@
     <?= $this->Html->script(array(
         sprintf('/%s/js/plugins/jquery-1.11.2.min.js', $todo['Evento']['nombre_tema']),
         sprintf('/%s/js/materialize.min.js', $todo['Evento']['nombre_tema']),
+        sprintf('/%s/js/plugins/perfect-scrollbar/perfect-scrollbar.min.js', $todo['Evento']['nombre_tema']),
         sprintf('/%s/js/custom-script.js', $todo['Evento']['nombre_tema']),
     )); ?>
     <?= $this->fetch('script'); ?>
