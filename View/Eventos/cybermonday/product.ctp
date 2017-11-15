@@ -33,9 +33,9 @@
              $principal .= "</div>";
           ?>   
           <? endif; ?>
-          <?# $mini .= '<div class="mini col s3">';
-            # $mini .=  $this->Html->image($imagen['Imagen'][0]['url_image_thumb'], array('class' => 'responsive-img', 'data-full' => $imagen['Imagen'][0]['url_image_large']));
-            # $mini .= '</div>'; ?>
+          <? $mini .= '<div class="mini col s3">';
+             $mini .=  $this->Html->image($imagen['Imagen'][0]['url_image_thumb'], array('class' => 'responsive-img', 'data-full' => $imagen['Imagen'][0]['url_image_large']));
+             $mini .= '</div>'; ?>
           <? endforeach; ?>
           <?=$principal;?>
           <?=$mini;?>
@@ -53,8 +53,8 @@
             <div class="col s6 m6">
               <span class="brand">
                 <b><?=__('Marca:'); ?></b> 
-                <? if(isset($producto['MarcasFabricante']['EventosMarca']['imagen'])) : 
-                    echo $this->Html->image( sprintf('/img/EventosMarca/%d/%s', $producto['MarcasFabricante']['EventosMarca']['id'], $producto['MarcasFabricante']['EventosMarca']['imagen']), array('alt' => $producto['MarcasFabricante']['EventosMarca']['nombre'], 'class' => 'responsive-img') );
+                <? if(isset($producto['EventosMarca']['nombre'])) : 
+                    echo $producto['EventosMarca']['nombre'];
                   else : 
                     echo 'No especificado';
                   endif; ?>
@@ -145,11 +145,13 @@
 
         <!-- btn more info -->
         <div class="btn-more-info">
-          <div class="row">
-            <div class="col s12">
-              <?=$producto['ProductosIdioma']['description_short']; ?>
+          <div class="row valign-wrapper">
+            <div class="col s12 m6 valign-wrapper">
+              <? if(isset($producto['EventosMarca']['imagen'])) : 
+                    echo $this->Html->image($producto['EventosMarca']['imagen']['path'], array('class' => 'responsive-img'));
+                  endif; ?>
             </div>
-            <div class="col s12">
+            <div class="col s12 m6 valign-wrapper">
               <a class="grey-text text-darken-4 right" id="to-detail"><?=__('<i class="fa fa-list" aria-hidden="true"></i> Más Información');?></a>
             </div>
           </div>
@@ -180,7 +182,7 @@
           </div>
         <?= $this->Form->end(); ?>-->
           <div class="col s12">
-            <a href="<?=$producto['Producto']['url_final'];?>" class="btn waves-effect waves-light naranjo center-text z-depth-1 col s12" action="submit"><?=__('<i class="fa fa-shopping-bag" aria-hidden="true"></i> Comprar este producto');?></a>
+            <a href="<?=$producto['Producto']['url_final'];?>" class="btn waves-effect waves-light naranjo center-text z-depth-1 col s12" target="_blank"><?=__('<i class="fa fa-shopping-bag" aria-hidden="true"></i> Comprar en ' .$todo['Tienda']['nombre']);?></a>
           </div>
         </div>
       <? else : ?>

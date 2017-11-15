@@ -242,8 +242,8 @@ $.extend({
 				limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
 				onAutocomplete: function(val) {
 
-					console.log(val);
-				  	//$('.header-search-input:visible').parents('form').eq(0).submit();
+					//console.log(val);
+				  	$('.header-search-input:visible').parents('form').eq(0).submit();
 				},
 				minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
 			});
@@ -252,15 +252,15 @@ $.extend({
 		imagenes: {
 			bind: function(){
 
-				$('.img-product-container .mini').on('click', function(){
-
-					$('.img-product-container .mini').css('border', 'none');
+				$('.img-product-container .mini img').on('click', function(){
+					$este = $(this);
+					$('.img-product-container .mini img').css('border', 'none');
 					
-					$(this).css({
+					$este.css({
 						'border' : '1px solid #F55A00'
 					});
 					
-					$('.img-product-container .cover img').attr('src', $(this).data('full') );
+					$('.img-product-container .cover img').attr('src', $este.data('full') );
 
 				});
 			},
@@ -373,26 +373,32 @@ $.extend({
 						
 						if (respuesta.length < 2) {
 							finishR = true;
+
+							$.app.cargando.ocultar();
+							var htmlFinal = '<div class="col s12 center-align"><h6 class="grey-text lighten-2">No hay más resultados</h6></label></div>'
+							$('#products').append(htmlFinal);
+							$('#btn-load-more').html('');
+
+						}else{
+							$('#products').append(respuesta);
+
+							$('.product:hidden').fadeIn(0, function(){
+								$(this).children('.card').animate({
+									bottom: 0,
+									opacity: 1
+								}, 500);
+							});
+							
+							offset = offset + 10;
+							request = true;
+
+							//$.app.productos.obtenerCantidad();
+
+							var btn = '<button id="more-products" class="btn naranjo waves-effect waves-light col s12" type="submit"><i class="fa fa-refresh"></i> Cargar 10 herramientas más</button>';
+							$('#btn-load-more').html(btn);
+
+							$.app.cargando.ocultar();
 						}
-
-						$('#products').append(respuesta);
-
-						$('.product:hidden').fadeIn(0, function(){
-							$(this).children('.card').animate({
-								bottom: 0,
-								opacity: 1
-							}, 500);
-						});
-						
-						offset = offset + 10;
-						request = true;
-
-						//$.app.productos.obtenerCantidad();
-
-						var btn = '<button id="more-products" class="btn naranjo waves-effect waves-light col s12" type="submit"><i class="fa fa-refresh"></i> Cargar 10 herramientas más</button>';
-						$('#btn-load-more').html(btn);
-
-						$.app.cargando.ocultar();
 			      	})
 			      	.fail(function(){
 			      		$.app.cargando.ocultar();
@@ -414,7 +420,7 @@ $.extend({
 				// Carga inicial
 				// $.app.productos.obtenerProductos(limit, offset);
 
-				$(window).on('scroll', function(){
+				/*$(window).on('scroll', function(){
 					var y = $(this).scrollTop() + 210,
 						limitScroll = $('#products > .product').last().offset().top;
 					
@@ -422,7 +428,7 @@ $.extend({
 
 						//$.app.productos.obtenerProductos();
 					}
-				});
+				});*/
 			},
 			init: function(){
 				if ($('#products').length) {

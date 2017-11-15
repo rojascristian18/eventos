@@ -411,7 +411,7 @@ class Evento extends AppModel
 		}
 
 		$categorias = Cache::read('Categoria', 'todo');
-
+		
 		if (!$categorias) {
 			$categorias = ClassRegistry::init('Categoria')->find('all', array(
 				'fields' => array(

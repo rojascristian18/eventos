@@ -14,30 +14,25 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th><?=__('CATEGORIAS');?></th>
                                         <th><?=__('PRODUCTOS');?></th>
+                                        <th><?=__('CATEGORIAS');?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <? foreach($evento['Categoria'] as $ix => $categoria) : ?>
+                                    <? foreach ($evento['Producto'] as $i => $producto) : ?>
                                     <tr>
-                                        <td><b><?=$this->Form->hidden(sprintf('%d.Categoria.id', $ix), array('value' => $categoria['id']) ); ?><?=$categoria['nombre'];?></b></td>
+                                        <td><b><?=$this->Form->hidden(sprintf('%d.Producto.id_product', $i), array('value' => $producto['Producto']['id_product']) ); ?><?=$producto['Producto']['id_product']?>-<?=$producto['Idioma'][0]['ProductosIdioma']['name'];?></b></td>
                                         <td>
-                                            <select name="<?=sprintf('data[Evento][%d][Producto][Producto][]', $ix);?>" class="form-control select select-productos pull-right" data-live-search="true"  multiple="multiple">
-                                                <? foreach ($evento['Producto'] as $i => $producto) : ?>
-                                                    <option value="<?=$producto['Producto']['id_product'];?>">
-                                                        <?=$producto['Producto']['reference'];?> - <?=$this->Text->truncate(
-                                                        $producto['Idioma'][0]['ProductosIdioma']['name'],
-                                                        35,
-                                                        array(
-                                                            'ellipsis' => '...',
-                                                            'exact' => false
-                                                        ));?></option>
-                                                <? endforeach; ?>
+                                            <select name="<?=sprintf('data[Evento][%d][Categoria][]', $i);?>" class="form-control select select-productos pull-right" data-live-search="true"  multiple="multiple">
+                                            <? foreach($evento['Categoria'] as $ix => $categoria) : ?>
+                                                    <option value="<?=$categoria['id'];?>">
+                                                    <?=$categoria['nombre'];?></option>
+                                            <? endforeach; ?>
                                             </select>
                                         </td>
                                     </tr>
                                     <? endforeach; ?>
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -59,17 +54,17 @@
 </div>
 <?= $this->Form->end(); ?>
 
-<? foreach($evento['Categoria'] as $ix => $categoria) : ?>
+<? foreach($evento['Producto'] as $ix => $producto) : ?>
 <script type="text/javascript">
     var arr = [];
 
-    <? foreach ($evento['Producto'] as $i => $producto) : ?>
-        <? if ( !empty($categoria['Producto']) && in_array($producto['Producto']['id_product'] , Hash::extract($categoria['Producto'], '{n}.id_product') ) ) : ?>
-        arr.push(<?=$producto['Producto']['id_product'];?>);
+    <? foreach ($evento['Categoria'] as $i => $categoria) : ?>
+        <? if ( !empty($producto['Categoria']) && in_array($categoria['id'] , Hash::extract($producto['Categoria'], '{n}.id') ) ) : ?>
+        arr.push(<?=$categoria['id'];?>);
         <? endif; ?>
     <? endforeach; ?>
     console.log(arr);
-    $('select[name="data[Evento][<?=$ix;?>][Producto][Producto][]"]').val(arr);
+    $('select[name="data[Evento][<?=$ix;?>][Categoria][]"]').val(arr);
 
 </script>
 <? endforeach; ?>

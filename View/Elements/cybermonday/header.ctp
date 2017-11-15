@@ -14,7 +14,7 @@
                       <?= $this->Form->end(); ?>
                   </div>
                   <ul class="right carrito">
-                      <li><?=$this->Html->link('<span class="action-text hide-on-small-only">Ir al carrito de compras</span> <i class="mdi-action-shopping-cart"></i>', sprintf('https://%s/%s' , $todo['Tienda']['url'], 'carrito'), array('class' => 'waves-effect waves-block waves-light cart-button', 'escape' => false))?></li>
+                      <li><?=$this->Html->link('<span class="action-text hide-on-small-only">Ir al carrito de compras</span> <i class="mdi-action-shopping-cart"></i>', sprintf('https://%s/%s' , $todo['Tienda']['url'], 'carrito'), array('class' => 'waves-effect waves-block waves-light cart-button', 'escape' => false, 'target' => '_blank'))?></li>
                   </ul>
               </div>
           </nav>

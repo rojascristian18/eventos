@@ -88,7 +88,7 @@ class EventosController extends AppController
 			$evento = $this->Evento->find('first', array(
 				'conditions' => array('Evento.id' => $id),
 				'contain' => array(
-					'Categoria' => array('Producto', 'ChildCategoria'), 
+					'Categoria' => array('ChildCategoria'), 
 					'EventosMarca' => array('MarcasFabricante'), 
 					'EventosProducto'
 					)
@@ -109,11 +109,13 @@ class EventosController extends AppController
 					'conditions' => array(
 						'Producto.id_product' => Hash::extract($evento['EventosProducto'], '{n}.id_product')
 						),
-					'contain' => array('Idioma')
+					'contain' => array('Idioma', 'Categoria')
 				));
 				
 				$evento['Producto'] = $productos;
 			}
+
+			#prx($evento);
 		
 			# Paso 1
 			if ($paso == 1) {
@@ -138,10 +140,8 @@ class EventosController extends AppController
 				}
 				
 				$errorOut = '';
-				debug($grupoMarcas);
-				debug($productosEvento);
-				exit;
-				if (count($productosEvento) != count(Hash::extract($grupoMarcas, '{n}.productos')) )  {
+
+				if (count($productosEvento) != count(Hash::extract($grupoMarcas, '{n}.productos.{n}')) )  {
 					$errorOut = 'Existen productos sin su marca correspondiente. Por favor agregelas a la configuración del evento.';
 				}
 
@@ -154,11 +154,29 @@ class EventosController extends AppController
 
 				if ( $this->request->is('post') || $this->request->is('put') )
 				{	#prx($this->request->data);
-					if(!ClassRegistry::init('Categoria')->saveAll($this->request->data['Evento'], array('deep' => true))){
-						$this->Session->setFlash('Ocurrió un error al guardar la relación.', null, array(), 'danger');
+
+					$newData = array();
+
+					foreach ($this->request->data['Evento'] as $k => $v) {
+						if (isset($v['Categoria'])) {
+							foreach ($v['Categoria'] as $c => $cat) {
+								$newData[$k.$c]['CategoriasProducto']['categoria_id'] = $cat;
+								$newData[$k.$c]['CategoriasProducto']['id_product'] = $v['Producto']['id_product'];
+							}	
+						}
+					}
+
+					if(!ClassRegistry::init('CategoriasProducto')->deleteAll(array('CategoriasProducto.categoria_id' => Hash::extract($newData, '{n}.CategoriasProducto.categoria_id'))))
+					{
+						$this->Session->setFlash('No se logró actualizar la relación Productos- Categorias.', null, array(), 'danger');
+						
 					}else{
-						$this->Session->setFlash('Relación Categorias - Productos guardada con éxito.', null, array(), 'success');
-						$this->redirect(array('action' => 'steps', $id, 3));
+						if(!ClassRegistry::init('CategoriasProducto')->saveMany($newData)){
+							$this->Session->setFlash('Ocurrió un error al guardar la relación.', null, array(), 'danger');
+						}else{
+							$this->Session->setFlash('Relación Categorias - Productos guardada con éxito.', null, array(), 'success');
+							$this->redirect(array('action' => 'steps', $id, 3));
+						}
 					}
 				}
 
@@ -586,7 +604,7 @@ class EventosController extends AppController
 			$tabla = str_replace('[*REFERENCIA*]', $producto['Producto']['reference'] , $tabla);
 			$tabla = str_replace('[*NOMBRE*]', $producto['Idioma'][0]['ProductosIdioma']['name'] , $tabla);
 
-			$precio_normal 		= $this->Evento->precio_bruto($producto['Producto']['price'], $producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']);
+			$precio_normal 		= $this->precio_bruto($producto['Producto']['price'], $producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']);
 			
 			if ( ! empty($producto['PrecioEspecifico']) ) {
 				if ($producto['PrecioEspecifico'][0]['reduction'] == 0) {
@@ -594,7 +612,7 @@ class EventosController extends AppController
 					$tabla = str_replace('[*DESCUENTO*]', intval($producto['PrecioEspecifico'][0]['reduction']) , $tabla);
 					$tabla = str_replace('[*PRECIO_FINAL*]', CakeNumber::currency($precio_normal , 'CLP'), $tabla);
 				}else {
-					$precio_descuento	= $this->Evento->precio_bruto($precio_normal, ($producto['PrecioEspecifico'][0]['reduction'] * 100 * -1) );
+					$precio_descuento	= $this->precio_bruto($precio_normal, ($producto['PrecioEspecifico'][0]['reduction'] * 100 * -1) );
 					
 					$tabla = str_replace('[*PRECIO*]', CakeNumber::currency($precio_normal , 'CLP'), $tabla);
 					$tabla = str_replace('[*DESCUENTO*]', intval($producto['PrecioEspecifico'][0]['reduction'] * 100 * -1) , $tabla);
@@ -791,16 +809,33 @@ class EventosController extends AppController
 			),
 		));
 		
-		$marca = ClassRegistry::init('MarcasFabricante')->find('first', array(
-			'conditions' => array(
-				'MarcasFabricante.id_manufacturer' => $producto['Producto']['id_manufacturer']
+		#
+		# Marca
+		#
+		$marca = ClassRegistry::init('EventosMarca')->find('first', array(
+			'joins' => array(
+				array(
+    				'table' => 'marcas_fabricantes',
+    				'alias' => 'MarcasFabricante',
+    				'type' 	=> 'INNER',
+    				'conditions' => array(
+    					'EventosMarca.id = MarcasFabricante.eventos_marca_id',
+    					'MarcasFabricante.id_manufacturer' => $producto['Producto']['id_manufacturer']
+    					)
+    				)
 				),
-			'contain' => array(
-				'EventosMarca' => array('conditions' => array('EventosMarca.evento_id' => $evento['Evento']['id']))
+			'conditions' => array(
+				'EventosMarca.evento_id' => $evento['Evento']['id']
 				)
-		));
+			));
 
+		if (!empty($marca)) {
+			$producto['EventosMarca'] = $marca['EventosMarca'];
+		}
+
+		#	
 		# Precios del producto
+		#
 		if ( !isset($producto['Impuesto']['rate']) ) {
 			$producto['Producto']['valor_iva'] = $producto['Producto']['price'];	
 		}else{
@@ -828,8 +863,10 @@ class EventosController extends AppController
 			$producto['Producto']['ahorras'] = $producto['Producto']['valor_iva'] - $producto['Producto']['valor_final'];
 		}
 
+
+		#
 		# Ficha técnica
-    	
+    	#
     	$arrayEspecificacion = array('Especificacion' => array()); 
     	if (!empty($producto['Especificacion']) && !empty($producto['EspecificacionValor'])) {
     		
@@ -843,6 +880,21 @@ class EventosController extends AppController
     			}
     		}
     	}
+
+    	#
+    	# Ralacionados
+    	#
+    	$productosEvento = ClassRegistry::init('Evento')->getProducts();
+    	$relacionados = array();
+
+    	foreach ($productosEvento as $indice => $valor) {
+    		if (!empty($valor['Categoria'])) {
+    			if (Hash::contains($producto['Categoria'], $valor['Categoria'])) {
+	    			$relacionados[$indice] = $valor; 
+	    		}
+    		}
+    	}
+    	
 
     	$producto['Ficha'] = $arrayEspecificacion['Especificacion'];
 
@@ -923,6 +975,7 @@ class EventosController extends AppController
 		}
 
 		if (!empty($evento['EventosProducto'])) {
+
 			$productos = ClassRegistry::init('Producto')->find('all', array(
 				'fields' => array(
 					'Producto.id_product',
@@ -1020,9 +1073,7 @@ class EventosController extends AppController
 						'order' => array(
 							'Imagen.position' => 'ASC'
 							)
-						),
-					'Fabricante',
-					'Categoria'
+						)
 				),
 				'order' => array('PrecioEspecifico.reduction' => $descuentoFiltro),
 				'limit' => $limite,
@@ -1069,6 +1120,9 @@ class EventosController extends AppController
 						$productos[$ix]['MarcasFabricante'] = $marca;
 					}		
 				}
+
+				# URL Final
+				$productos[$ix]['Producto']['url_final'] = sprintf('https://%s/%s-%d.html', $evento['Tienda']['url'], $producto['ProductosIdioma']['link_rewrite'], $producto['Producto']['id_product']);
 				
 				# Filtro de precio
 				/*if (!empty($precioFiltro)) {

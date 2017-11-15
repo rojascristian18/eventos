@@ -10,19 +10,19 @@
                 <? if ($imagen['cover']) : ?>
                     <?=$this->Html->link(
                         $this->Html->image($imagen['Imagen'][0]['url_image_thumb'], array('class' => 'responsive-img image-product'))
-                        , array('controller' => 'eventos', 'action' => 'product', 'slug' => sprintf('%s-%s', $producto['ProductosIdioma']['link_rewrite'], $producto['Producto']['id_product'])), array('escape' => false));?>
+                        , $producto['Producto']['url_final'], array('escape' => false, 'target' => '_blank'));?>
                 <? endif; ?>
             <? endforeach; ?>
             <? else : ?>
                 <?=$this->Html->link(
                     '<img src="https://dummyimage.com/250x250/f2f2f2/4a4a4a&text=No+disponible" alt="product-img">'
-                    , array('controller' => 'eventos', 'action' => 'product', 'slug' => sprintf('%s-%s', $producto['ProductosIdioma']['link_rewrite'], $producto['Producto']['id_product'])), array('escape' => false));?>
+                    , $producto['Producto']['url_final'], array('escape' => false, 'target' => '_blank'));?>
                 
             <? endif; ?>
         </div>
         <ul class="card-action-buttons">
             <li>
-                <?=$this->Html->link('<i class="mdi-action-shopping-cart"></i>', array('controller' => 'eventos', 'action' => 'product', 'slug' => sprintf('%s-%s', $producto['ProductosIdioma']['link_rewrite'], $producto['Producto']['id_product'])), array('class' => 'btn-floating waves-effect waves-light naranjo', 'escape' => false)); ?>
+                <?=$this->Html->link('<i class="mdi-action-shopping-cart"></i>', $producto['Producto']['url_final'], array('class' => 'btn-floating waves-effect waves-light naranjo', 'escape' => false, 'target' => '_blank')); ?>
             </li>
         </ul>
         <div class="card-content">
@@ -36,7 +36,7 @@
                                 'ellipsis' => '...',
                                 'exact' => false
                             )
-                        ), array('controller' => 'eventos', 'action' => 'product', 'slug' => sprintf('%s-%s', $producto['ProductosIdioma']['link_rewrite'], $producto['Producto']['id_product'])), array('escape' => false)); ?>
+                        ), $producto['Producto']['url_final'], array('escape' => false, 'target' => '_blank')); ?>
                     </p>
                 </div>
                 <div class="col s12 marca">

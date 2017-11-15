@@ -38,4 +38,8 @@ class CategoriasProducto extends AppModel
 	/**
 	 * ASOCIACIONES
 	 */
+	public function beforeSave($options = array()) {
+
+		
+	}
 }
