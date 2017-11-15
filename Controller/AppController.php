@@ -36,10 +36,54 @@ class AppController extends Controller
 			'crumbs'		=> array(
 				array('Inicio', ''),
 			)
-		)
+		),
+		'Minifier.Minifier'
 		//'Facebook.Connect'	=> array('model' => 'Usuario'),
 		//'Facebook'
 	);
+
+	private function minificarCss($arr = array(), $ext = 'minify')
+	{
+		$extentioncss   = '';
+
+		if (Configure::read('debug') > 0 && $this->Session->check('Todo.Evento')) {
+
+			$arr = MinifierComponent::normalize($arr, $ext);
+
+	        if (MinifierComponent::minifyCSS($arr))
+	        {
+	            $extentioncss = '.' . $ext;
+	        }
+    	}
+
+        return $extentioncss;
+	}
+
+	private function minificarJs($arr = array(), $ext = 'minify')
+	{
+        $extentionjs    = '';
+
+        if (Configure::read('debug') > 0 && $this->Session->check('Todo.Evento')) {
+            
+            $arr = MinifierComponent::normalize($arr, $ext);
+
+            if (MinifierComponent::minifyJS($arr))
+            {
+                $extentioncss = '.' . $ext;
+            }
+        }
+
+        return $extentionjs;
+
+	}
+
+	public function deleteAllCache($keys = array())
+	{
+		foreach ($keys as $i => $v) {
+			Cache::delete($v, 'todo');
+		}
+
+	}
 
 	public function beforeFilter()
 	{	
@@ -47,25 +91,27 @@ class AppController extends Controller
 		 * Layout y permisos públicos
 		 */
 		if ( ! isset($this->request->params['prefix']) ) {
-			
-			# Borar en producción
-			# $this->Session->delete('Todo');
-			$this->verificarEvento();
-			
-			if (!empty($this->Session->read('Todo'))) {
 
-				$f_inicio 	= $this->Session->read('Todo.Evento.fecha_inicio');
-	    		$f_final 	= $this->Session->read('Todo.Evento.fecha_final');
+			# Borrar en producción
 
+			if ( !empty($this->verificarModificacionEvento()) ){
+
+				$evento = ClassRegistry::init('Evento')->getEvent();
+				
+				$f_inicio 	= $evento['Evento']['fecha_inicio'];
+	    		$f_final 	= $evento['Evento']['fecha_final'];
+	    		
 	    		# Verificar actividad
 	    		if (!$this->verificarActividadEvento($f_inicio, $f_final)) {
 	    			$this->request->params['controller'] = 'eventos';
 	    			$this->request->params['action'] = 'inactivo';
 	    		}else{
-	    			$this->layoutPath = $this->Session->read('Todo.Evento.nombre_tema');
+	    			$this->layoutPath = $evento['Evento']['nombre_tema'];
 	    		}
+
+	    		$todo = ClassRegistry::init('Evento')->getAllCookies();
 	    		
-				$this->set('todo', $this->Session->read('Todo'));
+				$this->set('todo', $todo);
 			}
 
 			$this->Auth->allow();
@@ -178,7 +224,6 @@ class AppController extends Controller
 				'edad'				=> $this->Session->read('edad')
 			), $this->Connect->authUser['Usuario']);
 		}
-
 		return true;
 	}
 
@@ -225,6 +270,26 @@ class AppController extends Controller
 
 			$this->set(compact('permisos', 'modulosDisponibles', 'tiendasList', 'titulo'));
 		}else{
+
+	        $jsFilesN = array(
+	        	sprintf('%swebroot\%s\js\jquery-1.11.2.min.js', APP, $this->Session->read('Todo.Evento.nombre_tema')),
+	        	sprintf('%swebroot\%s\js\materialize.js', APP, $this->Session->read('Todo.Evento.nombre_tema')),
+	        	sprintf('%swebroot\%s\js\plugins\perfect-scrollbar\perfect-scrollbar.min.js', APP, $this->Session->read('Todo.Evento.nombre_tema')),
+	        	sprintf('%swebroot\%s\js\custom-script.js', APP, $this->Session->read('Todo.Evento.nombre_tema'))
+	        	);
+
+	        $cssFilesN = array(
+	        	sprintf('%swebroot\%s\css\materialize.css', APP, $this->Session->read('Todo.Evento.nombre_tema')),
+	        	sprintf('%swebroot\%s\css\style.css', APP, $this->Session->read('Todo.Evento.nombre_tema')),
+	        	sprintf('%swebroot\%s\css\custom\custom.css', APP, $this->Session->read('Todo.Evento.nombre_tema'))
+	        	);
+
+			$cssExtencion = ""; #$this->minificarCss($cssFilesN, 'mini');
+			$jsExtencion = ""; #$this->minificarJs($jsFilesN, 'mini');
+			
+
+			$this->set('extentioncss', $cssExtencion);
+			$this->set('extentionjs', $jsExtencion);
 
 			// Camino de migas
 			$breadcrumbs	= BreadcrumbComponent::get();
@@ -528,363 +593,28 @@ class AppController extends Controller
 	}
 
 
-	public function verificarEvento()
+	public function verificarModificacionEvento()
 	{	
-		if (!$this->Session->check('Todo') || empty($this->Session->read('Todo'))) {
-			$this->Session->write('Todo', $this->obtenerEvento());
+		$evento = ClassRegistry::init('Evento')->getEvent();
+
+		if (!$evento) {
+			$evento = ClassRegistry::init('Evento')->getEvent();
 		}else{
 
 			$modificacion =  ClassRegistry::init('Evento')->find('first', array(
 				'conditions' => array(
-					'Evento.subdomino' => $this->getsubdominio()
+					'Evento.subdomino' => getsubdominio()
 					),
 				'fields' => array('modified')
 				)
 			);
 			
-			if ( strtotime($modificacion['Evento']['modified']) != strtotime($this->Session->read('Todo.Evento.modified')) ) {
-				$this->Session->write('Todo', $this->obtenerEvento());
+			if ( strtotime($modificacion['Evento']['modified']) != strtotime($evento['Evento']['modified']) ) {
+				Cache::delete('Evento', 'todo');
+				$evento = ClassRegistry::init('Evento')->getEvent();
 			}
 		}
+
+		return $evento;
 	}
-
-
-	public function obtenerEvento($limite = 5)
-	{	
-
-		$todo = array();
-
-		$todo = ClassRegistry::init('Evento')->find('first', array(
-			'fields' => array(
-				'Evento.id',
-				'Evento.nombre',
-				'Evento.subdomino',
-				'Evento.nombre_tema',
-				'Evento.host_imagenes',
-				'Evento.tienda_id',
-				'Evento.sub_titulo',
-				'Evento.logo',
-				'Evento.favicon',
-				'Evento.fono',
-				'Evento.email',
-				'Evento.fecha_inicio',
-				'Evento.fecha_final',
-				'Evento.imagen_inactivo',
-				'Evento.activo',
-				'Evento.mostrar_banners',
-				'Evento.mostrar_cuotas',
-				'Evento.cantidad_cuotas',
-				'Evento.informacion_adicional_productos',
-				'Evento.css_adicional',
-				'Evento.js_adicional',
-				'Evento.modified',
-				'Tienda.id',
-				'Tienda.db_configuracion',
-				'Tienda.nombre',
-				'Tienda.prefijo',
-				'Tienda.url'
-				),
-			'conditions' => array(
-				'Evento.subdomino' => $this->getsubdominio(),
-				'Evento.activo' => 1
-				),
-			'order' => array('Evento.created' => 'DESC'),
-			'contain' => array('Tienda', 
-				'Pago' => array('order' => array('Pago.orden' => 'ASC'), 'conditions' => array('Pago.activo' => 1)), 
-				'Despacho' => array('order' => array('Despacho.orden' => 'ASC'), 'conditions' => array('Despacho.activo' => 1)))
-			)
-		);
-
-		if (empty($todo) || empty($todo['Evento']['tienda_id']) || empty($todo['Evento']['subdomino']) || empty($todo['Evento']['nombre_tema'])) {
-			return;
-		}
-
-		# Configuración de la tienda
-		if (empty($todo['Tienda']['db_configuracion'])) {
-			return;
-		}
-
-		#$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen'), $todo['Tienda']['db_configuracion']);
-
-		$this->cambiarDatasource(array('Producto', 'ReglaImpuesto', 'Imagen','GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico' ), $todo['Tienda']['db_configuracion']);
-		
-		# Categorias del evento
-		$todo['Categoria'] = ClassRegistry::init('Categoria')->find('all', array(
-			'fields' => array(
-				'Categoria.id',
-				'Categoria.nombre_corto',
-				'Categoria.parent_id',
-				'Categoria.nombre', 
-				'Categoria.icono_imagen',
-				'Categoria.icono_texto'
-				),
-			'conditions' => array(
-				'Categoria.evento_id' => $todo['Evento']['id']
-				),
-			'contain' => array(
-				'ChildCategoria' => array(
-					'fields' => array(
-						'ChildCategoria.id',
-						'ChildCategoria.parent_id',
-						'ChildCategoria.nombre_corto',
-						'ChildCategoria.nombre',
-						'ChildCategoria.icono_imagen',
-						'ChildCategoria.icono_texto'
-					)
-				),
-				'Producto' => array(
-					'fields' => array('Producto.id_product')
-					)
-			),
-			'order' => array('Categoria.orden' => 'ASC')
-		));
-		
-		# Marcas
-		$todo['EventosMarca'] = ClassRegistry::init('EventosMarca')->find('all', array(
-			'conditions' => array(
-				'EventosMarca.evento_id' => $todo['Evento']['id']
-				),
-			'contain' => array(
-				'MarcasFabricante'
-				)
-			)
-		);
-
-		# Productos
-		$relProductos = ClassRegistry::init('EventosProducto')->find('all', array('conditions' => array('EventosProducto.evento_id' => $todo['Evento']['id'])));
-		
-		$todo['EventosProducto'] = $relProductos;
-
-		# Host de imagenes
-		$baul = 'https://' . $todo['Tienda']['url'];
-		
-		if (!empty($todo['Evento']['host_imagenes'])) {
-			$baul	= 'http://' . $todo['Evento']['host_imagenes'];
-		}
-		
-		$productos = ClassRegistry::init('Producto')->find('all', array(
-    		'fields' => array(
-    			'Producto.id_product',
-    			'Producto.price',
-    			'Producto.id_tax_rules_group',
-    			'GrupoReglaImpuesto.id_tax_rules_group',
-    			'ReglaImpuesto.id_tax',
-    			'Impuesto.id_tax',
-    			'Impuesto.rate',
-    			'Impuesto.active',
-    			'ProductosIdioma.name',
-
-    			),
-    		'joins' => array(
-    			array(
-    				'table' => sprintf('%sproduct_lang', $this->Session->read('Todo.Tienda.prefijo')),
-    				'alias' => 'ProductosIdioma',
-    				'type' 	=> 'LEFT',
-    				'conditions' => array(
-    					'Producto.id_product = ProductosIdioma.id_product'
-    					)
-    				),
-    			array(
-    				'table' => sprintf('%stax_rules_group', $todo['Tienda']['prefijo']),
-    				'alias' => 'GrupoReglaImpuesto',
-    				'type' 	=> 'LEFT',
-    				'conditions' => array(
-    					'Producto.id_tax_rules_group = GrupoReglaImpuesto.id_tax_rules_group'
-    					)
-    				),
-    			array(
-    				'table' => sprintf('%stax_rule', $todo['Tienda']['prefijo']),
-    				'alias' => 'ReglaImpuesto',
-    				'type' 	=> 'LEFT',
-    				'conditions' => array(
-    					'GrupoReglaImpuesto.id_tax_rules_group = ReglaImpuesto.id_tax_rules_group'
-    					)
-    				),
-    			array(
-    				'table' => sprintf('%stax', $todo['Tienda']['prefijo']),
-    				'alias' => 'Impuesto',
-    				'type' 	=> 'LEFT',
-    				'conditions' => array(
-    					'ReglaImpuesto.id_tax = Impuesto.id_tax',
-    					'Impuesto.active' => 1
-    					)
-    				)
-    			),
-    		'contain' => array(
-				'PrecioEspecifico' => array(
-					'conditions' => array(
-						'OR' => array(
-							array(
-								'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
-								'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
-							),
-							array(
-								'PrecioEspecifico.from' => '0000-00-00 00:00:00',
-								'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
-							),
-							array(
-								'PrecioEspecifico.from' => '0000-00-00 00:00:00',
-								'PrecioEspecifico.to' => '0000-00-00 00:00:00'
-							),
-							array(
-								'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
-								'PrecioEspecifico.to' => '0000-00-00 00:00:00'
-							)
-						)
-					)),
-				'Imagen' => array(
-					'fields' => array(
-						'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'-home_default.jpg\' ) AS url_image_thumb',
-						'concat(\'' . $baul . '/img/p/\',mid(Imagen.id_image,1,1),\'/\', if (length(Imagen.id_image)>1,concat(mid(Imagen.id_image,2,1),\'/\'),\'\'),if (length(Imagen.id_image)>2,concat(mid(Imagen.id_image,3,1),\'/\'),\'\'),if (length(Imagen.id_image)>3,concat(mid(Imagen.id_image,4,1),\'/\'),\'\'),if (length(Imagen.id_image)>4,concat(mid(Imagen.id_image,5,1),\'/\'),\'\'), Imagen.id_image, \'.jpg\' ) AS url_image_large',
-						'position',
-						'cover'
-						),
-					'order' => array(
-						'Imagen.position' => 'ASC',
-						'Imagen.cover = 1'
-						)
-					)
-    			),
-    		'conditions' => array(
-    			'Producto.id_product' => Hash::extract($relProductos, '{n}.EventosProducto.id_product')
-    			)	
-    		)
-    	);
-
-		#debug(ClassRegistry::init('Producto')->getDataSource()->getLog(false, false));
-
-		foreach ($productos as $ix => $producto) {
-
-			$todo['Producto']['json'][$producto['ProductosIdioma']['name']] = $producto['Imagen'][0]['Imagen'][0]['url_image_thumb'];
-
-			# Precios del producto
-			if ( !isset($producto['Impuesto']['rate']) ) {
-				$productos[$ix]['Producto']['valor_iva'] = $producto['Producto']['price'];	
-			}else{
-				$productos[$ix]['Producto']['valor_iva'] = $this->precio($producto['Producto']['price'], $producto['Impuesto']['rate']);
-			}
-
-			$productos[$ix]['Producto']['valor_final'] = $productos[$ix]['Producto']['valor_iva'];
-
-			// Retornar último precio espeficico según criterio del producto
-			foreach ($producto['PrecioEspecifico'] as $precio) {
-				if ( $precio['reduction'] == 0 ) {
-					$productos[$ix]['Producto']['valor_final'] = $productos[$ix]['Producto']['valor_iva'];
-
-				}else{
-
-					$productos[$ix]['Producto']['valor_final'] = $this->precio($productos[$ix]['Producto']['valor_iva'], ($precio['reduction'] * 100 * -1) );
-					$productos[$ix]['Producto']['descuento'] = ($precio['reduction'] * 100 * -1 );
-
-				}
-			}
-		}
-		$todo['Producto']['json'] = json_encode($todo['Producto']['json']);
-		$todo['Filtro']['rango_precios'] = $this->obtenerRangoPrecios($productos, 'valor_final');
-		
-		return (!empty($todo)) ? $todo : '';
-	}
-
-	public function getsubdominio()
-	{	
-		$dominio = $_SERVER['SERVER_NAME'];
-		if (!preg_match("~^(?:f|ht)tps?://~i", $dominio)) {
-            $dominio = $dominio;
-        }
-
-        $dominio = str_replace("www.", "", $dominio);
-	
-		$subdomino = substr($dominio, 0, strpos($dominio, '.') );
-
-		return $subdomino;
-	}
-
-
-	public function precio($precio = null, $iva = null) {
-		if ( !empty($precio) && !empty($iva)) {
-			// Se quitan los 00
-			$iva = intval($iva);
-
-			//Calculamos valor con IVA
-			$precio = ($precio + round( ( ($precio*$iva) / 100) ) );
-
-			return round($precio);
-		}
-	}
-
-	public function get_sliders($id_evento)
-	{
-		$sliders = ClassRegistry::init('Banner')->find('all', array(
-			'conditions' => array(
-				'Banner.evento_id' => $id_evento,
-				'Banner.activo' => 1
-				),
-			'order' => array('Banner.orden')
-		));
-
-		return $sliders;
-	}
-
-
-
-	/**
-     * Método que crea un arreglo con los valores rangoSinFormato : rangoFormateado
-     * Arma una lista de rangos segun el menor y el mayor valor del parámetro $campo 
-     * y su rango será definido por el parámetro $rango
-     * @param 		$campo 		String 		Nombre del campo que se obtendrán los precios
-     * @param 		$rango 		Int 		Intervalo entre los rangos de precios 
-     * @return 		Array
-     */
-    public function obtenerRangoPrecios($lista= array(), $campo = 'price', $rango = 100000)
-    {	
- 
-    	$preciosFinal = array_unique(Hash::extract($lista, sprintf('{n}.Producto.%s', $campo)));
-
-    	# Se quitan los decimales
-		foreach ($preciosFinal as $k => $precio) {
-			$preciosFinal[$k] = round($precio, 0);	
-		}
-
-		# Se ordena de menor a mayor
-		sort($preciosFinal);
-
-		# Variables para definir el rango
-		$primerValor = array_shift($preciosFinal);
-		$ultimoValor = array_pop($preciosFinal);
-
-		# Arreglo de rangos obtenidos 
-		$rangosArr = range($primerValor, $ultimoValor, $rango);
-		
-		$rangos = array();
-
-		foreach ($rangosArr as $k => $valor) {
-			if ($k == 0) {
-				$rangos[$k]['valor1'] = $valor;
-			}else{
-				$rangos[$k]['valor1'] = $valor+1;
-			}
-			
-			if (isset($rangosArr[$k+1])) {
-				$rangos[$k]['valor2'] = $rangosArr[$k+1];
-			}else{
-				$rangos[$k]['valor2'] = '+ más';
-			}
-		    
-		}
-
-		$nwRangos = array();
-		foreach ($rangos as $i => $rango) {
-			if (is_string($rango['valor2'])) {
-				$rangoVal = sprintf('%d-%d', $rango['valor1'], 10000000000);
-				$rangoTxt = sprintf('%s - %s', CakeNumber::currency($rango['valor1'], 'CLP'), $rango['valor2']);
-			}else{
-				$rangoVal = sprintf('%d-%d', $rango['valor1'], $rango['valor2']);
-				$rangoTxt = sprintf('%s - %s', CakeNumber::currency($rango['valor1'], 'CLP'), CakeNumber::currency($rango['valor2'], 'CLP'));
-			}
-
-			$nwRangos[$rangoVal] = $rangoTxt;
-		}
-		
-		return $nwRangos;
-    }
 }

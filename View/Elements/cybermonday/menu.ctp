@@ -13,7 +13,7 @@
                 <? if (empty($categoria['ChildCategoria']) && empty($categoria['Categoria']['parent_id']) ) : ?>
                 <li class="bold <?= ($this->Html->menuParam($categoria['Categoria']['nombre_corto']) ? 'active' : ''); ?>">
                     <?=$this->Html->link(
-                        sprintf('%s %s', $this->Html->image($categoria['Categoria']['icono_imagen']['path'], array('class' => 'icono-menu')) , $categoria['Categoria']['icono_texto']), 
+                        sprintf('%s %s', (!empty($categoria['Categoria']['icono_imagen'])) ? '<i class="' . $categoria['Categoria']['icono_imagen'] . '"></i>' : '' , $categoria['Categoria']['icono_texto']), 
                         array('controller' => 'categorias', 'action' => 'view', 'slug' => $categoria['Categoria']['nombre_corto']),
                         array('escape' => false));?>
                 </li>
@@ -21,19 +21,22 @@
                 <li class="no-padding">
                     <ul class="collapsible collapsible-accordion">
                         <li class="bold">
-                            <a class="collapsible-header waves-effect"><?= $this->Html->image($categoria['Categoria']['icono_imagen']['path'], array('class' => 'icono-menu')); ?> <?=$categoria['Categoria']['icono_texto']; ?></a>
+                            <a class="collapsible-header waves-effect">
+                                <?=(!empty($categoria['Categoria']['icono_imagen'])) ? '<i class="' . $categoria['Categoria']['icono_imagen'] . '"></i>' : ''; ?>
+                                <?=$categoria['Categoria']['icono_texto']; ?>
+                            </a>
                             <div class="collapsible-body">
                                 <ul>
                                     <li class="<?= ($this->Html->menuParam($categoria['Categoria']['nombre_corto']) ? 'active' : ''); ?>">
                                         <?=$this->Html->link(
-                                        sprintf('%s %s', $this->Html->image($categoria['Categoria']['icono_imagen']['path'], array('class' => 'icono-menu')) , $categoria['Categoria']['icono_texto'] ), 
+                                        $categoria['Categoria']['icono_texto'], 
                                         array('controller' => 'categorias', 'action' => 'view', 'slug' => $categoria['Categoria']['nombre_corto']),
                                         array('escape' => false));?>
                                     </li>
                                     <? foreach ($categoria['ChildCategoria'] as $ich => $hijo) : ?>
                                     <li class="<?= ($this->Html->menuParam($hijo['nombre_corto']) ? 'active' : ''); ?>">
                                         <?=$this->Html->link(
-                                        sprintf('%s %s', $this->Html->image(sprintf('Categoria/%d/%s', $hijo['id'], $hijo['icono_imagen']), array('class' => 'icono-menu')) , $hijo['icono_texto']), 
+                                        $hijo['icono_texto'], 
                                         array('controller' => 'categorias', 'action' => 'view', 'slug' => $hijo['nombre_corto']),
                                         array('escape' => false));?>
                                     </li>

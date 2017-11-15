@@ -1,12 +1,12 @@
 <div class="img-inactivo">
 	<div class="container">
 		<div class="row">
-			<div class="col s12 m6 offset-m3">
+			<div class="col s12 m6 offset-m6">
 				<div class="card">
 					<div class="card-image">
 						<?=$this->Html->image($todo['Evento']['imagen_inactivo']['path'], array('class' => 'responsive-img'));?>
 
-						<span class="card-title">Este evento no está activo</span>
+						<span class="card-title text-nodriza">Este evento no está activo</span>
 					</div>
 					<div class="card-content">
 						<p>Usted será redirigido a <?=$todo['Tienda']['nombre']; ?> en <span id="count"></span></p>
@@ -23,13 +23,13 @@
 
 <script type="text/javascript">
 	
-	var cont = 10;
+	var cont = 20;
 
 	var intervalo = setInterval(function(){
 		document.getElementById("count").innerHTML = cont;
 
 		if (cont == 0) {
-			window.location.href = "https://<?=$todo['Tienda']['url'];?>";
+			window.location.href = "<?=$url = (empty($todo['Evento']['url_redireccion'])) ? 'https://' . $todo['Tienda']['url'] : $todo['Evento']['url_redireccion'] ;?>";
 			clearInterval(intervalo);
 		}
 		cont--;

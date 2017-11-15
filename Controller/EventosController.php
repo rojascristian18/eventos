@@ -138,7 +138,9 @@ class EventosController extends AppController
 				}
 				
 				$errorOut = '';
-
+				debug($grupoMarcas);
+				debug($productosEvento);
+				exit;
 				if (count($productosEvento) != count(Hash::extract($grupoMarcas, '{n}.productos')) )  {
 					$errorOut = 'Existen productos sin su marca correspondiente. Por favor agregelas a la configuración del evento.';
 				}
@@ -303,9 +305,8 @@ class EventosController extends AppController
 		$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico'));
 
 		if ( $this->request->is('post') || $this->request->is('put') )
-		{	#prx($this->request->data);
+		{	#prx($this->request->data);			
 
-			#prx($this->request->data);
 			# Validar campos evento
 			$this->limpiarCampos('Evento', false, true);
 
@@ -347,6 +348,9 @@ class EventosController extends AppController
 
 			if ( $this->Evento->saveAll($this->request->data) )
 			{	
+				
+				ClassRegistry::init('Evento')->getProducts($this->request->data['Evento']['id']);
+
 				$this->continuarConfiguracionEvento($id, 'editado');
 			}
 			else
@@ -582,7 +586,7 @@ class EventosController extends AppController
 			$tabla = str_replace('[*REFERENCIA*]', $producto['Producto']['reference'] , $tabla);
 			$tabla = str_replace('[*NOMBRE*]', $producto['Idioma'][0]['ProductosIdioma']['name'] , $tabla);
 
-			$precio_normal 		= $this->precio_bruto($producto['Producto']['price'], $producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']);
+			$precio_normal 		= $this->Evento->precio_bruto($producto['Producto']['price'], $producto['GrupoReglaImpuesto']['ReglaImpuesto'][0]['Impuesto']['rate']);
 			
 			if ( ! empty($producto['PrecioEspecifico']) ) {
 				if ($producto['PrecioEspecifico'][0]['reduction'] == 0) {
@@ -590,7 +594,7 @@ class EventosController extends AppController
 					$tabla = str_replace('[*DESCUENTO*]', intval($producto['PrecioEspecifico'][0]['reduction']) , $tabla);
 					$tabla = str_replace('[*PRECIO_FINAL*]', CakeNumber::currency($precio_normal , 'CLP'), $tabla);
 				}else {
-					$precio_descuento	= $this->precio_bruto($precio_normal, ($producto['PrecioEspecifico'][0]['reduction'] * 100 * -1) );
+					$precio_descuento	= $this->Evento->precio_bruto($precio_normal, ($producto['PrecioEspecifico'][0]['reduction'] * 100 * -1) );
 					
 					$tabla = str_replace('[*PRECIO*]', CakeNumber::currency($precio_normal , 'CLP'), $tabla);
 					$tabla = str_replace('[*DESCUENTO*]', intval($producto['PrecioEspecifico'][0]['reduction'] * 100 * -1) , $tabla);
@@ -615,39 +619,39 @@ class EventosController extends AppController
      */
 
     public function inactivo()
-    {
-    	$this->render(sprintf('%s/no_evento', $this->Session->read('Todo.Evento.nombre_tema')));
+    {	
+    	$evento = ClassRegistry::init('Evento')->getEvent();
+   
+    	$this->render(sprintf('%s/no_evento', $evento['Evento']['nombre_tema']));
     }
 
     public function index()
     {	
-    	$this->getsubdominio();
+    	getsubdominio();
     	# Verifica existencia
-    	if ( ! $this->Session->check('Todo') ) {
+
+    	$evento = ClassRegistry::init('Evento')->getEvent();
+
+    	if ( ! $evento ) {
     		
     		$tiendas = ClassRegistry::init('Tienda')->find('all', array('conditions' => array('activo' => 1)));
     		$this->set(compact('tiendas'));
 
     	}else{
 
-    		$sliders = array();
-
-    		if ($this->Session->read('Todo.Evento.mostrar_banners')) {
-    			$sliders = $this->get_sliders($this->Session->read('Todo.Evento.id'));
-    		}
-    		
-    		$this->set(compact('sliders'));
-    		$this->render(sprintf('%s/index', $this->Session->read('Todo.Evento.nombre_tema')));
+    		$this->render(sprintf('%s/index', $evento['Evento']['nombre_tema']));
   
     	}
     }
 
     public function redireccionarComercio()
     {	
+    	$evento = ClassRegistry::init('Evento')->getEvent();
+
     	if ($this->request->is('post')) {
-    		$url = sprintf('https://%s/%s-%d.html?e_quantity=%d', $this->Session->read('Todo.Tienda.url'), $this->request->data['Comprar']['url'], $this->request->data['Comprar']['id'], $this->request->data['Comprar']['quantity']);
+    		$url = sprintf('https://%s/%s-%d.html?e_quantity=%d', $evento['Tienda']['url'], $this->request->data['Comprar']['url'], $this->request->data['Comprar']['id'], $this->request->data['Comprar']['quantity']);
     		$url .= '&e_backurl=' . Router::url('/', true);
-    		$url .= '&e_name='. $this->Session->read('Todo.Evento.nombre');
+    		$url .= '&e_name='. $evento['Evento']['nombre'];
     	
     		header('Location: ' . $url);
    			die();
@@ -668,17 +672,19 @@ class EventosController extends AppController
     		$this->redirect(array('controller' => 'eventos', 'action' => 'index'));
     	}
 
-    	$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen', 'Especificacion', 'EspecificacionIdioma', 'EspecificacionProducto', 'EspecificacionValorProducto', 'EspecificacionValor', 'EspecificacionValorIdioma'), $this->Session->read('Todo.Tienda.db_configuracion'));
+    	$evento = ClassRegistry::init('Evento')->getEvent();
+
+    	$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen', 'Especificacion', 'EspecificacionIdioma', 'EspecificacionProducto', 'EspecificacionValorProducto', 'EspecificacionValor', 'EspecificacionValorIdioma'), $evento['Tienda']['db_configuracion']);
 
     	$piezas = explode('-', $slug);
 
     	$idProducto = intval(array_pop($piezas));
 
     	# Host de imagenes
-		$baul = 'https://' . $this->Session->read('Todo.Tienda.url');
+		$baul = 'https://' . $evento['Tienda']['url'];
 		
-		if (!empty($this->Session->read('Todo.Evento.host_imagenes'))) {
-			$baul	= 'http://' . $this->Session->read('Todo.Evento.host_imagenes');
+		if (!empty($evento['Evento']['host_imagenes'])) {
+			$baul	= 'http://' . $evento['Evento']['host_imagenes'];
 		}
 
     	$producto = ClassRegistry::init('Producto')->find('first', array(
@@ -707,7 +713,7 @@ class EventosController extends AppController
 				),
 			'joins' => array(
     			array(
-    				'table' => sprintf('%stax_rules_group', $this->Session->read('Todo.Tienda.prefijo')),
+    				'table' => sprintf('%stax_rules_group', $evento['Tienda']['prefijo']),
     				'alias' => 'GrupoReglaImpuesto',
     				'type' 	=> 'LEFT',
     				'conditions' => array(
@@ -715,7 +721,7 @@ class EventosController extends AppController
     					)
     				),
     			array(
-    				'table' => sprintf('%stax_rule', $this->Session->read('Todo.Tienda.prefijo')),
+    				'table' => sprintf('%stax_rule', $evento['Tienda']['prefijo']),
     				'alias' => 'ReglaImpuesto',
     				'type' 	=> 'LEFT',
     				'conditions' => array(
@@ -723,7 +729,7 @@ class EventosController extends AppController
     					)
     				),
     			array(
-    				'table' => sprintf('%stax', $this->Session->read('Todo.Tienda.prefijo')),
+    				'table' => sprintf('%stax', $evento['Tienda']['prefijo']),
     				'alias' => 'Impuesto',
     				'type' 	=> 'LEFT',
     				'conditions' => array(
@@ -732,7 +738,7 @@ class EventosController extends AppController
     					)
     				),
     			array(
-    				'table' => sprintf('%sproduct_lang', $this->Session->read('Todo.Tienda.prefijo')),
+    				'table' => sprintf('%sproduct_lang', $evento['Tienda']['prefijo']),
     				'alias' => 'ProductosIdioma',
     				'type' 	=> 'LEFT',
     				'conditions' => array(
@@ -740,7 +746,7 @@ class EventosController extends AppController
     					)
     				),
     			array(
-    				'table' => sprintf('%sspecific_price', $this->Session->read('Todo.Tienda.prefijo')),
+    				'table' => sprintf('%sspecific_price', $evento['Tienda']['prefijo']),
     				'alias' => 'PrecioEspecifico',
     				'type' 	=> 'LEFT',
     				'conditions' => array(
@@ -790,20 +796,15 @@ class EventosController extends AppController
 				'MarcasFabricante.id_manufacturer' => $producto['Producto']['id_manufacturer']
 				),
 			'contain' => array(
-				'EventosMarca'
+				'EventosMarca' => array('conditions' => array('EventosMarca.evento_id' => $evento['Evento']['id']))
 				)
 		));
-
-
-		# Marcas del producto
-		$producto['MarcasFabricante'] = $marca;
-
 
 		# Precios del producto
 		if ( !isset($producto['Impuesto']['rate']) ) {
 			$producto['Producto']['valor_iva'] = $producto['Producto']['price'];	
 		}else{
-			$producto['Producto']['valor_iva'] = $this->precio($producto['Producto']['price'], $producto['Impuesto']['rate']);
+			$producto['Producto']['valor_iva'] = $this->Evento->precio($producto['Producto']['price'], $producto['Impuesto']['rate']);
 		}
 
 		$producto['Producto']['valor_final'] = $producto['Producto']['valor_iva'];
@@ -815,7 +816,7 @@ class EventosController extends AppController
 
 			}else{
 
-				$producto['Producto']['valor_final'] = $this->precio($producto['Producto']['valor_iva'], ($producto['PrecioEspecifico']['reduction'] * 100 * -1) );
+				$producto['Producto']['valor_final'] = $this->Evento->precio($producto['Producto']['valor_iva'], ($producto['PrecioEspecifico']['reduction'] * 100 * -1) );
 				$producto['Producto']['descuento'] = ($producto['PrecioEspecifico']['reduction'] * 100 * -1 );
 
 			}	
@@ -845,127 +846,30 @@ class EventosController extends AppController
 
     	$producto['Ficha'] = $arrayEspecificacion['Especificacion'];
 
+    	$producto['Producto']['url_final'] = sprintf('https://%s/%s-%d.html', $evento['Tienda']['url'], $producto['ProductosIdioma']['link_rewrite'], $producto['Producto']['id_product']);
+
 		$this->set(compact('producto'));
-    	$this->render(sprintf('%s/product', $this->Session->read('Todo.Evento.nombre_tema')));
+    	$this->render(sprintf('%s/product', $evento['Evento']['nombre_tema']));
     }
 
 
-    public function ajax_count_products()
-    {
-    	$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen'), $this->Session->read('Todo.Tienda.db_configuracion'));
-
-		$productosEvento = Hash::extract($this->Session->read('Todo.EventosProducto'), '{n}.EventosProducto.id_product');
-
-    	$marcasDisponibles = $this->Session->read('Todo.EventosMarca');
-    	$newMarcasDisponibles = array();
-
-    	$categoriasDisponibles = $this->Session->read('Todo.Categoria');
-    	$newProductosDisponibles = array();
-    	
-    	$marcasFiltro = (isset($this->request->query['m']) && !empty($this->request->query['m'])) ? $this->request->query['m'] : array() ;
-    	$precioFiltro = (isset($this->request->query['p']) && !empty($this->request->query['p'])) ? explode('-', $this->request->query['p']) : array(0, 111111111111 ) ;
-    	$descuentoFiltro = (isset($this->request->query['d']) && !empty($this->request->query['d'])) ? $this->request->query['d'] : 'DESC' ;
-    	$categoriasFiltro = (isset($this->request->query['c']) && !empty($this->request->query['c'])) ? $this->request->query['c'] : '' ;
-    	$buscar = (isset($this->request->query['b']) && !empty($this->request->query['b']) ) ? trim($this->request->query['b']) : '';
-
-    	# filtro marcas
-    	if (!empty($marcasFiltro)) {
-    		foreach ($marcasDisponibles as $in => $dis) {
-				if (in_array($dis['EventosMarca']['id'], $marcasFiltro)) {
-					foreach ($dis['MarcasFabricante'] as $k => $idFabricante) {
-						$newMarcasDisponibles[] = $idFabricante['id_manufacturer'];	
-					}
-				}
-			}
-    	}else{
-    		foreach ($marcasDisponibles as $in => $dis) {
-				foreach ($dis['MarcasFabricante'] as $k => $idFabricante) {
-					$newMarcasDisponibles[] = $idFabricante['id_manufacturer'];	
-				}
-			}
-    	}
-
-    	# filtro categorias
-    	if (!empty($categoriasFiltro)) {    		
-
-    		foreach ($categoriasDisponibles as $ic => $cat) {
-				if ( $cat['Categoria']['nombre_corto'] == strtolower($categoriasFiltro)) {
-					foreach ($cat['Producto'] as $ip => $idProducto) {
-						if (in_array($idProducto['id_product'], $productosEvento)) {
-							$newProductosDisponibles[] = $idProducto['id_product'];
-						}
-					}	
-				}
-			}
-			
-			$productosEvento = $newProductosDisponibles;
-    	}
-    	
-    	
-    	$productos = 0;
-
-		if (!empty($this->Session->read('Todo.EventosProducto'))) {
-			$productos = ClassRegistry::init('Producto')->find('count', array(
-				'conditions' => array(
-					'Producto.id_product' => $productosEvento,
-					'Producto.id_manufacturer' => array_unique($newMarcasDisponibles),
-					'ProductosIdioma.name LIKE' => '%' . $buscar . '%',
-					'if( !ISNULL(`PrecioEspecifico`.`reduction`) , ROUND(ROUND(Producto.price*1.19) * (round(PrecioEspecifico.reduction, 2) - 1) * -1), ROUND(Producto.price*1.19) ) BETWEEN ? AND ?' => $precioFiltro
-					),
-				'joins' => array(
-					array(
-	    				'table' => sprintf('%sproduct_lang', $this->Session->read('Todo.Tienda.prefijo')),
-	    				'alias' => 'ProductosIdioma',
-	    				'type' 	=> 'LEFT',
-	    				'conditions' => array(
-	    					'Producto.id_product = ProductosIdioma.id_product'
-	    					)
-	    				),
-					array(
-	    				'table' => sprintf('%sspecific_price', $this->Session->read('Todo.Tienda.prefijo')),
-	    				'alias' => 'PrecioEspecifico',
-	    				'type' 	=> 'LEFT',
-	    				'conditions' => array(
-	    					'Producto.id_product = PrecioEspecifico.id_product',
-	    					'OR' => array(
-								array(
-									'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
-									'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
-								),
-								array(
-									'PrecioEspecifico.from' => '0000-00-00 00:00:00',
-									'PrecioEspecifico.to >= "' . date('Y-m-d H:i:s') . '"'
-								),
-								array(
-									'PrecioEspecifico.from' => '0000-00-00 00:00:00',
-									'PrecioEspecifico.to' => '0000-00-00 00:00:00'
-								),
-								array(
-									'PrecioEspecifico.from <= "' . date('Y-m-d H:i:s') . '"',
-									'PrecioEspecifico.to' => '0000-00-00 00:00:00'
-								)
-							)
-	    					)
-	    				)
-					)
-			));
-		}
-
-		echo $productos;
-		exit;
-    }
+    
 
 
     public function ajax_get_products($limite = 10, $salto = 0)
-    {
-    	$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen'), $this->Session->read('Todo.Tienda.db_configuracion'));
+    {	
 
-		$productosEvento = Hash::extract($this->Session->read('Todo.EventosProducto'), '{n}.EventosProducto.id_product');
+    	$evento = ClassRegistry::init('Evento')->getEvent();
 
-    	$marcasDisponibles = $this->Session->read('Todo.EventosMarca');
+    	$this->cambiarDatasource(array('Producto', 'Fabricante', 'Idioma', 'ProductosIdioma', 'ReglaImpuesto', 'GrupoReglaImpuesto', 'Impuesto', 'PrecioEspecifico', 'Imagen'), $evento['Tienda']['db_configuracion']);
+
+		$productosEvento = Hash::extract($evento['EventosProducto'], '{n}.id_product');
+
+    	$marcasDisponibles = ClassRegistry::init('Evento')->getBrands();
+
     	$newMarcasDisponibles = array();
-
-    	$categoriasDisponibles = $this->Session->read('Todo.Categoria');
+    	
+    	$categoriasDisponibles = ClassRegistry::init('Evento')->getCategories();
     	$newProductosDisponibles = array();
     	
     	$marcasFiltro = (isset($this->request->query['m']) && !empty($this->request->query['m'])) ? $this->request->query['m'] : array() ;
@@ -1012,13 +916,13 @@ class EventosController extends AppController
     	$productos = array();
     	
 		# Host de imagenes
-		$baul = 'https://' . $this->Session->read('Todo.Tienda.url');
+		$baul = 'https://' . $evento['Tienda']['url'];
 		
-		if (!empty($this->Session->read('Todo.Evento.host_imagenes'))) {
-			$baul	= 'http://' . $this->Session->read('Todo.Evento.host_imagenes');
+		if (!empty($evento['Evento']['host_imagenes'])) {
+			$baul	= 'http://' . $evento['Evento']['host_imagenes'];
 		}
 
-		if (!empty($this->Session->read('Todo.EventosProducto'))) {
+		if (!empty($evento['EventosProducto'])) {
 			$productos = ClassRegistry::init('Producto')->find('all', array(
 				'fields' => array(
 					'Producto.id_product',
@@ -1046,7 +950,7 @@ class EventosController extends AppController
 					),
 				'joins' => array(
 	    			array(
-	    				'table' => sprintf('%stax_rules_group', $this->Session->read('Todo.Tienda.prefijo')),
+	    				'table' => sprintf('%stax_rules_group', $evento['Tienda']['prefijo']),
 	    				'alias' => 'GrupoReglaImpuesto',
 	    				'type' 	=> 'LEFT',
 	    				'conditions' => array(
@@ -1054,7 +958,7 @@ class EventosController extends AppController
 	    					)
 	    				),
 	    			array(
-	    				'table' => sprintf('%stax_rule', $this->Session->read('Todo.Tienda.prefijo')),
+	    				'table' => sprintf('%stax_rule', $evento['Tienda']['prefijo']),
 	    				'alias' => 'ReglaImpuesto',
 	    				'type' 	=> 'LEFT',
 	    				'conditions' => array(
@@ -1062,7 +966,7 @@ class EventosController extends AppController
 	    					)
 	    				),
 	    			array(
-	    				'table' => sprintf('%stax', $this->Session->read('Todo.Tienda.prefijo')),
+	    				'table' => sprintf('%stax', $evento['Tienda']['prefijo']),
 	    				'alias' => 'Impuesto',
 	    				'type' 	=> 'LEFT',
 	    				'conditions' => array(
@@ -1071,7 +975,7 @@ class EventosController extends AppController
 	    					)
 	    				),
 	    			array(
-	    				'table' => sprintf('%sproduct_lang', $this->Session->read('Todo.Tienda.prefijo')),
+	    				'table' => sprintf('%sproduct_lang', $evento['Tienda']['prefijo']),
 	    				'alias' => 'ProductosIdioma',
 	    				'type' 	=> 'LEFT',
 	    				'conditions' => array(
@@ -1079,7 +983,7 @@ class EventosController extends AppController
 	    					)
 	    				),
 	    			array(
-	    				'table' => sprintf('%sspecific_price', $this->Session->read('Todo.Tienda.prefijo')),
+	    				'table' => sprintf('%sspecific_price', $evento['Tienda']['prefijo']),
 	    				'alias' => 'PrecioEspecifico',
 	    				'type' 	=> 'LEFT',
 	    				'conditions' => array(
@@ -1141,7 +1045,7 @@ class EventosController extends AppController
 				if ( !isset($producto['Impuesto']['rate']) ) {
 					$productos[$ix]['Producto']['valor_iva'] = $producto['Producto']['price'];	
 				}else{
-					$productos[$ix]['Producto']['valor_iva'] = $this->precio($producto['Producto']['price'], $producto['Impuesto']['rate']);
+					$productos[$ix]['Producto']['valor_iva'] = $this->Evento->precio($producto['Producto']['price'], $producto['Impuesto']['rate']);
 				}
 
 				$productos[$ix]['Producto']['valor_final'] = $productos[$ix]['Producto']['valor_iva'];
@@ -1153,7 +1057,7 @@ class EventosController extends AppController
 
 					}else{
 
-						$productos[$ix]['Producto']['valor_final'] = $this->precio($productos[$ix]['Producto']['valor_iva'], ($producto['PrecioEspecifico']['reduction'] * 100 * -1) );
+						$productos[$ix]['Producto']['valor_final'] = $this->Evento->precio($productos[$ix]['Producto']['valor_iva'], ($producto['PrecioEspecifico']['reduction'] * 100 * -1) );
 						$productos[$ix]['Producto']['descuento'] = ($producto['PrecioEspecifico']['reduction'] * 100 * -1 );
 
 					}	
@@ -1187,8 +1091,41 @@ class EventosController extends AppController
 		
 		$this->set(compact('productos'));
 
-   		$this->render(sprintf('%s/ajax_productos', $this->Session->read('Todo.Evento.nombre_tema') ));
+   		$this->render(sprintf('%s/ajax_productos', $evento['Evento']['nombre_tema']));
    		
    		
+    }
+
+    /**
+     * function to clear all cache data
+     * by default accessible only for admin
+     *
+     * @access Public
+     * @return void
+     */
+    public function clear_cache() {
+        Cache::clear();
+        clearCache();
+
+        $files = array();
+        $files = array_merge($files, glob(CACHE . '*')); // remove cached css
+        $files = array_merge($files, glob(CACHE . 'css' . DS . '*')); // remove cached css
+        $files = array_merge($files, glob(CACHE . 'js' . DS . '*'));  // remove cached js           
+        $files = array_merge($files, glob(CACHE . 'models' . DS . '*'));  // remove cached models           
+        $files = array_merge($files, glob(CACHE . 'persistent' . DS . '*'));  // remove cached persistent           
+
+        foreach ($files as $f) {
+            if (is_file($f)) {
+                unlink($f);
+            }
+        }
+
+        if(function_exists('apc_clear_cache')):      
+        apc_clear_cache();
+        apc_clear_cache('user');
+        endif;
+
+        $this->set(compact('files'));
+        $this->layout = 'ajax';
     }
 }

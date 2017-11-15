@@ -100,14 +100,24 @@ a.naranjo:hover, a.naranjo:active, a.naranjo:focus {
 }
 
 #main .product {
-	margin-bottom: 40px;
+	margin-bottom: 0px;
     position: relative;
     display: none;
+    padding: 0;
+    border: 1px solid #ececec;
 }
 
 #main .product .card {
     opacity: 0;
     bottom: -100%;
+    padding: 5px 10px;
+    box-shadow: none;
+}
+
+#main .product .hoverable:hover {
+    transition: box-shadow .25s;
+    z-index: 10;
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #main .product .card .btn-price {
@@ -312,13 +322,27 @@ a.naranjo:hover, a.naranjo:active, a.naranjo:focus {
     background-color: #F55A00;
 }
 
+#product .tabs-product #pago li, #product .tabs-product #despacho li {
+    padding: 5px 0 5px 15px;
+    position: relative;
+}
+
+#product .tabs-product #pago li::before, #product .tabs-product #despacho li::before {
+    content: ".";
+    position: absolute;
+    padding: 0;
+    font-size: 2rem;
+    left: 0;
+    line-height: 17px;
+    top: 0;
+}
+
 #product .btn-more-info {
     padding: 15px 0;
 }
 
 #product #to-detail {
-    background-color: #fff !important;
-    border: 1px solid;
+    cursor: pointer;
 }
 
 #product #to-detail:hover {
@@ -410,4 +434,12 @@ a.naranjo:hover, a.naranjo:active, a.naranjo:focus {
   height: 40px;
   width: 40px;
   margin: 5px 15px;
+}
+
+#products {
+    margin-bottom: 50px !important; 
+}
+
+footer .row {
+    margin-bottom: 0;
 }

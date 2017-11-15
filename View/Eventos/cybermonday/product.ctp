@@ -6,7 +6,7 @@
       <div class="col s12 m12 l12">
         <h1><?=$producto['ProductosIdioma']['name']?></h1>
         <ul class="bradcrumbs">
-          <li><a class="gray-text" href="javascript:history.back(1)">Volver Atrás</a></li>
+          <li><a class="grey-text" href="javascript:history.back(1)">Volver Atrás</a></li>
         </ul>
       </div>
     </div>
@@ -52,7 +52,12 @@
             </div>
             <div class="col s6 m6">
               <span class="brand">
-                <b><?=__('Marca:'); ?></b> <?=(isset($producto['MarcasFabricante']['EventosMarca']['nombre'])) ? $producto['MarcasFabricante']['EventosMarca']['nombre'] : 'No especificado';?>
+                <b><?=__('Marca:'); ?></b> 
+                <? if(isset($producto['MarcasFabricante']['EventosMarca']['imagen'])) : 
+                    echo $this->Html->image( sprintf('/img/EventosMarca/%d/%s', $producto['MarcasFabricante']['EventosMarca']['id'], $producto['MarcasFabricante']['EventosMarca']['imagen']), array('alt' => $producto['MarcasFabricante']['EventosMarca']['nombre'], 'class' => 'responsive-img') );
+                  else : 
+                    echo 'No especificado';
+                  endif; ?>
               <span>
             </div>
           </div>
@@ -142,7 +147,10 @@
         <div class="btn-more-info">
           <div class="row">
             <div class="col s12">
-              <button class="btn col s12 waves-effect waves-dark grey lighten-4 center-text grey-text text-darken-4 z-depth-0" id="to-detail"><?=__('Ver Descripción');?></button>
+              <?=$producto['ProductosIdioma']['description_short']; ?>
+            </div>
+            <div class="col s12">
+              <a class="grey-text text-darken-4 right" id="to-detail"><?=__('<i class="fa fa-list" aria-hidden="true"></i> Más Información');?></a>
             </div>
           </div>
         </div>
@@ -159,18 +167,21 @@
         </div>
 
         <div class="row">
-        <?= $this->Form->create('Comprar', array('type' => 'post', 'url' => array('controller' => 'eventos', 'action' => 'redireccionarComercio'), 'inputDefaults' => array('div' => false, 'label' => false))); ?>
+        <!--<?= $this->Form->create('Comprar', array('type' => 'post', 'url' => array('controller' => 'eventos', 'action' => 'redireccionarComercio'), 'inputDefaults' => array('div' => false, 'label' => false))); ?>
         <?= $this->Form->input('url', array('type' => 'hidden', 'value' => $producto['ProductosIdioma']['link_rewrite']));?>
         <?= $this->Form->input('id', array('type' => 'hidden', 'value' => $producto['Producto']['id_product']));?>
           <div class="col s12">
             <div class="quantity-action">
-              <span class="btn-remove"><i class="mdi-content-remove"></i></span><!--
-              --><input data-max="<?=$producto['Producto']['quantity'];?>" class="input-quantity" name="data[Comprar][quantity]" value="1" readonly><!--
-              --><span class="btn-add"><i class="mdi-content-add"></i></span>
+              <span class="btn-remove"><i class="mdi-content-remove"></i></span>--><!--
+              --><!--<input data-max="<?=$producto['Producto']['quantity'];?>" class="input-quantity" name="data[Comprar][quantity]" value="1" readonly>--><!--
+              --><!--<span class="btn-add"><i class="mdi-content-add"></i></span>
             </div>
             <button class="btn waves-effect waves-light naranjo center-text z-depth-1" id="send-sale" action="submit"><?=__('Comprar este producto');?></button>
           </div>
-        <?= $this->Form->end(); ?>
+        <?= $this->Form->end(); ?>-->
+          <div class="col s12">
+            <a href="<?=$producto['Producto']['url_final'];?>" class="btn waves-effect waves-light naranjo center-text z-depth-1 col s12" action="submit"><?=__('<i class="fa fa-shopping-bag" aria-hidden="true"></i> Comprar este producto');?></a>
+          </div>
         </div>
       <? else : ?>
       <div class="row">

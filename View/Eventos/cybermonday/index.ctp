@@ -30,10 +30,10 @@
 <? endif; ?>
 
 <!-- Sliders -->
-<? if (!empty($sliders)) : ?>
+<? if (!empty($todo['Sliders'])) : ?>
 <div class="slider">
   <ul class="slides">   
-  <? foreach ($sliders as $in => $slider) : ?>
+  <? foreach ($todo['Sliders'] as $in => $slider) : ?>
       <li>
         <? if (!empty($slider['Banner']['url'])) : ?>
           <a href="<?=$slider['Banner']['url'];?>"><?= $this->Html->image($slider['Banner']['imagen']['slider']); ?></a>
@@ -57,6 +57,10 @@
     <!-- statr products list -->
     <div id="products" class="row">
         <!-- Productos AJAX -->
+    </div>
+    <div class="row">
+      <div class="col s12" id="btn-load-more">
+      </div>
     </div>
     <!--/ end items list -->
   </div>

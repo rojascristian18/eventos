@@ -78,4 +78,22 @@ class AppModel extends Model
 		}
 		return false;
 	}
+
+	/**
+	 * Método que agrega un datasource a los modelos pasados en el arreglo, según la ´tienda que se esté trabajando.
+	 * @param  array  $modelos Nombres de los modelos
+	 * @return void
+	 */
+	public function cambiarDatasourceModelo( $modelos = array() , $tienda = '') {
+		
+		if (empty($tienda)) {
+			foreach ($modelos as $instancia) {
+				ClassRegistry::init($instancia)->useDbConfig 	= CakeSession::read('Tienda.db_configuracion');
+			}
+		}else{
+			foreach ($modelos as $instancia) {
+				ClassRegistry::init($instancia)->useDbConfig 	= $tienda;
+			}
+		}
+	}
 }

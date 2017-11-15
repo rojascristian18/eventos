@@ -12,6 +12,9 @@
 	<li class="pull-right">
 		<a href="#" class="mb-control" data-box="#mb-signout"><i class="fa fa-sign-out"></i> Cerrar sesión</a>
 	</li>
+	<li class="pull-right">
+		<a href="#" data-toggle="modal" data-target="#modal_cache" id="clear_cache"><i class="fa fa-trash"></i> Limpiar caché</a>
+	</li>
 </ul>
 
 <? if ($this->Session->check('Tienda')) : ?>
@@ -41,3 +44,22 @@
 		</div>
 	</div>
 </div>
+
+
+<!--<div class="modal" id="modal_cache" tabindex="-1" role="dialog" aria-labelledby="defModalHead" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="defModalHead">Basic Modal</h4>
+            </div>
+            <div class="modal-body">
+                Some content in modal example
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+-->

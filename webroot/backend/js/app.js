@@ -230,6 +230,28 @@
 				}
 
 			},
+			limpiarCache: {
+				bind: function(){
+					$('#clear_cache').on('click', function(){
+						$.get( webroot + 'eventos/clear_cache', function(respuesta){
+							console.log(respuesta);
+				      	})
+				      	.fail(function(){
+
+							noty({text: 'Ocurrió un error. Intente nuevamente.', layout: 'topRight', type: 'error'});
+
+							setTimeout(function(){
+								$.noty.closeAll();
+							}, 10000);
+						});
+					});
+				},
+				init: function(){
+					if ($('#clear_cache').length) {
+						$.app.limpiarCache.bind();
+					}
+				}
+			},
 			buscarProductos: {
 				bind: function() {
 					var todo = '';
@@ -292,6 +314,7 @@
 			},
 			init: function() {
 				$.app.buscarProductos.init();
+				$.app.limpiarCache.init();
 				$.app.plugins.init();
 			}
 		}

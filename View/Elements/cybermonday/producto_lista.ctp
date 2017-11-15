@@ -8,11 +8,16 @@
             <? if (!empty($producto['Imagen'])) : ?>
             <? foreach ($producto['Imagen'] as $im => $imagen) : ?>
                 <? if ($imagen['cover']) : ?>
-                    <?=$this->Html->image($imagen['Imagen'][0]['url_image_thumb'], array('class' => 'responsive-img image-product'));?>
+                    <?=$this->Html->link(
+                        $this->Html->image($imagen['Imagen'][0]['url_image_thumb'], array('class' => 'responsive-img image-product'))
+                        , array('controller' => 'eventos', 'action' => 'product', 'slug' => sprintf('%s-%s', $producto['ProductosIdioma']['link_rewrite'], $producto['Producto']['id_product'])), array('escape' => false));?>
                 <? endif; ?>
             <? endforeach; ?>
             <? else : ?>
-                <img src="https://dummyimage.com/250x250/f2f2f2/4a4a4a&text=No+disponible" alt="product-img">
+                <?=$this->Html->link(
+                    '<img src="https://dummyimage.com/250x250/f2f2f2/4a4a4a&text=No+disponible" alt="product-img">'
+                    , array('controller' => 'eventos', 'action' => 'product', 'slug' => sprintf('%s-%s', $producto['ProductosIdioma']['link_rewrite'], $producto['Producto']['id_product'])), array('escape' => false));?>
+                
             <? endif; ?>
         </div>
         <ul class="card-action-buttons">

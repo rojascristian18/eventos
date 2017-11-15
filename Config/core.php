@@ -1,5 +1,5 @@
 <?php
-Configure::write('debug', 0);
+Configure::write('debug', 2);
 Configure::write('Error', array(
 	'handler' => 'ErrorHandler::handleError',
 	'level' => E_ALL & ~E_DEPRECATED,
@@ -14,9 +14,9 @@ Configure::write('App.encoding', 'UTF-8');
 Configure::write('Config.language', 'spa');
 //Configure::write('App.baseUrl', env('SCRIPT_NAME'));
 Configure::write('Routing.prefixes', array('admin'));
-Configure::write('Cache.disable', true);
-//Configure::write('Cache.check', true);
-//Configure::write('Cache.viewPrefix', 'prefix');
+Configure::write('Cache.disable', false);
+Configure::write('Cache.check', true);
+Configure::write('Cache.viewPrefix', 'prefix');
 Configure::write('Session', array(
 	'defaults'			=> 'php',
 	'cookie'			=> 'NODRIZASPA',

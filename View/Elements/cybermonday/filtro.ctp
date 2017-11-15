@@ -8,7 +8,7 @@
 			<div class="input-field col s6 m3">
 				<select id="filtroMarcas" name="m[]" multiple>
 					<option value="" disabled selected>Seleccione</option>
-					<? foreach ($todo['EventosMarca'] as $ix => $marca) : ?>
+					<? foreach ($todo['Marcas'] as $ix => $marca) : ?>
 						<option value="<?=$marca['EventosMarca']['id'];?>"><?=$marca['EventosMarca']['nombre'];?></option>
 					<? endforeach; ?>
 				</select>
@@ -17,7 +17,7 @@
 			<div class="input-field col s6 m3">
 				<select id="filtroPrecios" name="p">
 					<option value="" disabled selected>Seleccione</option>
-					<? foreach ($todo['Filtro']['rango_precios'] as $ip => $precio) : ?>
+					<? foreach ($todo['Producto']['Filtro']['rango_precios'] as $ip => $precio) : ?>
 						<option value="<?=$ip;?>"><?=$precio; ?></option>
 					<? endforeach; ?>
 				</select>

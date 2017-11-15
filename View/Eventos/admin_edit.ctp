@@ -123,6 +123,13 @@
 	                    		<? endif; ?>
 	                    	</div>
 	                    </div>
+	                    <div class="form-group">
+	                    	<div class="col-xs-12 col-sm-12">
+	                    		<label><?= $this->Form->label('url_redireccion', 'URL de redirección'); ?></label>
+	                    		<?= $this->Form->input('url_redireccion', array('type' => 'text', 'class' => 'form-control', 'placeholder' => 'Ingrese url con protocolo http o https')); ?>
+	                    		<p>Sí este campo está vacio, el evento redireccionará a la página de la tienda.</p>
+	                    	</div>
+	                    </div>
 	                    <div class="col-xs-12">
                     		<h3 class="subtitulo-tabs">Opciones de productos</h3>
                     	</div>
@@ -344,7 +351,6 @@
 										<!--<th><?=__('Cuerpo');?></th>-->
 										<th><?=__('Imágen destacada');?></th>
 										<th><?=__('Ícono del menú');?></th>
-										<th><?=__('Ícono del menú 2');?></th>
 										<th><?=__('Texto del menú');?></th>
 										<th><?=__('Activo');?></th>
 										<th><?=__('Acciones');?></th>
@@ -355,8 +361,7 @@
 										<td><?= $this->Form->input('Categoria.999.nombre', array('disabled' => true, array('placeholder' => 'Herramientas...'))); ?></td>
 										<!--<td><?= $this->Form->input('Categoria.999.cuerpo', array('disabled' => true, 'class' => 'form-control')); ?></td>-->
 										<td><?= $this->Form->input('Categoria.999.imagen_principal', array('disabled' => true, 'type' => 'file', 'class' => 'fileinput btn-primary not-blank', 'data-filename-placement' => 'inside', 'title' => '<i class="fa fa-upload"></i> Destacada')); ?></td>
-										<td><?= $this->Form->input('Categoria.999.icono_imagen', array('disabled' => true, 'type' => 'file', 'class' => 'fileinput btn-primary not-blank', 'data-filename-placement' => 'inside', 'title' => '<i class="fa fa-upload"></i> Ícono')); ?></td>
-										<td><?= $this->Form->input('Categoria.999.icono_imagen_dos', array('disabled' => true, 'type' => 'file', 'class' => 'fileinput btn-primary not-blank', 'data-filename-placement' => 'inside', 'title' => '<i class="fa fa-upload"></i> Ícono 2')); ?></td>
+										<td><?= $this->Form->input('Categoria.999.icono_imagen', array('disabled' => true, array('placeholder' => 'Ingrese icono'))); ?></td>
 										<td><?= $this->Form->input('Categoria.999.icono_texto', array('disabled' => true)); ?></td>
 										<td><?= $this->Form->input('Categoria.999.activo', array('disabled' => true, 'checked' => true, 'class' => 'icheckbox')); ?></td>
 										<td>
@@ -379,20 +384,7 @@
 											<? endif; ?>
 										</td>
 										<td>
-											<? if (!empty($this->request->data['Categoria'][$index]['icono_imagen'])) : ?>
-												<?= $this->Html->image(sprintf('Categoria/%d/xs_mini_%s', $categoria['id'], $categoria['icono_imagen']));?>
-												<?= $this->Form->input(sprintf('Categoria.%d.icono_imagen', $index), array('type' => 'file', 'class' => 'fileinput btn-primary not-blank', 'data-filename-placement' => 'inside', 'title' => '<i class="fa fa-upload"></i> Actualizar')); ?>
-											<? else : ?>
-												<?= $this->Form->input(sprintf('Categoria.%d.icono_imagen', $index), array('type' => 'file', 'class' => 'fileinput btn-primary not-blank', 'data-filename-placement' => 'inside', 'title' => '<i class="fa fa-upload"></i> Destacada')); ?>
-											<? endif; ?>
-										</td>
-										<td>
-											<? if (!empty($this->request->data['Categoria'][$index]['icono_imagen_dos'])) : ?>
-												<?= $this->Html->image(sprintf('Categoria/%d/xs_mini_%s', $categoria['id'], $categoria['icono_imagen_dos']));?>
-												<?= $this->Form->input(sprintf('Categoria.%d.icono_imagen_dos', $index), array('type' => 'file', 'class' => 'fileinput btn-primary not-blank', 'data-filename-placement' => 'inside', 'title' => '<i class="fa fa-upload"></i> Actualizar')); ?>
-											<? else : ?>
-												<?= $this->Form->input(sprintf('Categoria.%d.icono_imagen_dos', $index), array('type' => 'file', 'class' => 'fileinput btn-primary not-blank', 'data-filename-placement' => 'inside', 'title' => '<i class="fa fa-upload"></i> Destacada')); ?>
-											<? endif; ?>
+											<?= $this->Form->input(sprintf('Categoria.%d.icono_imagen', $index)); ?></td>
 										</td>
 										<td><?= $this->Form->input(sprintf('Categoria.%d.icono_texto', $index)); ?></td>
 										<td><?= $this->Form->input(sprintf('Categoria.%d.activo', $index), array('class' => 'icheckbox')); ?></td>

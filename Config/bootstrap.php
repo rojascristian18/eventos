@@ -1,7 +1,11 @@
 <?php
 // Setup a 'default' cache configuration for use in the application.
-Cache::config('default', array('engine' => 'File'));
-
+Cache::config('todo', array(
+    'engine' => 'File',
+    'duration' => '+1 hours',
+    'path' => CACHE,
+    'prefix' => 'cake_todo_'
+));
 /**
  * The settings below can be used to set additional paths to models, views and controllers.
  *
@@ -89,6 +93,7 @@ Inflector::rules(
  */
 //CakePlugin::loadAll();
 CakePlugin::load('DebugKit');
+CakePlugin::load('Minifier');
 
 /**
  * You can attach event listeners to the request lifecycle as Dispatcher Filter . By Default CakePHP bundles two filters:
@@ -138,5 +143,20 @@ function prx()
 	foreach ( func_get_args() as $arg )
 		pr($arg);
 	exit;
+}
+
+
+function getsubdominio()
+{	
+	$dominio = $_SERVER['SERVER_NAME'];
+	if (!preg_match("~^(?:f|ht)tps?://~i", $dominio)) {
+        $dominio = $dominio;
+    }
+
+    $dominio = str_replace("www.", "", $dominio);
+
+	$subdomino = substr($dominio, 0, strpos($dominio, '.') );
+
+	return $subdomino;
 }
 

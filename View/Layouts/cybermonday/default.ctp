@@ -19,11 +19,11 @@
     <!-- For Windows Phone -->
     
     <!-- CORE CSS--> 
-    <?= $this->Html->css(sprintf('/%s/css/materialize.min.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
-    <?= $this->Html->css(sprintf('/%s/css/style.min.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
+    <?= $this->Html->css(sprintf('/%s/css/materialize%s.css', $todo['Evento']['nombre_tema'], $extentioncss), array('media' => 'screen,projection')); ?>
+    <?= $this->Html->css(sprintf('/%s/css/style%s.css', $todo['Evento']['nombre_tema'], $extentioncss), array('media' => 'screen,projection')); ?>
 
     <!-- Custome CSS-->    
-    <?= $this->Html->css(sprintf('/%s/css/custom/custom.min.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
+    <?= $this->Html->css(sprintf('/%s/css/custom/custom%s.css', $todo['Evento']['nombre_tema'], $extentioncss), array('media' => 'screen,projection')); ?>
 
     <?= $this->fetch('css'); ?>
 
@@ -31,7 +31,7 @@
     <?= $this->Html->scriptBlock("var fullwebroot = '{$this->Html->url('', true)}';"); ?>
     
     <script type="text/javascript">
-        var productosJson = <?=$todo['Producto']['json'];?>
+        var productosJson = <?=$todo['Producto']['Filtro']['json'];?>
     </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -85,14 +85,28 @@
     </div>
     <!-- END MAIN -->
     <?=$this->element( sprintf('%s/footer', $todo['Evento']['nombre_tema']) ); ?>
+
     <?= $this->Html->script(array(
-        sprintf('/%s/js/plugins/jquery-1.11.2.min.js', $todo['Evento']['nombre_tema']),
-        sprintf('/%s/js/materialize.min.js', $todo['Evento']['nombre_tema']),
-        sprintf('/%s/js/plugins/perfect-scrollbar/perfect-scrollbar.min.js', $todo['Evento']['nombre_tema']),
-        sprintf('/%s/js/custom-script.min.js', $todo['Evento']['nombre_tema']),
+        sprintf('/%s/js/jquery-1.11.2.min%s.js', $todo['Evento']['nombre_tema'], $extentionjs),
+        sprintf('/%s/js/materialize%s.js', $todo['Evento']['nombre_tema'], $extentionjs),
+        sprintf('/%s/js/plugins/perfect-scrollbar/perfect-scrollbar.min%s.js', $todo['Evento']['nombre_tema'], $extentionjs),
+        sprintf('/%s/js/custom-script%s.js', $todo['Evento']['nombre_tema'], $extentionjs),
     )); ?>
     <?= $this->fetch('script'); ?>
-    <!-- Custome CSS-->    
+
+    <!-- Custome CSS JS-->   
+    <? if (!empty($todo['Evento']['css_adicional'])) : ?>
+        <style type="text/css">
+        <?=$todo['Evento']['css_adicional'];?>
+        </style>
+    <? endif; ?>
+
+    <? if (!empty($todo['Evento']['js_adicional'])) : ?>
+        <script type="text/javascript">
+            <?=$todo['Evento']['js_adicional'];?>
+        </script>
+    <? endif; ?>
+ 
     <?= $this->Html->css(sprintf('/%s/css/font-awesome.min.css', $todo['Evento']['nombre_tema']), array('media' => 'screen,projection')); ?>
 </body>
 </html>

@@ -189,7 +189,6 @@ Class Producto extends AppModel {
 	public function afterSave($created = null, $options = Array()) {
 		parent::afterSave();
 	}
-
 }
 	
 ?>
