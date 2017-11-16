@@ -50,6 +50,6 @@
             <? endforeach; ?>
         <? endif; ?>
     </ul>
-    <a href="#" data-activates="slide-out" class="sidebar-collapse hide-on-large-only naranjo"><i class="mdi-navigation-menu"></i></a>
+    <a href="#" data-activates="slide-out" class="sidebar-collapse hide-on-large-only"><i class="mdi-navigation-menu"></i></a>
 </aside>
 <!-- END LEFT SIDEBAR NAV-->

@@ -153,6 +153,32 @@
 	                    		<?= $this->Form->input('informacion_adicional_productos', array('placeholder' => 'Agregue información adicional')); ?>
 	                    	</div>
 	                    </div>
+	                    <div class="col-xs-12">
+                    		<h3 class="subtitulo-tabs">Rendimiento</h3>
+                    	</div>
+	                   	<div class="form-group">
+	                    	<div class="col-xs-12 col-sm-4">
+	                    		<label><?= $this->Form->label('minificar_css', 'Minificar CSS'); ?></label>
+	                    		<label class="switch">
+                                   	<?= $this->Form->input('minificar_css', array('class' => 'icheckbox')); ?>
+                                    <span></span>
+                                </label>
+	                    	</div>
+	                    	<div class="col-xs-12 col-sm-4">
+	                    		<label><?= $this->Form->label('minificar_js', 'Minificar JS'); ?></label>
+	                    		<label class="switch">
+                                   	<?= $this->Form->input('minificar_js', array('class' => 'icheckbox')); ?>
+                                    <span></span>
+                                </label>
+	                    	</div>
+	                    	<div class="col-xs-12 col-sm-4">
+	                    		<label><?= $this->Form->label('cache', 'Activar Caché'); ?></label>
+	                    		<label class="switch">
+                                   	<?= $this->Form->input('cache', array('class' => 'icheckbox')); ?>
+                                    <span></span>
+                                </label>
+	                    	</div>
+	                    </div>
 	            		<div class="col-xs-12">
                     		<h3 class="subtitulo-tabs">Opciones adicionales</h3>
                     	</div>

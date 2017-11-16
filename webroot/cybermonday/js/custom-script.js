@@ -7,16 +7,63 @@
 $.extend({
 	app: {
 		plugins: function(){
+
+			  // Search class for focus
+			  $('.header-search-input').focus(
+			  function(){
+			      $(this).parents('div').eq(0).addClass('header-search-wrapper-focus');
+			      $(this).siblings("label, i").addClass("active");
+			  }).blur(
+			  function(){
+			      $(this).parents('div').eq(0).removeClass('header-search-wrapper-focus');
+			      $(this).siblings("label, i").removeClass("active");
+			  }); 
 			// Materialize Dropdown
 			$('.dropdown-button').dropdown({
 				inDuration: 300,
 				outDuration: 125,
-				constrain_width: true, // Does not change width of dropdown to that of the activator
+				constrain_width: false, // Does not change width of dropdown to that of the activator
 				hover: false, // Activate on click
 				alignment: 'left', // Aligns dropdown to left or right edge (works with constrain_width)
 				gutter: 0, // Spacing from edge
 				belowOrigin: true // Displays dropdown below the button
 			});
+
+			// Fono Dropdown
+			  $('.fono-button').dropdown({
+			      inDuration: 300,
+			      outDuration: 225,
+			      constrain_width: false, // Does not change width of dropdown to that of the activator
+			      hover: false, // Activate on hover
+			      gutter: 0, // Spacing from edge
+			      belowOrigin: true, // Displays dropdown below the button
+			      alignment: 'left' // Displays dropdown with edge aligned to the left of button
+			    }
+			  );
+
+			  // Email Dropdown
+			  $('.email-button').dropdown({
+			      inDuration: 300,
+			      outDuration: 225,
+			      constrain_width: false, // Does not change width of dropdown to that of the activator
+			      hover: false, // Activate on hover
+			      gutter: 0, // Spacing from edge
+			      belowOrigin: true, // Displays dropdown below the button
+			      alignment: 'left' // Displays dropdown with edge aligned to the left of button
+			    }
+			  );
+
+			  // Whatsapp Dropdown
+			  $('.whatsapp-button').dropdown({
+			      inDuration: 300,
+			      outDuration: 225,
+			      constrain_width: false, // Does not change width of dropdown to that of the activator
+			      hover: false, // Activate on hover
+			      gutter: 0, // Spacing from edge
+			      belowOrigin: true, // Displays dropdown below the button
+			      alignment: 'left' // Displays dropdown with edge aligned to the left of button
+			    }
+			  );
 
 			$('.leftside-navigation ul.collapsible .collapsible-body li.active').each(function(){
 				$(this).parents('.bold').eq(0).find('.collapsible-header').eq(0).trigger('click');

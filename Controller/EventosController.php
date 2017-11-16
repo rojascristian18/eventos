@@ -1182,4 +1182,23 @@ class EventosController extends AppController
         $this->set(compact('files'));
         $this->layout = 'ajax';
     }
+
+
+    public function pagina($slug = '')
+    {	
+    	$evento = ClassRegistry::init('Evento')->getEvent();
+
+    	if (empty($slug)) {
+    		$this->redirect(array('controller' => 'eventos', 'action' => 'index'));
+    	}
+
+    	$pagina = ClassRegistry::init('Pagina')->getPage($slug);
+
+    	if (empty($pagina)) {
+    		$this->redirect(array('controller' => 'eventos', 'action' => 'index'));
+    	}
+
+    	$this->set(compact('pagina'));
+    	$this->render(sprintf('%s/pagina', $evento['Evento']['nombre_tema']));
+    }
 }

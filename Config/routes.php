@@ -1,6 +1,7 @@
 <?php
 
 Router::connect('/', array('controller' => 'eventos', 'action' => 'index'));
+Router::connect('/page-:slug', array('controller' => 'eventos', 'action' => 'pagina'), array('pass' => array('slug')));
 Router::connect('/categorias/actualizar_orden_categorias', array('controller' => 'categorias', 'action' => 'actualizar_orden_categorias'));
 
 Router::connect('/categorias/view?c=:slug', array('controller' => 'categorias', 'action' => 'view'), array('pass' => array('slug')) );

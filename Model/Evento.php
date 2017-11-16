@@ -256,6 +256,19 @@ class Evento extends AppModel
 			'exclusive'				=> '',
 			'finderQuery'			=> '',
 			'counterQuery'			=> ''
+		),
+		'Pagina' => array(
+			'className'				=> 'Pagina',
+			'foreignKey'			=> 'evento_id',
+			'dependent'				=> false,
+			'conditions'			=> '',
+			'fields'				=> '',
+			'order'					=> '',
+			'limit'					=> '',
+			'offset'				=> '',
+			'exclusive'				=> '',
+			'finderQuery'			=> '',
+			'counterQuery'			=> ''
 		)
 	);
 
@@ -291,7 +304,6 @@ class Evento extends AppModel
 		)
 	);
 
-
 	public function afterSave($created, $options = array())
 	{
 		#prx($this->data);
@@ -305,6 +317,7 @@ class Evento extends AppModel
 		$marcas = $this->getBrands();
 		$sliders = $this->get_sliders();
 		$categorias = $this->getCategories();
+		$paginas = ClassRegistry::init('Pagina')->getPages();
 
 		$todo = $evento;
 
@@ -324,6 +337,10 @@ class Evento extends AppModel
 			$todo['Categoria'] = $categorias;
 		}
 
+		if (!empty($paginas)) {
+			$todo['Pagina'] = $paginas;
+		}
+		
 		return $todo;
 	}
 
@@ -356,6 +373,9 @@ class Evento extends AppModel
 					'Evento.informacion_adicional_productos',
 					'Evento.css_adicional',
 					'Evento.js_adicional',
+					'Evento.minificar_css',
+					'Evento.minificar_js',
+					'Evento.cache',
 					'Evento.modified',
 					'Tienda.id',
 					'Tienda.db_configuracion',
@@ -374,8 +394,10 @@ class Evento extends AppModel
 					'EventosProducto')
 				)
 			);
-
-			Cache::write('Evento', $evento, 'todo');
+			
+			if ($evento['Evento']['cache']) {
+				Cache::write('Evento', $evento, 'todo');
+			}
 
 		}
 
@@ -397,8 +419,10 @@ class Evento extends AppModel
             		'Tienda',
             		'EventosProducto'
             		)
-            	));;
-            Cache::write('evento', $result, 'todo');
+            	));
+            if ($evento['Evento']['cache']) {
+				Cache::write('evento', $result, 'todo');
+			}
         }
 	}
 
@@ -442,8 +466,9 @@ class Evento extends AppModel
 				),
 				'order' => array('Categoria.orden' => 'ASC')
 			));
-
-			Cache::write('Categoria', $categorias, 'todo');
+			if ($evento['Evento']['cache']) {
+				Cache::write('Categoria', $categorias, 'todo');
+			}
 		}
 
 		return $categorias;
@@ -470,8 +495,9 @@ class Evento extends AppModel
 					)
 				)
 			);
-
-			Cache::write('Marca', $marcas, 'todo');
+			if ($evento['Evento']['cache']) {
+				Cache::write('Marca', $marcas, 'todo');
+			}
 		}
 
 		return $marcas;
@@ -633,7 +659,10 @@ class Evento extends AppModel
 			$productos['Filtro']['json'] = json_encode($productos['Filtro']['json']);
 			$productos['Filtro']['rango_precios'] = $this->obtenerRangoPrecios($productos, 'valor_final');
 
-			Cache::write('Producto', $productos, 'todo');
+			if ($evento['Evento']['cache']) {
+				Cache::write('Producto', $productos, 'todo');
+			}
+			
 		}
 
 		return $productos;
@@ -670,8 +699,9 @@ class Evento extends AppModel
 					),
 				'order' => array('Banner.orden')
 			));
-			
-			Cache::write('Banner', $sliders, 'todo');
+			if ($evento['Evento']['cache']) {
+				Cache::write('Banner', $sliders, 'todo');
+			}
 		}
 			
 		return $sliders;

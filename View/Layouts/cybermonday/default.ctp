@@ -54,7 +54,7 @@
             <!-- START CONTENT -->
             <section id="content">
                 <!-- Search for small screen -->
-                <div class="header-search-wrapper grey hide-on-large-only">
+                <div class="header-search-wrapper hide-on-large-only">
                 <?= $this->Form->create('Buscar', array('type' => 'get', 'url' => array('controller' => $this->request->params['controller'], 'action' => $this->request->params['action']), 'inputDefaults' => array('div' => false, 'label' => false))); ?>
                     <i class="mdi-action-search active"></i>
                     <input type="text" name="b" class="header-search-input z-depth-2" placeholder="Busca tu herramienta o accesorio">
@@ -64,7 +64,7 @@
             </section>
             <!-- END CONTENT -->
             <!-- Floating Action Button -->
-            <div class="fixed-action-btn" style="bottom: 50px; right: 19px;">
+            <div class="fixed-action-btn click-to-toggle hide-on-large-only" style="bottom: 50px; right: 19px;">
                 <a class="btn-floating btn-large yellow darken-3 pulse">
                   <?=$this->Html->image(sprintf('/%s/images/ayuda-icono.png', $todo['Evento']['nombre_tema']), array('class' => 'icono-ayuda'));?>
                 </a>

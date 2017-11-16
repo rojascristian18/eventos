@@ -46,7 +46,7 @@ class AppController extends Controller
 	{
 		$extentioncss   = '';
 
-		if (Configure::read('debug') > 0 && $this->Session->check('Todo.Evento')) {
+		if (Configure::read('debug') > 0) {
 
 			$arr = MinifierComponent::normalize($arr, $ext);
 
@@ -63,7 +63,7 @@ class AppController extends Controller
 	{
         $extentionjs    = '';
 
-        if (Configure::read('debug') > 0 && $this->Session->check('Todo.Evento')) {
+        if (Configure::read('debug') > 0 ) {
             
             $arr = MinifierComponent::normalize($arr, $ext);
 
@@ -91,8 +91,6 @@ class AppController extends Controller
 		 * Layout y permisos públicos
 		 */
 		if ( ! isset($this->request->params['prefix']) ) {
-
-			# Borrar en producción
 
 			if ( !empty($this->verificarModificacionEvento()) ){
 
@@ -271,22 +269,32 @@ class AppController extends Controller
 			$this->set(compact('permisos', 'modulosDisponibles', 'tiendasList', 'titulo'));
 		}else{
 
+			$evento = ClassRegistry::init('Evento')->getEvent();
+
 	        $jsFilesN = array(
-	        	sprintf('%swebroot\%s\js\jquery-1.11.2.min.js', APP, $this->Session->read('Todo.Evento.nombre_tema')),
-	        	sprintf('%swebroot\%s\js\materialize.js', APP, $this->Session->read('Todo.Evento.nombre_tema')),
-	        	sprintf('%swebroot\%s\js\plugins\perfect-scrollbar\perfect-scrollbar.min.js', APP, $this->Session->read('Todo.Evento.nombre_tema')),
-	        	sprintf('%swebroot\%s\js\custom-script.js', APP, $this->Session->read('Todo.Evento.nombre_tema'))
+	        	sprintf('%swebroot\%s\js\jquery-1.11.2.min.js', APP, $evento['Evento']['nombre_tema']),
+	        	sprintf('%swebroot\%s\js\materialize.js', APP, $evento['Evento']['nombre_tema']),
+	        	sprintf('%swebroot\%s\js\plugins\perfect-scrollbar\perfect-scrollbar.min.js', APP, $evento['Evento']['nombre_tema']),
+	        	sprintf('%swebroot\%s\js\custom-script.js', APP, $evento['Evento']['nombre_tema'])
 	        	);
 
 	        $cssFilesN = array(
-	        	sprintf('%swebroot\%s\css\materialize.css', APP, $this->Session->read('Todo.Evento.nombre_tema')),
-	        	sprintf('%swebroot\%s\css\style.css', APP, $this->Session->read('Todo.Evento.nombre_tema')),
-	        	sprintf('%swebroot\%s\css\custom\custom.css', APP, $this->Session->read('Todo.Evento.nombre_tema'))
+	        	sprintf('%swebroot\%s\css\materialize.css', APP, $evento['Evento']['nombre_tema']),
+	        	sprintf('%swebroot\%s\css\style.css', APP, $evento['Evento']['nombre_tema']),
+	        	sprintf('%swebroot\%s\css\custom\custom.css', APP, $evento['Evento']['nombre_tema'])
 	        	);
 
-			$cssExtencion = ""; #$this->minificarCss($cssFilesN, 'mini');
-			$jsExtencion = ""; #$this->minificarJs($jsFilesN, 'mini');
-			
+	        if (isset($evento['Evento']['minificar_css']) && $evento['Evento']['minificar_css']) {
+	        	$cssExtencion = $this->minificarCss($cssFilesN, 'mini');
+	        }else{
+	        	$cssExtencion = '';
+	        }
+
+	        if (isset($evento['Evento']['minificar_js']) && $evento['Evento']['minificar_js']) {
+	        	$jsExtencion = $this->minificarJs($jsFilesN, 'mini');
+	        }else{
+	        	$jsExtencion = '';
+	        }
 
 			$this->set('extentioncss', $cssExtencion);
 			$this->set('extentionjs', $jsExtencion);
@@ -605,9 +613,13 @@ class AppController extends Controller
 				'conditions' => array(
 					'Evento.subdomino' => getsubdominio()
 					),
-				'fields' => array('modified')
+				'fields' => array('modified', 'cache')
 				)
 			);
+
+			if (!$evento['Evento']['cache']) {
+				Cache::delete('Evento', 'todo');
+			}
 			
 			if ( strtotime($modificacion['Evento']['modified']) != strtotime($evento['Evento']['modified']) ) {
 				Cache::delete('Evento', 'todo');

@@ -952,3 +952,364 @@ Request URL: /eventos/%20'img/publico/nodiza-favicon.png
 Stack Trace:
 #0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #1 {main}
+2017-11-16 09:34:22 Error: [MissingControllerException] Controller class AsdasdController could not be found.
+Exception Attributes: array (
+  'class' => 'AsdasdController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/asdasd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 09:34:42 Error: [MissingControllerException] Controller class AdaddddController could not be found.
+Exception Attributes: array (
+  'class' => 'AdaddddController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 09:35:15 Error: [MissingControllerException] Controller class AdaddddController could not be found.
+Exception Attributes: array (
+  'class' => 'AdaddddController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 09:35:33 Error: [MissingControllerException] Controller class AdaddddController could not be found.
+Exception Attributes: array (
+  'class' => 'AdaddddController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 10:46:48 Error: [MissingControllerException] Controller class AdaddddController could not be found.
+Exception Attributes: array (
+  'class' => 'AdaddddController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 10:47:05 Error: [MissingControllerException] Controller class Favicon.icoController could not be found.
+Exception Attributes: array (
+  'class' => 'Favicon.icoController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/favicon.ico
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 10:47:06 Error: Fatal Error (4): syntax error, unexpected ''Pagina.activo'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in [C:\wamp64\www\eventos\Model\Pagina.php, line 91]
+2017-11-16 10:47:06 Error: [FatalErrorException] syntax error, unexpected ''Pagina.activo'' (T_CONSTANT_ENCAPSED_STRING), expecting ')'
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 91)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 91, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 91, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-16 10:50:03 Error: [MissingControllerException] Controller class AdaddddController could not be found.
+Exception Attributes: array (
+  'class' => 'AdaddddController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 10:50:06 Error: Fatal Error (4): syntax error, unexpected ''Pagina.activo'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in [C:\wamp64\www\eventos\Model\Pagina.php, line 91]
+2017-11-16 10:50:06 Error: [FatalErrorException] syntax error, unexpected ''Pagina.activo'' (T_CONSTANT_ENCAPSED_STRING), expecting ')'
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 91)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 91, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 91, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-16 10:51:49 Error: [MissingControllerException] Controller class AdaddddController could not be found.
+Exception Attributes: array (
+  'class' => 'AdaddddController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 10:51:51 Error: Fatal Error (4): syntax error, unexpected ''Pagina.activo'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in [C:\wamp64\www\eventos\Model\Pagina.php, line 91]
+2017-11-16 10:51:51 Error: [FatalErrorException] syntax error, unexpected ''Pagina.activo'' (T_CONSTANT_ENCAPSED_STRING), expecting ')'
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 91)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 91, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 91, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-16 10:52:27 Error: [MissingControllerException] Controller class AdaddddController could not be found.
+Exception Attributes: array (
+  'class' => 'AdaddddController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 10:52:29 Error: Fatal Error (4): syntax error, unexpected ';', expecting ')' in [C:\wamp64\www\eventos\Model\Pagina.php, line 121]
+2017-11-16 10:52:29 Error: [FatalErrorException] syntax error, unexpected ';', expecting ')'
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 121)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 121, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 121, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-16 10:53:14 Error: [MissingControllerException] Controller class AdaddddController could not be found.
+Exception Attributes: array (
+  'class' => 'AdaddddController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 11:07:49 Error: Fatal Error (4): syntax error, unexpected ';', expecting ':' in [C:\wamp64\www\eventos\View\Paginas\admin_index.ctp, line 41]
+2017-11-16 11:07:49 Error: [FatalErrorException] syntax error, unexpected ';', expecting ':'
+Request URL: /eventos/admin/paginas
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 41)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 41, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 41, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-16 11:09:57 Error: [PDOException] SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Array' in 'field list'
+Request URL: /eventos/admin/paginas/add
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(461): PDOStatement->execute(Array)
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(427): DboSource->_execute('INSERT INTO `ev...', Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Datasource\DboSource.php(1024): DboSource->execute('INSERT INTO `ev...')
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(1933): DboSource->create(Object(Pagina), Array, Array)
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Model\Model.php(1751): Model->_doSave(Array, Array)
+#5 C:\wamp64\www\eventos\Controller\PaginasController.php(19): Model->save(Array)
+#6 [internal function]: PaginasController->admin_add()
+#7 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(PaginasController), Array)
+#8 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#9 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PaginasController), Object(CakeRequest))
+#10 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#11 {main}
+2017-11-16 11:11:17 Error: [MissingControllerException] Controller class AdaddddController could not be found.
+Exception Attributes: array (
+  'class' => 'AdaddddController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 11:15:11 Error: [MissingControllerException] Controller class AdaddddController could not be found.
+Exception Attributes: array (
+  'class' => 'AdaddddController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 11:15:21 Error: [MissingControllerException] Controller class AdaddddController could not be found.
+Exception Attributes: array (
+  'class' => 'AdaddddController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 11:15:40 Error: [MissingControllerException] Controller class AdaddddController could not be found.
+Exception Attributes: array (
+  'class' => 'AdaddddController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 11:17:05 Error: Fatal Error (4): syntax error, unexpected ';' in [C:\wamp64\www\eventos\Config\routes.php, line 4]
+2017-11-16 11:17:05 Error: [FatalErrorException] syntax error, unexpected ';'
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 4)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 4, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp64\\www\\e...', 4, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-16 11:17:26 Error: [MissingActionException] Action EventosController::pagina() could not be found.
+Exception Attributes: array (
+  'controller' => 'EventosController',
+  'action' => 'pagina',
+)
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#2 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-11-16 11:18:18 Error: [MissingActionException] Action EventosController::pagina() could not be found.
+Exception Attributes: array (
+  'controller' => 'EventosController',
+  'action' => 'pagina',
+)
+Request URL: /eventos/adadddd
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#2 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-11-16 11:18:22 Error: [MissingActionException] Action EventosController::pagina() could not be found.
+Exception Attributes: array (
+  'controller' => 'EventosController',
+  'action' => 'pagina',
+)
+Request URL: /eventos/asdasd
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#2 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2017-11-16 11:21:13 Error: [MissingControllerException] Controller class ViewController could not be found.
+Exception Attributes: array (
+  'class' => 'ViewController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/view/?c=accesorios
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 11:22:18 Error: [MissingControllerException] Controller class ViewController could not be found.
+Exception Attributes: array (
+  'class' => 'ViewController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/view/?c=accesorios
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 11:29:59 Error: [MissingViewException] View file "Eventos\cybermonday\pagina.ctp" is missing.
+Exception Attributes: array (
+  'file' => 'Eventos\\cybermonday\\pagina.ctp',
+)
+Request URL: /eventos/page-terminos-y-condiciones
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\View\View.php(470): View->_getViewFileName('cybermonday/pag...')
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(960): View->render('cybermonday/pag...', NULL)
+#2 C:\wamp64\www\eventos\Controller\EventosController.php(1202): Controller->render('cybermonday/pag...')
+#3 [internal function]: EventosController->pagina('terminos-y-cond...')
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(490): ReflectionMethod->invokeArgs(Object(EventosController), Array)
+#5 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#6 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(EventosController), Object(CakeRequest))
+#7 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#8 {main}
+2017-11-16 11:34:47 Error: [MissingHelperException] Helper class FromHelper could not be found.
+Exception Attributes: array (
+  'class' => 'FromHelper',
+  'plugin' => false,
+)
+Request URL: /eventos/admin/paginas/edit/1
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\View\HelperCollection.php(63): HelperCollection->load('From')
+#1 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\View\View.php(858): HelperCollection->__isset('From')
+#2 C:\wamp64\www\eventos\View\Paginas\admin_edit.ctp(2): View->__get('From')
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\View\View.php(971): include('C:\\wamp64\\www\\e...')
+#4 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\View\View.php(933): View->_evaluate('C:\\wamp64\\www\\e...', Array)
+#5 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\View\View.php(473): View->_render('C:\\wamp64\\www\\e...')
+#6 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Controller\Controller.php(960): View->render(NULL, NULL)
+#7 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(200): Controller->render()
+#8 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PaginasController), Object(CakeRequest))
+#9 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#10 {main}
+2017-11-16 13:19:28 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/img/Banner/1/slider_sliders_del_home_del_landing_cyberday.png
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 15:52:38 Error: Fatal Error (64): Default value for parameters with a class type hint can only be NULL in [C:\wamp64\www\eventos\Model\Evento.php, line 307]
+2017-11-16 15:52:38 Error: [FatalErrorException] Default value for parameters with a class type hint can only be NULL
+Request URL: /eventos/
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(64, 'Default value f...', 'C:\\wamp64\\www\\e...', 307)
+#1 [internal function]: ErrorHandler::handleError(64, 'Default value f...', 'C:\\wamp64\\www\\e...', 307, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 64, 'Default value f...', 'C:\\wamp64\\www\\e...', 307, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-16 15:52:40 Error: [MissingControllerException] Controller class CssController could not be found.
+Exception Attributes: array (
+  'class' => 'CssController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/css/cake.generic.css
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 15:52:40 Error: Fatal Error (64): Default value for parameters with a class type hint can only be NULL in [C:\wamp64\www\eventos\Model\Evento.php, line 307]
+2017-11-16 15:52:40 Error: [FatalErrorException] Default value for parameters with a class type hint can only be NULL
+Request URL: /eventos/css/cake.generic.css
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(64, 'Default value f...', 'C:\\wamp64\\www\\e...', 307)
+#1 [internal function]: ErrorHandler::handleError(64, 'Default value f...', 'C:\\wamp64\\www\\e...', 307, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 64, 'Default value f...', 'C:\\wamp64\\www\\e...', 307, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-16 15:52:40 Error: [MissingControllerException] Controller class Favicon.icoController could not be found.
+Exception Attributes: array (
+  'class' => 'Favicon.icoController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/favicon.ico
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 15:52:40 Error: Fatal Error (64): Default value for parameters with a class type hint can only be NULL in [C:\wamp64\www\eventos\Model\Evento.php, line 307]
+2017-11-16 15:52:40 Error: [FatalErrorException] Default value for parameters with a class type hint can only be NULL
+Request URL: /eventos/favicon.ico
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(64, 'Default value f...', 'C:\\wamp64\\www\\e...', 307)
+#1 [internal function]: ErrorHandler::handleError(64, 'Default value f...', 'C:\\wamp64\\www\\e...', 307, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 64, 'Default value f...', 'C:\\wamp64\\www\\e...', 307, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2017-11-16 15:52:41 Error: [MissingControllerException] Controller class ImgController could not be found.
+Exception Attributes: array (
+  'class' => 'ImgController',
+  'plugin' => NULL,
+)
+Request URL: /eventos/img/cake.power.gif
+Stack Trace:
+#0 C:\wamp64\www\eventos\webroot\index.php(86): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2017-11-16 15:52:41 Error: Fatal Error (64): Default value for parameters with a class type hint can only be NULL in [C:\wamp64\www\eventos\Model\Evento.php, line 307]
+2017-11-16 15:52:41 Error: [FatalErrorException] Default value for parameters with a class type hint can only be NULL
+Request URL: /eventos/img/cake.power.gif
+Stack Trace:
+#0 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Error\ErrorHandler.php(213): ErrorHandler::handleFatalError(64, 'Default value f...', 'C:\\wamp64\\www\\e...', 307)
+#1 [internal function]: ErrorHandler::handleError(64, 'Default value f...', 'C:\\wamp64\\www\\e...', 307, Array)
+#2 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(933): call_user_func('ErrorHandler::h...', 64, 'Default value f...', 'C:\\wamp64\\www\\e...', 307, Array)
+#3 C:\wamp64\www\eventos\Cake\2.7.7\lib\Cake\Core\App.php(906): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

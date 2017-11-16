@@ -29,10 +29,130 @@ a.naranjo:hover, a.naranjo:active, a.naranjo:focus {
 	}
 }
 
+.btn-relativo {
+    position: relative;
+    right: inherit;
+    left: inherit;
+    bottom: inherit;
+    padding: 0;
+}
+
+#fono-dropdown {
+    min-width: 300px;
+}
+
+#fono-dropdown a, #email-dropdown a, #whatsapp-dropdown a {
+    width: 100%;
+    color: #F55A00;
+}
+
+#fono-dropdown i, #fono-dropdown .texto {
+    display: inline-block;
+    vertical-align: middle;
+} 
+
+#email-dropdown {
+    min-width: 300px;
+}
+
+#email-dropdown i, #email-dropdown .texto {
+    display: inline-block;
+    vertical-align: middle;
+} 
+
+#whatsapp-dropdown {
+    min-width: 300px;
+}
+
+#whatsapp-dropdown i, #whatsapp-dropdown .texto {
+    display: inline-block;
+    vertical-align: middle;
+} 
+
+nav {
+    color: #434041;
+    background-color: #fff;
+}
+
+nav ul a {
+    color: #434041;
+}
+
+nav ul a.active {
+    color: #FF5500;
+}
+
+input.header-search-input {
+    background-color: rgba(0, 0, 0, .1);
+}
+
+input.header-search-input:hover {
+    background: rgba(255, 255, 255, .8)
+}
+
+input.header-search-input:focus {
+    color: #fff;
+    background: #434041;
+    border-bottom-color: 000!important;
+    box-shadow: none!important
+}
+
+.header-search-wrapper i.active {
+    color: #fff;
+}
+
+.header-search-input::-webkit-input-placeholder {
+    color: #434041;
+    font-size: 16px;
+    font-weight: 400
+}
+
+.header-search-input::-moz-placeholder {
+    color: #434041;
+    font-size: 16px;
+    font-weight: 400
+}
+
+.header-search-input:-ms-input-placeholder {
+    color: #434041;
+    font-size: 16px;
+    font-weight: 400
+}
+
+.header-search-input:focus::-webkit-input-placeholder {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400
+}
+
+.header-search-input:focus::-moz-placeholder {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400
+}
+
+.header-search-input:focus::placeholder {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400
+}
+
+.header-search-input:focus:-ms-input-placeholder {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 400
+}
+
+.header-search-input::placeholder {
+    color: #434041;
+    font-size: 16px;
+    font-weight: 400
+}
+
 .sidebar-collapse .mdi-navigation-menu {
     font-size: 2rem;
     line-height: 2.5rem;
-    color: #fff;
+    color: #434041;
 }
 
 .carrito i {
@@ -64,7 +184,7 @@ a.naranjo:hover, a.naranjo:active, a.naranjo:focus {
 @media screen and (min-width: 992px) {
     #main .slider {
         height: 250px !important;
-    } 
+    }
 }
 
 #main .slider .indicators {
@@ -442,4 +562,25 @@ a.naranjo:hover, a.naranjo:active, a.naranjo:focus {
 
 footer .row {
     margin-bottom: 0;
+}
+
+footer.page-footer {
+    padding-top: 30px;
+    padding-bottom: 30px; 
+}
+
+.page-footer h5 {
+    font-size: 1.5rem;
+}
+
+.page-footer h5 > i {
+    margin-right: 10px;
+}
+
+.sm-text {
+    font-size: 0.95rem;
+}
+
+.no-block {
+    display: inherit !important;
 }
